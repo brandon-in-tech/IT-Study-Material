@@ -31,6 +31,88 @@
     .hero-highlights strong{font-size:14px;color:var(--navy)}
     @media(max-width:1000px){.hero::before{background-position:56% center}.hero::after{background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.98) 38%,rgba(255,255,255,.79) 59%,rgba(255,255,255,.23) 100%)}.hero-inner{min-height:460px}.hero-content{max-width:560px}}
     @media(max-width:680px){.hero{min-height:0}.hero::before{background-position:67% center}.hero::after{background:linear-gradient(180deg,rgba(255,255,255,.96),rgba(255,255,255,.93) 57%,rgba(255,255,255,.73))}.hero-inner{min-height:445px;padding-top:50px;padding-bottom:48px}.hero h1{font-size:clamp(36px,9.2vw,48px)}.hero p{color:#354f6d}.hero-highlights{gap:7px;margin-top:24px}.hero-highlights span{font-size:11px}}
+  /* ==================================
+   MOBILE HERO OPTIMIZATION
+================================== */
+
+@media (max-width: 768px) {
+
+  .hero {
+    display: flex;
+    flex-direction: column;
+    padding: 28px 20px;
+    gap: 24px;
+    background: #ffffff;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  .hero-copy {
+    width: 100%;
+    text-align: center;
+    order: 1;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(30px, 7vw, 40px);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+
+  .hero-copy p {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0 auto 22px;
+    max-width: 420px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+  }
+
+  /* Display entire image without cropping */
+  .hero-visual {
+    width: 100%;
+    order: 2;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+
+  .hero-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center;
+    border-radius: 16px;
+  }
+}
+
+/* Smaller phones */
+@media (max-width: 390px) {
+
+  .hero {
+    padding: 22px 16px;
+  }
+
+  .hero-copy h1 {
+    font-size: 29px;
+  }
+
+  .hero-copy p {
+    font-size: 14px;
+  }
+}
   </style>
 </head>
 <body>
@@ -59,7 +141,7 @@
     </section>
   <section class="shell workspace" id="library"><div class="workspace-head"><div><div class="eyebrow">Curated learning library</div><h2>Browse study materials</h2><p>Choose a topic from the menu, or search across the entire collection.</p></div><span class="count-pill" id="resultsCount">13 resources</span></div>
     <div class="workspace-grid"><aside class="side" aria-label="Table of contents"><h3>TABLE OF CONTENTS</h3><div id="desktopFilters"></div><div class="aside-note">Every resource opens independently. No account or subscription required for the study materials.</div></aside>
-    <div><label for="studySearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search study materials</label><div class="searchline"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="studySearch" type="search" autocomplete="off" placeholder="Search CCNA, Azure, Linux+, Intune, Security+..."></div><select id="mobileFilter" class="mobile-filter" aria-label="Filter study category"></select><div id="sections"></div><div id="empty" class="empty hidden" role="status"><h3>No matching materials</h3><p>Try a different technology, exam name, or topic.</p></div></div></div>
+    <div><label for="studySearch" ="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search study materials</label><div class="searchline"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="studySearch" type="search" autocomplete="off" placeholder="Search CCNA, Azure, Linux+, Intune, Security+..."></div><select id="mobileFilter" class="mobile-filter" aria-label="Filter study category"></select><div id="sections"></div><div id="empty" class="empty hidden" role="status"><h3>No matching materials</h3><p>Try a different technology, exam name, or topic.</p></div></div></div>
   </section></main><footer class="footer"><div class="shell foot-inner"><span>© <span id="year">2026</span> Brandon Stevenson · Independently created IT study resources</span><div class="footlinks"><a href="README.md">Collection guide</a><a href="RENAMED-FILES.md">File paths</a><a href="https://github.com/brandon-in-tech/IT-Study-Material" target="_blank" rel="noopener noreferrer">GitHub repository ↗</a></div></div></footer>
   <script>
     const groups=[
