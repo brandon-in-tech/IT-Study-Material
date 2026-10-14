@@ -1,3 +1,4 @@
+
 # Study Material File Paths
 
 Paths below are relative to the repository root. This table includes the original renamed files and subsequently added study materials.
@@ -5,11 +6,8 @@ Paths below are relative to the repository root. This table includes the origina
 | Original filename | Current path |
 | --- | --- |
 | `AZ-900-Flashcards.html` | [azure/az-900-azure-fundamentals-flashcards.html](./azure/az-900-azure-fundamentals-flashcards.html) |
-| `az-900-study-guide.html` | [azure/az-900-azure-fundamentals-study-guide.html](./azure/az-900-azure-fundamentals-study-guide.html) 
-| `ccna-fundamentals-quiz.html` | [networking/ccna-network-fundamentals-quiz-01.html](./networking/ccna-network-fundamentals-quiz-01.html) |
-| `ccna-fundamentals-test2.html` | [networking/ccna-network-fundamentals-quiz-02-scenarios.html](./networking/ccna-network-fundamentals-quiz-02-scenarios.html) |
-| `ccna-troubleshooting-lab.html` | [networking/ccna-guided-troubleshooting-lab-04-scenarios.html](./networking/ccna-guided-troubleshooting-lab-04-scenarios.html) |
-| `ccna-troubleshooting-lab-20.html` | [networking/ccna-guided-troubleshooting-lab-20-scenarios.html](./networking/ccna-guided-troubleshooting-lab-20-scenarios.html) |
+| `az-900-study-guide.html` | [azure/az-900-azure-fundamentals-study-guide.html](./azure/az-900-azure-fundamentals-study-guide.html) |
+| `CCNA_Troubleshooting_Scenarios.html` | [networking/CCNA_Troubleshooting_Scenarios.html](./networking/CCNA_Troubleshooting_Scenarios.html) |
 | `CCNA_Deep_Dive.html` | [networking/ccna-cisco-ios-commands-and-theory-reference.html](./networking/ccna-cisco-ios-commands-and-theory-reference.html) |
 | `CCNA_Master_Class_v2 (3).html` | [networking/ccna-complete-study-guide-labs-and-practice-exams.html](./networking/ccna-complete-study-guide-labs-and-practice-exams.html) |
 | `cloud-systems-design-study-guide.html` | [cloud-architecture/azure-cloud-systems-design-study-guide.html](./cloud-architecture/azure-cloud-systems-design-study-guide.html) |
@@ -19,6 +17,25 @@ Paths below are relative to the repository root. This table includes the origina
 | `security+-interactive-study.html` | [networking/security+-interactive-study.html](./networking/security+-interactive-study.html) |
 | `linux+-study.html` | [it-administration/linux+-study.html](./it-administration/linux+-study.html) |
 | `SysAdmin_Roadmap.html` | [it-administration/SysAdmin_Roadmap.html](./it-administration/SysAdmin_Roadmap.html) |
-
 | `sys-design.html` | [it-administration/sys-design.html](./it-administration/sys-design.html) |
+
+## Consolidated CCNA Materials
+
+The following four files have been consolidated into a single interactive HTML study hub:
+
+- `networking/ccna-network-fundamentals-quiz-01.html`
+- `networking/ccna-network-fundamentals-quiz-02-scenarios.html`
+- `networking/ccna-guided-troubleshooting-lab-04-scenarios.html`
+- `networking/ccna-guided-troubleshooting-lab-20-scenarios.html`
+
+**Replacement file:** [CCNA Troubleshooting Scenarios](./networking/CCNA_Troubleshooting_Scenarios.html)
+
+The consolidated study hub includes:
+
+- 30 Network Fundamentals questions
+- 30 Scenario-Based Fundamentals questions
+- 4 Guided Troubleshooting scenarios
+- 20 Interactive Troubleshooting tickets
+- Interactive scoring and detailed answer explanations
+- Integrated table of contents and module navigation
 
