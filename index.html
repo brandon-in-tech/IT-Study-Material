@@ -19,16 +19,40 @@
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card,.cta{transition:none}.card:hover,.cta:hover{transform:none}}
     
 
+
 @media (max-width: 680px) {
-  .hero-content > .eyebrow,
+
+  /* Move eyebrow UP 20px */
+  .hero-content > .eyebrow {
+    position: relative;
+    top: -20px;
+  }
+
+  /* Move heading UP 20px */
   .hero-content > h1 {
-    transform: translateY(-35px);
+    position: relative;
+    top: -20px;
+    color: #166044; /* Dark Emerald */
   }
-   /* Move both buttons DOWN 35px */
-  .hero-ctas {
-    transform: translateY(35px);
+
+  /* Build your future — Deep Crimson */
+  .hero-content > h1 em {
+    color: #9B1C31;
   }
+
+  /* Invisible paragraph — preserve its space */
+  .hero-content > p {
+    visibility: hidden;
+  }
+
+  /* Move buttons DOWN 35px */
+  .hero-content > .hero-ctas {
+    position: relative;
+    top: 35px;
+  }
+
 }
+
 
 
 .hero::after {
