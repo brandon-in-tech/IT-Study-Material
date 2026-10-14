@@ -39,22 +39,44 @@
     }
 
     /* Mobile: independent layout, no overlay, clear title and lower actions */
-    @media(max-width:680px){
-      .hero{min-height:0}
-      .hero::before{background-position:67% center}
-      .hero::after{display:none}
-      .hero-inner{min-height:445px;padding-top:50px;padding-bottom:65px}
-      .hero h1{font-size:clamp(36px,9.2vw,48px)}
-       > .eyebrow,
-       > h1{transform:translateY(-35px)}
-       > h1{color:#0D0D0D}
-      .hero-content > h1 em{color:#9b1c31}
-      .hero-content > p{visibility:hidden}
-      .hero-content > .hero-ctas,
-      .hero-content > .hero-highlights{transform:translateY(35px)}
-      .hero-highlights{gap:7px;margin-top:24px}
-      .hero-highlights span{font-size:11px}
-    }
+  
+/* MOBILE HERO POSITIONING */
+@media (max-width: 680px) {
+
+  /* Raise eyebrow and heading UP 35px */
+  .hero-content > .eyebrow,
+  .hero-content > h1 {
+    transform: translateY(-35px);
+  }
+
+  /* Learn the skills — Jet Black */
+  .hero-content > h1 {
+    color: #0D0D0D;
+  }
+
+  /* Build your future — Deep Crimson */
+  .hero-content > h1 em {
+    color: #9B1C31;
+  }
+
+  /* Keep description invisible, preserve spacing */
+  .hero-content > p {
+    visibility: hidden;
+  }
+
+  /* Lower buttons and statistics DOWN 35px */
+  .hero-content > .hero-ctas,
+  .hero-content > .hero-highlights {
+    transform: translateY(35px);
+  }
+
+  /* Remove white gradient on mobile */
+  .hero::after {
+    display: none;
+  }
+
+}
+
   </style>
 </head>
 <body>
