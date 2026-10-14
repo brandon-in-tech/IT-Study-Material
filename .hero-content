@@ -216,7 +216,7 @@
       /* Learn the skills — Dark Emerald */
       .hero-content > h1{
         font-size:clamp(36px,9.2vw,48px);
-        color:#166044;
+        color:#9B1C31;
       }
 
       /* Build your future — Deep Crimson */
