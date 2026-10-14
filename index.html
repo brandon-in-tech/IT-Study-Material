@@ -18,10 +18,25 @@
     @media(max-width:1000px){.hero-inner{grid-template-columns:1fr}.spotlight{max-width:580px}.workspace-grid{grid-template-columns:190px minmax(0,1fr);gap:20px}.cards{grid-template-columns:1fr}}@media(max-width:680px){.shell{padding:0 17px}.topinner{min-height:70px}.logo{height:47px;width:47px}.brand-name{font-size:14px}.brand-caption{font-size:10px}.nav{gap:10px}.nav a:not(.outline){display:none}.nav .outline{font-size:11px;padding:8px}.hero-inner{padding-top:44px;padding-bottom:45px;gap:28px}.hero h1{font-size:40px}.hero p{font-size:14px}.spotlight{padding:20px}.workspace{padding-top:32px;padding-bottom:50px}.workspace-grid{display:block}.side{display:none}.mobile-filter{display:block}.workspace-head h2{font-size:25px}.count-pill{display:none}.card{min-height:0}.cards{grid-template-columns:1fr}.foot-inner{align-items:flex-start;flex-direction:column}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.card,.cta{transition:none}.card:hover,.cta:hover{transform:none}}
 
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    90deg,
+    #fff 0%,
+    rgba(255,255,255,.99) 24%,
+    rgba(255,255,255,.96) 32%,
+    rgba(255,255,255,.78) 40%,
+    rgba(255,255,255,.25) 52%,
+    rgba(255,255,255,0) 65%
+  );
+}
+
     /* Branded learning-library hero — image is kept in assets/ */
     .hero{position:relative;isolation:isolate;overflow:hidden;min-height:505px;background:#f5f9ff;border-bottom:1px solid var(--line)}
     .hero::before{content:"";position:absolute;inset:0;z-index:-2;background-image:url("assets/study-hero.png");background-position:center 42%;background-repeat:no-repeat;background-size:cover}
-    .hero::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#fff 0%,rgba(255,255,255,.99) 24%,rgba(255,255,255,.96) 37%,rgba(255,255,255,.78) 49%,rgba(255,255,255,.25) 64%,rgba(255,255,255,0) 83%)}
     .hero-inner{min-height:505px;display:flex;align-items:center;padding-top:72px;padding-bottom:72px;position:relative}
     .hero-content{max-width:620px}
     .hero h1{max-width:640px;font-size:clamp(42px,5vw,66px)}
