@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="description" content="Brandon Stevenson's free interactive IT study resources, networking labs, cloud guides, security courses, and systems administration roadmaps.">
   <title>IT Study Materials | Brandon Stevenson</title>
- 
+
 <style>
   :root {
     --navy: #0a2345;
@@ -143,7 +143,7 @@
   }
 
   /* ==========================================
-     HERO
+     HERO BACKGROUND
   ========================================== */
 
   .hero {
@@ -166,7 +166,8 @@
     background-size: cover;
   }
 
-  /* Desktop white gradient ending at 65% */
+  /* Desktop white gradient ends at 65% */
+
   .hero::after {
     content: "";
     position: absolute;
@@ -204,18 +205,63 @@
     font-weight: 850;
   }
 
+  /* ==========================================
+     METALLIC BLACK — DESKTOP & MOBILE
+     Learn the skills.
+  ========================================== */
+
   .hero h1 {
     font-size: clamp(42px, 5vw, 66px);
     letter-spacing: -.062em;
     line-height: 1.07;
-    color: var(--navy);
     margin: 15px 0 18px;
     max-width: 640px;
+
+    color: #0d0d0d;
+
+    background: linear-gradient(
+      180deg,
+      #838a94 0%,
+      #353b45 17%,
+      #11151c 38%,
+      #05070b 49%,
+      #454c56 55%,
+      #171c24 72%,
+      #030508 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
+
+  /* ==========================================
+     METALLIC BLUE — DESKTOP & MOBILE
+     Build your future.
+  ========================================== */
 
   .hero h1 em {
     font-style: normal;
-    color: #2160a7;
+    color: #123c70;
+
+    background: linear-gradient(
+      180deg,
+      #7298c4 0%,
+      #416eaa 16%,
+      #1b4b82 34%,
+      #092b54 49%,
+      #3e689b 55%,
+      #173f70 70%,
+      #071f40 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    filter: drop-shadow(
+      0 1px 0 rgba(255,255,255,.26)
+    );
   }
 
   .hero p {
@@ -226,6 +272,10 @@
     margin: 0;
     font-weight: 450;
   }
+
+  /* ==========================================
+     HERO BUTTONS
+  ========================================== */
 
   .hero-ctas {
     display: flex;
@@ -259,7 +309,9 @@
     box-shadow: 0 7px 18px #163c7222;
   }
 
-  /* HERO STATISTICS */
+  /* ==========================================
+     HERO STATISTICS
+  ========================================== */
 
   .hero-highlights {
     display: flex;
@@ -389,6 +441,10 @@
     align-items: start;
   }
 
+  /* ==========================================
+     SIDEBAR
+  ========================================== */
+
   .side {
     background: #fff;
     border: 1px solid var(--line);
@@ -492,7 +548,7 @@
   }
 
   /* ==========================================
-     RESOURCE CARDS
+     RESOURCE SECTIONS & CARDS
   ========================================== */
 
   .section {
@@ -684,7 +740,7 @@
   }
 
   /* ==========================================
-     MOBILE
+     MOBILE — 680PX AND BELOW
   ========================================== */
 
   @media (max-width: 680px) {
@@ -693,7 +749,7 @@
       padding: 0 17px;
     }
 
-    /* Header */
+    /* HEADER */
 
     .topinner {
       min-height: 70px;
@@ -725,9 +781,9 @@
       padding: 8px;
     }
 
-    /* ------------------------------------------
-       MOBILE HERO BACKGROUND
-    ------------------------------------------ */
+    /* ==========================================
+       MOBILE HERO IMAGE
+    ========================================== */
 
     .hero {
       min-height: 0;
@@ -737,7 +793,7 @@
       background-position: 67% center;
     }
 
-    /* No full-screen white gradient */
+    /* Remove full-image overlay on mobile */
 
     .hero::after {
       display: none;
@@ -755,56 +811,105 @@
       z-index: 1;
     }
 
-    /* ------------------------------------------
+    /* ==========================================
        MOBILE HEADING POSITION
-    ------------------------------------------ */
-
-    /* Eyebrow and heading UP 35px */
+       BOTH HEADING & EYEBROW UP 35PX
+    ========================================== */
 
     .hero-content > .eyebrow,
     .hero-content > h1 {
       transform: translateY(-35px);
     }
 
-    /* Learn the skills — Jet Black */
-
     .hero-content > h1 {
       position: relative;
       isolation: isolate;
+      width: max-content;
+      max-width: 100%;
       font-size: clamp(36px,9.2vw,48px);
       color: #0d0d0d;
     }
 
-    /* ------------------------------------------
-       LOCALIZED TEXT BACKDROP
-       Soft shading behind heading only
-    ------------------------------------------ */
+    /* ==========================================
+       MOBILE HEADING — SEPARATE TIGHT SHADING
+
+       Each line receives its own small
+       feathered background.
+
+       The rest of the hero image remains
+       completely unobstructed.
+    ========================================== */
+
+    /* Learn the skills. — first-line shading */
 
     .hero-content > h1::before {
       content: "";
       position: absolute;
-      z-index: -1;
       pointer-events: none;
+      z-index: -1;
 
-      left: -15px;
-      right: -15px;
-      top: -18px;
-      bottom: -18px;
+      left: -.20em;
+      top: -.10em;
 
-      border-radius: 20px;
+      width: min(100%, 15.4ch);
+      height: 1.23em;
 
       background: radial-gradient(
-        ellipse at 38% 45%,
-        rgba(255,255,255,.91) 0%,
-        rgba(255,255,255,.78) 35%,
-        rgba(245,249,255,.48) 63%,
+        ellipse at center,
+        rgba(255,255,255,.94) 0%,
+        rgba(255,255,255,.83) 42%,
+        rgba(248,250,255,.52) 68%,
         rgba(255,255,255,0) 100%
       );
+
+      border-radius: 16px;
     }
 
-    /* ------------------------------------------
-       BUILD YOUR FUTURE — METALLIC BLUE
-    ------------------------------------------ */
+    /* Build your future. — second-line shading */
+
+    .hero-content > h1::after {
+      content: "";
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+
+      left: -.20em;
+      top: .97em;
+
+      width: min(100%, 17ch);
+      height: 1.23em;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255,255,255,.94) 0%,
+        rgba(255,255,255,.82) 42%,
+        rgba(242,247,255,.48) 69%,
+        rgba(255,255,255,0) 100%
+      );
+
+      border-radius: 16px;
+    }
+
+    /* Maintain metallic black text */
+
+    .hero-content > h1 {
+      background: linear-gradient(
+        180deg,
+        #838a94 0%,
+        #353b45 17%,
+        #11151c 38%,
+        #05070b 49%,
+        #454c56 55%,
+        #171c24 72%,
+        #030508 100%
+      );
+
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Maintain metallic blue text */
 
     .hero-content > h1 em {
       font-style: normal;
@@ -822,8 +927,6 @@
 
       -webkit-background-clip: text;
       background-clip: text;
-
-      color: transparent;
       -webkit-text-fill-color: transparent;
 
       filter: drop-shadow(
@@ -831,20 +934,19 @@
       );
     }
 
-    /* ------------------------------------------
+    /* ==========================================
        MOBILE DESCRIPTION
-       Hidden, original spacing retained
-    ------------------------------------------ */
+       INVISIBLE BUT PRESERVES SPACE
+    ========================================== */
 
     .hero-content > p {
       font-size: 14px;
       visibility: hidden;
     }
 
-    /* ------------------------------------------
-       MOBILE BUTTONS & STATISTICS
-       DOWN 35px
-    ------------------------------------------ */
+    /* ==========================================
+       MOBILE BUTTONS & STATISTICS DOWN 35PX
+    ========================================== */
 
     .hero-content > .hero-ctas,
     .hero-content > .hero-highlights {
@@ -860,9 +962,9 @@
       font-size: 11px;
     }
 
-    /* ------------------------------------------
+    /* ==========================================
        MOBILE STUDY LIBRARY
-    ------------------------------------------ */
+    ========================================== */
 
     .spotlight {
       padding: 20px;
@@ -906,9 +1008,9 @@
       flex-direction: column;
     }
 
-    /* ------------------------------------------
-       MOBILE CATEGORY SELECTION CTA
-    ------------------------------------------ */
+    /* ==========================================
+       MOBILE CATEGORY PICKER
+    ========================================== */
 
     .mobile-category-picker {
       display: block;
@@ -980,7 +1082,7 @@
       font-weight: 650;
     }
 
-    /* Hide study cards until a category is selected */
+    /* Hide resources until category selected */
 
     .workspace:not(.mobile-category-selected) .searchline,
     .workspace:not(.mobile-category-selected) #sections,
@@ -1010,6 +1112,7 @@
     }
   }
 </style>
+
 
 </head>
 <body>
