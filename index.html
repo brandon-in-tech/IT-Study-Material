@@ -7,6 +7,7 @@
   <title>IT Study Materials | Brandon Stevenson</title>
 
 
+
 <style>
   :root {
     --navy: #0a2345;
@@ -20,6 +21,10 @@
     --pale: #edf4fc;
     --shadow: 0 10px 34px rgba(14,49,92,.06);
   }
+
+  /* ==========================================
+     GLOBAL
+  ========================================== */
 
   * {
     box-sizing: border-box;
@@ -167,7 +172,7 @@
     background-size: cover;
   }
 
-  /* Original desktop gradient before scrolling */
+  /* Desktop gradient before scrolling */
 
   .hero::after {
     content: "";
@@ -207,7 +212,7 @@
   }
 
   /* ==========================================
-     METALLIC BLACK HEADING — DESKTOP
+     DESKTOP H1 — METALLIC BLACK
   ========================================== */
 
   .hero h1 {
@@ -217,6 +222,7 @@
     margin: 15px 0 18px;
     max-width: 640px;
     color: #0d0d0d;
+
     background: linear-gradient(
       180deg,
       #838a94 0%,
@@ -227,18 +233,20 @@
       #171c24 72%,
       #030508 100%
     );
+
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   /* ==========================================
-     METALLIC BLUE HEADING — DESKTOP
+     DESKTOP H1 — METALLIC BLUE
   ========================================== */
 
   .hero h1 em {
     font-style: normal;
     color: #123c70;
+
     background: linear-gradient(
       180deg,
       #7298c4 0%,
@@ -249,9 +257,11 @@
       #173f70 70%,
       #071f40 100%
     );
+
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
+
     filter: drop-shadow(
       0 1px 0 rgba(255,255,255,.26)
     );
@@ -541,7 +551,7 @@
   }
 
   /* ==========================================
-     RESOURCE SECTIONS & CARDS
+     RESOURCE SECTIONS AND CARDS
   ========================================== */
 
   .section {
@@ -693,7 +703,8 @@
   }
 
   /* ==========================================
-     MOBILE CATEGORY PICKER — DEFAULT HIDDEN
+     MOBILE CATEGORY PICKER
+     DEFAULT HIDDEN
   ========================================== */
 
   .mobile-category-picker {
@@ -776,6 +787,7 @@
 
     /* ==========================================
        MOBILE HERO IMAGE
+       NO FULL-IMAGE GRADIENT
     ========================================== */
 
     .hero {
@@ -785,8 +797,6 @@
     .hero::before {
       background-position: 67% center;
     }
-
-    /* No full-image overlay on mobile */
 
     .hero::after {
       display: none;
@@ -806,6 +816,7 @@
 
     /* ==========================================
        MOBILE HEADING POSITION
+       RAISED 35PX
     ========================================== */
 
     .hero-content > .eyebrow,
@@ -813,52 +824,111 @@
       transform: translateY(-35px);
     }
 
-    .hero-content > h1 {
-      position: relative;
-      isolation: isolate;
-      width: max-content;
-      max-width: 100%;
-      font-size: clamp(36px,9.2vw,48px);
-    }
-
     /* ==========================================
-       MOBILE H1 — NO BACKGROUND OR GRADIENT
+       MOBILE H1
+       SOLID BLACK WITH WHITE HAZE
     ========================================== */
 
     .hero-content > h1 {
+      position: relative;
+      isolation: isolate;
+      overflow: visible;
+
+      width: max-content;
+      max-width: 100%;
+      font-size: clamp(36px,9.2vw,48px);
+
       color: #11151c;
       background: none;
       background-image: none;
       background-clip: border-box;
       -webkit-background-clip: border-box;
       -webkit-text-fill-color: #11151c;
+
       filter: none;
       text-shadow: none;
     }
 
+    /* ==========================================
+       MOBILE SECOND H1 LINE
+       SOLID DARK BLUE
+    ========================================== */
+
     .hero-content > h1 em {
-      color: #123c70;
       font-style: normal;
+
+      color: #123c70;
       background: none;
       background-image: none;
       background-clip: border-box;
       -webkit-background-clip: border-box;
       -webkit-text-fill-color: #123c70;
+
       filter: none;
       text-shadow: none;
     }
 
-    /* Remove both shaded heading backgrounds */
+    /* ==========================================
+       SOFT WHITE HAZE — FIRST LINE
+       Learn the skills.
+    ========================================== */
 
-    .hero-content > h1::before,
+    .hero-content > h1::before {
+      content: "";
+      display: block;
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+
+      left: -0.18em;
+      top: -0.12em;
+
+      width: min(100%, 15ch);
+      height: 1.25em;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255,255,255,.90) 0%,
+        rgba(255,255,255,.75) 35%,
+        rgba(255,255,255,.42) 65%,
+        rgba(255,255,255,0) 100%
+      );
+
+      border-radius: 50%;
+    }
+
+    /* ==========================================
+       SOFT WHITE HAZE — SECOND LINE
+       Build your future.
+    ========================================== */
+
     .hero-content > h1::after {
-      content: none;
-      display: none;
+      content: "";
+      display: block;
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+
+      left: -0.18em;
+      top: 0.95em;
+
+      width: min(100%, 17ch);
+      height: 1.25em;
+
+      background: radial-gradient(
+        ellipse at center,
+        rgba(255,255,255,.90) 0%,
+        rgba(255,255,255,.75) 35%,
+        rgba(255,255,255,.42) 65%,
+        rgba(255,255,255,0) 100%
+      );
+
+      border-radius: 50%;
     }
 
     /* ==========================================
        MOBILE DESCRIPTION
-       INVISIBLE BUT PRESERVES SPACE
+       INVISIBLE BUT KEEPS SPACE
     ========================================== */
 
     .hero-content > p {
@@ -867,7 +937,8 @@
     }
 
     /* ==========================================
-       MOBILE BUTTONS & STATISTICS DOWN 35PX
+       MOBILE BUTTONS AND STATISTICS
+       MOVED DOWN 35PX
     ========================================== */
 
     .hero-content > .hero-ctas,
@@ -901,10 +972,7 @@
       display: block;
     }
 
-    .side {
-      display: none;
-    }
-
+    .side,
     .mobile-filter {
       display: none;
     }
@@ -981,6 +1049,7 @@
       font-weight: 750;
       font-size: 12px;
       padding: 11px 12px;
+
       transition:
         background .15s,
         border-color .15s;
@@ -1004,7 +1073,7 @@
       font-weight: 650;
     }
 
-    /* Hide resources until category selected */
+    /* Only show resources after selection */
 
     .workspace:not(.mobile-category-selected) .searchline,
     .workspace:not(.mobile-category-selected) #sections,
@@ -1014,108 +1083,106 @@
   }
 
   /* ==========================================
-     DESKTOP SCROLL MORPH
-     HERO SHRINKS INTO LEFT COLUMN
+     DESKTOP SCROLL LAYOUT
+     HERO IMAGE DOCKS LEFT
+     STUDY LIBRARY SCROLLS RIGHT
   ========================================== */
 
   @media (min-width: 1100px) {
+
+    /* Preserve the original hero's page space */
 
     #top.hero-docked {
       padding-top: 505px;
     }
 
+    /* ==========================================
+       DOCKED HERO PANEL
+    ========================================== */
+
     #top.hero-docked > .hero {
       position: fixed;
+
       top: 96px;
       left: max(18px, calc((100vw - 1400px) / 2));
+
       width: min(37vw, 490px);
       height: calc(100vh - 116px);
       min-height: 0;
+
       border: 1px solid #d4e0ef;
       border-radius: 20px;
+
       box-shadow: 0 16px 46px rgba(14,49,92,.13);
+
       z-index: 12;
-      overflow-x: hidden;
-      overflow-y: auto;
-      scrollbar-width: thin;
+      overflow: hidden;
+
       animation: heroDockIn .32s ease both;
     }
 
-    #top.hero-docked > .hero::before {
-      background-position: 59% center;
-    }
-
     /* ==========================================
-       DESKTOP SCROLL — NO IMAGE OVERLAY
-       Shows original image with no gradient.
+       DOCKED HERO IMAGE
+       ORIGINAL IMAGE ONLY
     ========================================== */
 
+    #top.hero-docked > .hero::before {
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    /* Remove gradient overlay entirely */
+
     #top.hero-docked > .hero::after {
-      display: none;
       content: none;
-      background: none;
-    }
-
-    #top.hero-docked .hero-inner {
-      min-height: 100%;
-      width: 100%;
-      padding: 34px 27px;
-      align-items: center;
-    }
-
-    #top.hero-docked .hero-content {
-      max-width: 100%;
-    }
-
-    #top.hero-docked .hero h1 {
-      font-size: clamp(31px, 3vw, 43px);
-      letter-spacing: -.055em;
-    }
-
-    #top.hero-docked .hero p {
-      font-size: 13px;
-      line-height: 1.65;
-    }
-
-    #top.hero-docked .hero-ctas {
-      gap: 8px;
-      margin-top: 22px;
-    }
-
-    #top.hero-docked .cta {
-      padding: 9px 12px;
-      font-size: 11px;
-    }
-
-    #top.hero-docked .hero-highlights {
-      margin-top: 23px;
-      gap: 7px;
-    }
-
-    #top.hero-docked .hero-highlights span {
-      font-size: 10px;
-      padding: 6px 9px;
+      display: none;
     }
 
     /* ==========================================
-       RIGHT STUDY LIBRARY COLUMN
+       HIDE ALL HERO CONTENT WHILE DOCKED
+       Heading, eyebrow, paragraph,
+       buttons, and statistics
+    ========================================== */
+
+    #top.hero-docked > .hero .hero-content {
+      display: none;
+    }
+
+    #top.hero-docked > .hero .hero-inner {
+      padding: 0;
+      min-height: 100%;
+      width: 100%;
+    }
+
+    /* ==========================================
+       RIGHT COLUMN — STUDY LIBRARY
     ========================================== */
 
     #top.hero-docked > .workspace {
       max-width: none;
       width: auto;
+
       margin-left: calc(
         max(18px, (100vw - 1400px) / 2)
         + min(37vw, 490px)
         + 16px
       );
-      margin-right: max(18px, calc((100vw - 1400px) / 2));
+
+      margin-right: max(
+        18px,
+        calc((100vw - 1400px) / 2)
+      );
+
       padding-left: 0;
       padding-right: 0;
     }
 
     #top.hero-docked .workspace-grid {
-      grid-template-columns: minmax(160px, 195px) minmax(0, 1fr);
+      grid-template-columns:
+        minmax(160px, 195px)
+        minmax(0, 1fr);
+
       gap: 19px;
     }
 
@@ -1172,7 +1239,9 @@
       transform: none;
     }
   }
+
 </style>
+
 
 
 
