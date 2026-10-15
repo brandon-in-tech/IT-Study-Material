@@ -21,6 +21,9 @@ Paths below are relative to the repository root. This table includes the origina
 | `A_Plus_Core_1_220-1201_Complete_Study_Guide.html` | [it-administration/A+-core-1.html](./it-administration/A+-core-1.html) |
 | `A_Plus_Core_2_220-1202_Complete_Study_Guide.html` | [it-administration/A+-core-2.html](./it-administration/A+-core-2.html) |
 
+| `security+-study.html` | [networking/security+-study.html](./networking/security+-study.html) |
+
+
 | `Network+-N10-009-Complete-Study-Guide.html` | [networking/net+-study.html](./networking/net+-study.html) |
 
 
