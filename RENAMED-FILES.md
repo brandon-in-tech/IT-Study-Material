@@ -18,6 +18,8 @@ Paths below are relative to the repository root. This table includes the origina
 | `linux+-study.html` | [it-administration/linux+-study.html](./it-administration/linux+-study.html) |
 | `SysAdmin_Roadmap.html` | [it-administration/SysAdmin_Roadmap.html](./it-administration/SysAdmin_Roadmap.html) |
 | `sys-design.html` | [it-administration/sys-design.html](./it-administration/sys-design.html) |
+| `A_Plus_Core_1_220-1201_Complete_Study_Guide.html` | [it-administration/A+-core-1.html](./it-administration/A+-core-1.html) |
+| `A_Plus_Core_2_220-1202_Complete_Study_Guide.html` | [it-administration/A+-core-2.html](./it-administration/A+-core-2.html) |
 
 ## Consolidated CCNA Materials
 
