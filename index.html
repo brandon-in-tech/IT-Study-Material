@@ -6,6 +6,7 @@
   <meta name="description" content="Brandon Stevenson's free interactive IT study resources, networking labs, cloud guides, security courses, and systems administration roadmaps.">
   <title>IT Study Materials | Brandon Stevenson</title>
 
+
 <style>
   :root {
     --navy: #0a2345;
@@ -166,7 +167,7 @@
     background-size: cover;
   }
 
-  /* Desktop white gradient ends at 65% */
+  /* Original desktop gradient before scrolling */
 
   .hero::after {
     content: "";
@@ -206,8 +207,7 @@
   }
 
   /* ==========================================
-     METALLIC BLACK — DESKTOP & MOBILE
-     Learn the skills.
+     METALLIC BLACK HEADING — DESKTOP
   ========================================== */
 
   .hero h1 {
@@ -216,9 +216,7 @@
     line-height: 1.07;
     margin: 15px 0 18px;
     max-width: 640px;
-
     color: #0d0d0d;
-
     background: linear-gradient(
       180deg,
       #838a94 0%,
@@ -229,21 +227,18 @@
       #171c24 72%,
       #030508 100%
     );
-
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
 
   /* ==========================================
-     METALLIC BLUE — DESKTOP & MOBILE
-     Build your future.
+     METALLIC BLUE HEADING — DESKTOP
   ========================================== */
 
   .hero h1 em {
     font-style: normal;
     color: #123c70;
-
     background: linear-gradient(
       180deg,
       #7298c4 0%,
@@ -254,11 +249,9 @@
       #173f70 70%,
       #071f40 100%
     );
-
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-
     filter: drop-shadow(
       0 1px 0 rgba(255,255,255,.26)
     );
@@ -793,7 +786,7 @@
       background-position: 67% center;
     }
 
-    /* Remove full-image overlay on mobile */
+    /* No full-image overlay on mobile */
 
     .hero::after {
       display: none;
@@ -813,7 +806,6 @@
 
     /* ==========================================
        MOBILE HEADING POSITION
-       BOTH HEADING & EYEBROW UP 35PX
     ========================================== */
 
     .hero-content > .eyebrow,
@@ -827,111 +819,41 @@
       width: max-content;
       max-width: 100%;
       font-size: clamp(36px,9.2vw,48px);
-      color: #0d0d0d;
     }
 
     /* ==========================================
-       MOBILE HEADING — SEPARATE TIGHT SHADING
-
-       Each line receives its own small
-       feathered background.
-
-       The rest of the hero image remains
-       completely unobstructed.
+       MOBILE H1 — NO BACKGROUND OR GRADIENT
     ========================================== */
 
-    /* Learn the skills. — first-line shading */
-
-    .hero-content > h1::before {
-      content: "";
-      position: absolute;
-      pointer-events: none;
-      z-index: -1;
-
-      left: -.20em;
-      top: -.10em;
-
-      width: min(100%, 15.4ch);
-      height: 1.23em;
-
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255,255,255,.94) 0%,
-        rgba(255,255,255,.83) 42%,
-        rgba(248,250,255,.52) 68%,
-        rgba(255,255,255,0) 100%
-      );
-
-      border-radius: 16px;
-    }
-
-    /* Build your future. — second-line shading */
-
-    .hero-content > h1::after {
-      content: "";
-      position: absolute;
-      pointer-events: none;
-      z-index: -1;
-
-      left: -.20em;
-      top: .97em;
-
-      width: min(100%, 17ch);
-      height: 1.23em;
-
-      background: radial-gradient(
-        ellipse at center,
-        rgba(255,255,255,.94) 0%,
-        rgba(255,255,255,.82) 42%,
-        rgba(242,247,255,.48) 69%,
-        rgba(255,255,255,0) 100%
-      );
-
-      border-radius: 16px;
-    }
-
-    /* Maintain metallic black text */
-
     .hero-content > h1 {
-      background: linear-gradient(
-        180deg,
-        #838a94 0%,
-        #353b45 17%,
-        #11151c 38%,
-        #05070b 49%,
-        #454c56 55%,
-        #171c24 72%,
-        #030508 100%
-      );
-
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #11151c;
+      background: none;
+      background-image: none;
+      background-clip: border-box;
+      -webkit-background-clip: border-box;
+      -webkit-text-fill-color: #11151c;
+      filter: none;
+      text-shadow: none;
     }
-
-    /* Maintain metallic blue text */
 
     .hero-content > h1 em {
+      color: #123c70;
       font-style: normal;
+      background: none;
+      background-image: none;
+      background-clip: border-box;
+      -webkit-background-clip: border-box;
+      -webkit-text-fill-color: #123c70;
+      filter: none;
+      text-shadow: none;
+    }
 
-      background: linear-gradient(
-        180deg,
-        #7298c4 0%,
-        #416eaa 16%,
-        #1b4b82 34%,
-        #092b54 49%,
-        #3e689b 55%,
-        #173f70 70%,
-        #071f40 100%
-      );
+    /* Remove both shaded heading backgrounds */
 
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-
-      filter: drop-shadow(
-        0 1px 0 rgba(255,255,255,.26)
-      );
+    .hero-content > h1::before,
+    .hero-content > h1::after {
+      content: none;
+      display: none;
     }
 
     /* ==========================================
@@ -1091,14 +1013,14 @@
     }
   }
 
-
   /* ==========================================
-     DESKTOP SCROLL MORPH — HERO TO LEFT PANEL
-     Mobile and tablet layouts remain unchanged.
+     DESKTOP SCROLL MORPH
+     HERO SHRINKS INTO LEFT COLUMN
   ========================================== */
+
   @media (min-width: 1100px) {
+
     #top.hero-docked {
-      /* Hold the hero's original place so scroll position does not jump. */
       padding-top: 505px;
     }
 
@@ -1123,11 +1045,15 @@
       background-position: 59% center;
     }
 
+    /* ==========================================
+       DESKTOP SCROLL — NO IMAGE OVERLAY
+       Shows original image with no gradient.
+    ========================================== */
+
     #top.hero-docked > .hero::after {
-      background: linear-gradient(90deg,
-        rgba(255,255,255,.97) 0%,
-        rgba(255,255,255,.90) 49%,
-        rgba(255,255,255,.45) 100%);
+      display: none;
+      content: none;
+      background: none;
     }
 
     #top.hero-docked .hero-inner {
@@ -1137,21 +1063,52 @@
       align-items: center;
     }
 
-    #top.hero-docked .hero-content { max-width: 100%; }
+    #top.hero-docked .hero-content {
+      max-width: 100%;
+    }
+
     #top.hero-docked .hero h1 {
       font-size: clamp(31px, 3vw, 43px);
       letter-spacing: -.055em;
     }
-    #top.hero-docked .hero p { font-size: 13px; line-height: 1.65; }
-    #top.hero-docked .hero-ctas { gap: 8px; margin-top: 22px; }
-    #top.hero-docked .cta { padding: 9px 12px; font-size: 11px; }
-    #top.hero-docked .hero-highlights { margin-top: 23px; gap: 7px; }
-    #top.hero-docked .hero-highlights span { font-size: 10px; padding: 6px 9px; }
+
+    #top.hero-docked .hero p {
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    #top.hero-docked .hero-ctas {
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    #top.hero-docked .cta {
+      padding: 9px 12px;
+      font-size: 11px;
+    }
+
+    #top.hero-docked .hero-highlights {
+      margin-top: 23px;
+      gap: 7px;
+    }
+
+    #top.hero-docked .hero-highlights span {
+      font-size: 10px;
+      padding: 6px 9px;
+    }
+
+    /* ==========================================
+       RIGHT STUDY LIBRARY COLUMN
+    ========================================== */
 
     #top.hero-docked > .workspace {
       max-width: none;
       width: auto;
-      margin-left: calc(max(18px, (100vw - 1400px) / 2) + min(37vw, 490px) + 16px);
+      margin-left: calc(
+        max(18px, (100vw - 1400px) / 2)
+        + min(37vw, 490px)
+        + 16px
+      );
       margin-right: max(18px, calc((100vw - 1400px) / 2));
       padding-left: 0;
       padding-right: 0;
@@ -1161,18 +1118,34 @@
       grid-template-columns: minmax(160px, 195px) minmax(0, 1fr);
       gap: 19px;
     }
-    #top.hero-docked .cards { grid-template-columns: 1fr; }
-    #top.hero-docked .workspace-head { flex-wrap: wrap; }
-    #top.hero-docked .workspace-head h2 { font-size: 26px; }
+
+    #top.hero-docked .cards {
+      grid-template-columns: 1fr;
+    }
+
+    #top.hero-docked .workspace-head {
+      flex-wrap: wrap;
+    }
+
+    #top.hero-docked .workspace-head h2 {
+      font-size: 26px;
+    }
+
+    /* ==========================================
+       HERO DOCK ANIMATION
+    ========================================== */
 
     @keyframes heroDockIn {
-      from { opacity: .75; transform: translateX(-12px) scale(.985); }
-      to { opacity: 1; transform: translateX(0) scale(1); }
-    }
-  }
+      from {
+        opacity: .75;
+        transform: translateX(-12px) scale(.985);
+      }
 
-  @media (prefers-reduced-motion: reduce) {
-    #top.hero-docked > .hero { animation: none; }
+      to {
+        opacity: 1;
+        transform: translateX(0) scale(1);
+      }
+    }
   }
 
   /* ==========================================
@@ -1183,6 +1156,10 @@
 
     html {
       scroll-behavior: auto;
+    }
+
+    #top.hero-docked > .hero {
+      animation: none;
     }
 
     .card,
@@ -1196,6 +1173,7 @@
     }
   }
 </style>
+
 
 
 </head>
