@@ -1169,8 +1169,12 @@
      and before <section id="overview">
      ============================================================ -->
 
-<section class="sec-domain-carousel" aria-label="Security+ exam domain navigation">
+<!-- ============================================================
+     SECURITY+ — FIVE EXAM DOMAIN CAROUSEL WITH IMAGES
+     Replace your current sec-domain-carousel block with this.
+     ============================================================ -->
 
+<section class="sec-domain-carousel" aria-label="Security+ exam domain navigation">
   <div class="sec-domain-heading">
     <div>
       <span class="sec-domain-kicker">SECURITY+ SY0-701</span>
@@ -1183,12 +1187,11 @@
   <div class="sec-domain-viewport">
     <div class="sec-domain-track" id="secDomainTrack"></div>
   </div>
-
 </section>
 
 <style>
 /* ============================================================
-   SECURITY+ DOMAIN CAROUSEL — SCOPED STYLING
+   SECURITY+ DOMAIN CAROUSEL — IMAGE CARD VERSION
    ============================================================ */
 
 .sec-domain-carousel {
@@ -1203,8 +1206,6 @@
   border-radius: 16px;
   box-shadow: 0 6px 20px #2945620a;
 }
-
-/* Header */
 
 .sec-domain-heading {
   display: flex;
@@ -1242,8 +1243,6 @@
   white-space: nowrap;
 }
 
-/* Carousel viewport — clips at content/sidebar boundary */
-
 .sec-domain-viewport {
   width: 100%;
   max-width: 100%;
@@ -1255,53 +1254,90 @@
 .sec-domain-track {
   display: flex;
   width: max-content;
-  animation: secDomainScroll 32s linear infinite;
+  animation: secDomainScroll 40s linear infinite;
   will-change: transform;
 }
 
 .sec-domain-set {
   display: flex;
-  gap: 12px;
+  gap: 14px;
   flex-shrink: 0;
-  padding-right: 12px;
+  padding-right: 14px;
 }
-
-/* Individual domain cards */
 
 .sec-domain-card {
-  flex: 0 0 225px;
-  width: 225px;
-  min-height: 145px;
-  background: linear-gradient(145deg, #102746, #183e68);
-  border: 1px solid #315881;
-  border-radius: 13px;
-  padding: 17px;
-  color: #ffffff;
+  flex: 0 0 290px;
+  width: 290px;
+  background: #ffffff;
+  border: 1px solid #d7e3ef;
+  border-radius: 16px;
+  overflow: hidden;
   text-decoration: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 12px;
-  transition: background .2s, border-color .2s;
+  color: inherit;
+  box-shadow: 0 10px 24px #1a385509;
+  transition:
+    transform .2s ease,
+    box-shadow .2s ease,
+    border-color .2s ease;
 }
 
-.sec-domain-card:hover {
-  background: linear-gradient(145deg, #16416e, #2566ae);
+.sec-domain-card:hover,
+.sec-domain-card:focus-visible {
+  transform: translateY(-4px);
   border-color: #8bbbe8;
+  box-shadow: 0 16px 28px #1a385514;
+}
+
+.sec-domain-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: linear-gradient(145deg, #102746, #183e68);
+}
+
+.sec-domain-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.sec-domain-overlay {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 12px 14px;
+  background: linear-gradient(180deg, rgba(8,21,38,0) 0%, rgba(8,21,38,.82) 100%);
 }
 
 .sec-domain-number {
+  display: inline-block;
   font-size: 10px;
   font-weight: 800;
-  color: #a9d8ff;
   letter-spacing: .12em;
+  color: #d8ecff;
+}
+
+.sec-domain-body {
+  padding: 15px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .sec-domain-name {
   font-size: 15px;
   line-height: 1.4;
   font-weight: 800;
-  color: #ffffff;
+  color: #102b4d;
+  min-height: 42px;
+}
+
+.sec-domain-desc {
+  font-size: 12px;
+  line-height: 1.55;
+  color: #607086;
+  min-height: 56px;
 }
 
 .sec-domain-bottom {
@@ -1309,40 +1345,34 @@
   align-items: center;
   justify-content: space-between;
   gap: 9px;
-  border-top: 1px solid #ffffff30;
-  padding-top: 10px;
+  border-top: 1px solid #e4edf5;
+  padding-top: 11px;
 }
 
 .sec-domain-weight {
   font-size: 11px;
-  color: #c5dfff;
+  font-weight: 800;
+  color: #1f5f98;
+  letter-spacing: .04em;
 }
 
 .sec-domain-arrow {
-  color: #a9d8ff;
-  font-size: 17px;
+  color: #2566ae;
+  font-size: 18px;
+  font-weight: 800;
 }
 
-/* Seamless auto-scrolling animation */
-
+/* Seamless auto-scroll */
 @keyframes secDomainScroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
 }
 
-/* Pause for easier clicking */
-
+/* Pause on hover */
 .sec-domain-viewport:hover .sec-domain-track,
 .sec-domain-viewport:focus-within .sec-domain-track {
   animation-play-state: paused;
 }
-
-/* Tablet and mobile */
 
 @media (max-width: 780px) {
   .sec-domain-carousel {
@@ -1363,14 +1393,20 @@
   }
 
   .sec-domain-card {
-    flex-basis: 205px;
-    width: 205px;
-    min-height: 138px;
-    padding: 15px;
+    flex: 0 0 245px;
+    width: 245px;
+  }
+
+  .sec-domain-name {
+    min-height: auto;
+  }
+
+  .sec-domain-desc {
+    min-height: auto;
   }
 
   .sec-domain-track {
-    animation-duration: 28s;
+    animation-duration: 34s;
   }
 }
 
@@ -1380,8 +1416,6 @@
     width: 100%;
   }
 }
-
-/* Reduced-motion accessibility */
 
 @media (prefers-reduced-motion: reduce) {
   .sec-domain-track {
@@ -1396,17 +1430,39 @@
 
 <script>
 /* ============================================================
-   CREATE DOMAIN CARDS FROM EXISTING SECURITY+ DATA
-   No duplicate domain definitions.
+   SECURITY+ DOMAIN CARDS WITH IMAGES
    ============================================================ */
 
 document.addEventListener("DOMContentLoaded", () => {
   const track = document.getElementById("secDomainTrack");
-
   if (!track || typeof DATA === "undefined") return;
 
-  // Use the existing five domain names and exam weights.
+  const domainVisuals = [
+    {
+      image: "../assets/sec-domain-01-general-security-concepts.png",
+      desc: "Core principles, basic controls, security objectives, cryptographic fundamentals, identity concepts, and foundational defensive thinking."
+    },
+    {
+      image: "../assets/sec-domain-02-threats-vulnerabilities-mitigations.png",
+      desc: "Attack techniques, exploitation paths, common weaknesses, social engineering, malware, and how to reduce or eliminate risk."
+    },
+    {
+      image: "../assets/sec-domain-03-security-architecture.png",
+      desc: "Secure design, segmentation, cloud and on-prem architecture, infrastructure protection, and resilient enterprise security patterns."
+    },
+    {
+      image: "../assets/sec-domain-04-security-operations.png",
+      desc: "Monitoring, alerting, incident response, investigations, recovery workflows, and day-to-day operational defense activities."
+    },
+    {
+      image: "../assets/sec-domain-05-security-program-management-oversight.png",
+      desc: "Governance, compliance, risk management, policy, audits, awareness, and the leadership processes behind security programs."
+    }
+  ];
+
   const domainCards = DATA.domains.map(([name, weight], index) => {
+    const visual = domainVisuals[index] || {};
+
     return `
       <a
         href="#lessons"
@@ -1414,31 +1470,41 @@ document.addEventListener("DOMContentLoaded", () => {
         data-sec-domain="${index}"
         aria-label="Start Domain ${index + 1}: ${name}"
       >
-        <span class="sec-domain-number">
-          DOMAIN ${String(index + 1).padStart(2, "0")}
-        </span>
+        <div class="sec-domain-image-wrap">
+          <img
+            class="sec-domain-image"
+            src="${visual.image || ''}"
+            alt="${esc(name)}"
+            loading="lazy"
+          />
+          <div class="sec-domain-overlay">
+            <span class="sec-domain-number">
+              DOMAIN ${String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+        </div>
 
-        <span class="sec-domain-name">
-          ${esc(name)}
-        </span>
+        <div class="sec-domain-body">
+          <div class="sec-domain-name">${esc(name)}</div>
 
-        <span class="sec-domain-bottom">
-          <span class="sec-domain-weight">
-            ${weight}% OF EXAM
-          </span>
-          <span class="sec-domain-arrow" aria-hidden="true">→</span>
-        </span>
+          <div class="sec-domain-desc">
+            ${visual.desc || "Select this domain to begin studying its first lesson."}
+          </div>
+
+          <div class="sec-domain-bottom">
+            <span class="sec-domain-weight">${weight}% OF EXAM</span>
+            <span class="sec-domain-arrow" aria-hidden="true">→</span>
+          </div>
+        </div>
       </a>
     `;
   }).join("");
 
-  // Two identical sets give the ribbon a seamless loop.
   track.innerHTML = `
     <div class="sec-domain-set">${domainCards}</div>
     <div class="sec-domain-set">${domainCards}</div>
   `;
 
-  // All cards open the first lesson of their domain.
   track.addEventListener("click", (event) => {
     const card = event.target.closest("[data-sec-domain]");
     if (!card) return;
@@ -1453,10 +1519,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (firstLesson < 0) return;
 
-    // Clear any active search so the selected lesson is available.
-    document.getElementById("lessonSearch").value = "";
+    const search = document.getElementById("lessonSearch");
+    if (search) search.value = "";
 
-    // Reuse your existing full-page lesson navigation.
     navigateLesson(firstLesson);
   });
 });
