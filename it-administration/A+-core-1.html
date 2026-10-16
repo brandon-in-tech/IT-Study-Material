@@ -5686,7 +5686,8 @@ powershell: Test-NetConnection example.com -Port 443</pre>
       <div class="sidebar-toc-title">Table of Contents <span>${DATA.lessons.length} lessons</span></div>
       <p class="sidebar-toc-help">Select a domain or lesson to open its full-page reader.</p>
       ${DOMAINS.map(([name, weight], d) => `
-        <details class="sidebar-toc-group" ${d === DATA.lessons[activeLesson].domain ? 'open' : ''}>
+
+<details class="sidebar-toc-group">
           <summary><span>${esc(name)}</span><small>${weight}</small></summary>
           <div class="sidebar-toc-links">
             ${DATA.lessons.map((lesson, i) => lesson.domain === d ? `
