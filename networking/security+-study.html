@@ -1162,6 +1162,306 @@
                         ><span>Labs & playbooks</span><span>Local progress</span>
                     </div>
                 </header>
+                
+<!-- ============================================================
+     SECURITY+ — FIVE EXAM DOMAIN CAROUSEL
+     Insert directly after the closing HERO </header>
+     and before <section id="overview">
+     ============================================================ -->
+
+<section class="sec-domain-carousel" aria-label="Security+ exam domain navigation">
+
+  <div class="sec-domain-heading">
+    <div>
+      <span class="sec-domain-kicker">SECURITY+ SY0-701</span>
+      <h3>Explore the Five Exam Domains</h3>
+      <p>Select a domain to begin its first lesson.</p>
+    </div>
+    <span class="sec-domain-total">5 DOMAINS</span>
+  </div>
+
+  <div class="sec-domain-viewport">
+    <div class="sec-domain-track" id="secDomainTrack"></div>
+  </div>
+
+</section>
+
+<style>
+/* ============================================================
+   SECURITY+ DOMAIN CAROUSEL — SCOPED STYLING
+   ============================================================ */
+
+.sec-domain-carousel {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  margin: 18px 0 25px;
+  padding: 23px 0 20px;
+  background: #ffffff;
+  border: 1px solid #dce5ed;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px #2945620a;
+}
+
+/* Header */
+
+.sec-domain-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 0 22px;
+  margin-bottom: 18px;
+}
+
+.sec-domain-kicker {
+  color: #2566ae;
+  font-size: 10px;
+  letter-spacing: .14em;
+  font-weight: 850;
+}
+
+.sec-domain-heading h3 {
+  color: #102b4d;
+  font-size: 21px;
+  line-height: 1.3;
+  margin: 5px 0;
+}
+
+.sec-domain-heading p {
+  color: #607086;
+  font-size: 12px;
+  margin: 0;
+}
+
+.sec-domain-total {
+  font-size: 10px;
+  color: #56718c;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Carousel viewport — clips at content/sidebar boundary */
+
+.sec-domain-viewport {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.sec-domain-track {
+  display: flex;
+  width: max-content;
+  animation: secDomainScroll 32s linear infinite;
+  will-change: transform;
+}
+
+.sec-domain-set {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+  padding-right: 12px;
+}
+
+/* Individual domain cards */
+
+.sec-domain-card {
+  flex: 0 0 225px;
+  width: 225px;
+  min-height: 145px;
+  background: linear-gradient(145deg, #102746, #183e68);
+  border: 1px solid #315881;
+  border-radius: 13px;
+  padding: 17px;
+  color: #ffffff;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: background .2s, border-color .2s;
+}
+
+.sec-domain-card:hover {
+  background: linear-gradient(145deg, #16416e, #2566ae);
+  border-color: #8bbbe8;
+}
+
+.sec-domain-number {
+  font-size: 10px;
+  font-weight: 800;
+  color: #a9d8ff;
+  letter-spacing: .12em;
+}
+
+.sec-domain-name {
+  font-size: 15px;
+  line-height: 1.4;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.sec-domain-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 9px;
+  border-top: 1px solid #ffffff30;
+  padding-top: 10px;
+}
+
+.sec-domain-weight {
+  font-size: 11px;
+  color: #c5dfff;
+}
+
+.sec-domain-arrow {
+  color: #a9d8ff;
+  font-size: 17px;
+}
+
+/* Seamless auto-scrolling animation */
+
+@keyframes secDomainScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Pause for easier clicking */
+
+.sec-domain-viewport:hover .sec-domain-track,
+.sec-domain-viewport:focus-within .sec-domain-track {
+  animation-play-state: paused;
+}
+
+/* Tablet and mobile */
+
+@media (max-width: 780px) {
+  .sec-domain-carousel {
+    margin: 15px 0 20px;
+    padding: 18px 0;
+  }
+
+  .sec-domain-heading {
+    padding: 0 16px;
+  }
+
+  .sec-domain-heading h3 {
+    font-size: 19px;
+  }
+
+  .sec-domain-total {
+    display: none;
+  }
+
+  .sec-domain-card {
+    flex-basis: 205px;
+    width: 205px;
+    min-height: 138px;
+    padding: 15px;
+  }
+
+  .sec-domain-track {
+    animation-duration: 28s;
+  }
+}
+
+@media (max-width: 600px) {
+  .sec-domain-carousel {
+    order: -1;
+    width: 100%;
+  }
+}
+
+/* Reduced-motion accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .sec-domain-track {
+    animation: none;
+  }
+
+  .sec-domain-viewport {
+    overflow-x: auto;
+  }
+}
+</style>
+
+<script>
+/* ============================================================
+   CREATE DOMAIN CARDS FROM EXISTING SECURITY+ DATA
+   No duplicate domain definitions.
+   ============================================================ */
+
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("secDomainTrack");
+
+  if (!track || typeof DATA === "undefined") return;
+
+  // Use the existing five domain names and exam weights.
+  const domainCards = DATA.domains.map(([name, weight], index) => {
+    return `
+      <a
+        href="#lessons"
+        class="sec-domain-card"
+        data-sec-domain="${index}"
+        aria-label="Start Domain ${index + 1}: ${name}"
+      >
+        <span class="sec-domain-number">
+          DOMAIN ${String(index + 1).padStart(2, "0")}
+        </span>
+
+        <span class="sec-domain-name">
+          ${esc(name)}
+        </span>
+
+        <span class="sec-domain-bottom">
+          <span class="sec-domain-weight">
+            ${weight}% OF EXAM
+          </span>
+          <span class="sec-domain-arrow" aria-hidden="true">→</span>
+        </span>
+      </a>
+    `;
+  }).join("");
+
+  // Two identical sets give the ribbon a seamless loop.
+  track.innerHTML = `
+    <div class="sec-domain-set">${domainCards}</div>
+    <div class="sec-domain-set">${domainCards}</div>
+  `;
+
+  // All cards open the first lesson of their domain.
+  track.addEventListener("click", (event) => {
+    const card = event.target.closest("[data-sec-domain]");
+    if (!card) return;
+
+    event.preventDefault();
+
+    const domainIndex = Number(card.dataset.secDomain);
+
+    const firstLesson = DATA.lessons.findIndex(
+      lesson => lesson.d === domainIndex
+    );
+
+    if (firstLesson < 0) return;
+
+    // Clear any active search so the selected lesson is available.
+    document.getElementById("lessonSearch").value = "";
+
+    // Reuse your existing full-page lesson navigation.
+    navigateLesson(firstLesson);
+  });
+});
+</script>
+
                 <section id="overview" class="section">
                     <div class="stats" id="stats"></div>
                     <div class="panel">
