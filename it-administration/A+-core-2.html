@@ -4089,7 +4089,12 @@ function showLesson(index) {
   document.querySelectorAll('.toc-links button').forEach(b=>b.classList.toggle('selected',Number(b.dataset.lesson)===index));
   const group=document.querySelector(`.toc-group[data-group="${lesson.domain}"]`);
   if (group) group.open=true;
-  $('lessonsRoot').scrollIntoView({block:'start',behavior:'auto'});
+  if (window.core2Initialized) {
+  $('lessonsRoot').scrollIntoView({
+    block: 'start',
+    behavior: 'auto'
+  });
+}
 }
 function buildToc() {
   $('sidebarToc').innerHTML='<div class="toc-heading">TABLE OF CONTENTS</div>'+DATA.domains.map((g,d)=>{
@@ -4153,7 +4158,14 @@ $('reset').onclick=()=>{if(!confirm('Reset completed lessons for this Core 2 gui
 $('heroLessonCount').textContent=`${DATA.lessons.length} lessons`;
 $('weights').innerHTML=DATA.domains.map((g,i)=>`<p><strong>${i+1}. ${esc(g.name)}</strong> · ${g.weight}%</p>`).join('');
 $('quizDomain').innerHTML='<option value="all">All domains</option>'+domainNames.map(n=>`<option value="${esc(n)}">${esc(n)}</option>`).join('');
-buildToc();updateProgress();renderLabs();drawCard();startQuiz();showLesson(0);
+buildToc();
+updateProgress();
+renderLabs();
+drawCard();
+startQuiz();
+showLesson(0);
+
+window.core2Initialized = true;
 
   </script>
 </body>
