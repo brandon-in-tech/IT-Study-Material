@@ -1937,451 +1937,1439 @@ ul {
     }
   ],
   "cards": [
-    {
-      "q": "CIA",
-      "a": "Confidentiality, integrity, availability."
-    },
-    {
-      "q": "AAA",
-      "a": "Authentication, authorization, accounting; sometimes preceded by identification."
-    },
-    {
-      "q": "Least privilege",
-      "a": "Grant only permissions necessary for required tasks."
-    },
-    {
-      "q": "Zero trust",
-      "a": "Continuously evaluate explicit access rather than trusting network location."
-    },
-    {
-      "q": "Defense in depth",
-      "a": "Multiple independent layers reduce single-control failure."
-    },
-    {
-      "q": "Preventive control",
-      "a": "A control intended to stop an incident before it happens."
-    },
-    {
-      "q": "Detective control",
-      "a": "A control intended to identify unwanted activity."
-    },
-    {
-      "q": "Corrective control",
-      "a": "A control intended to restore security after an event."
-    },
-    {
-      "q": "Compensating control",
-      "a": "An alternative control when a primary control is impractical."
-    },
-    {
-      "q": "RBAC",
-      "a": "Roles drive access rights."
-    },
-    {
-      "q": "ABAC",
-      "a": "Attributes and conditions inform access decisions."
-    },
-    {
-      "q": "MFA",
-      "a": "Use two or more distinct authentication factor categories."
-    },
-    {
-      "q": "SSO",
-      "a": "One authentication flow grants access to multiple integrated systems."
-    },
-    {
-      "q": "SAML",
-      "a": "XML-based protocol for exchanging federated authentication assertions."
-    },
-    {
-      "q": "OAuth 2.0",
-      "a": "Framework for delegated authorization to resources."
-    },
-    {
-      "q": "OpenID Connect",
-      "a": "Identity layer built on OAuth 2.0 for authentication."
-    },
-    {
-      "q": "AES",
-      "a": "Widely used symmetric encryption algorithm."
-    },
-    {
-      "q": "SHA-256",
-      "a": "Cryptographic hash function, not encryption."
-    },
-    {
-      "q": "HMAC",
-      "a": "Message authentication using a secret key and hash construction."
-    },
-    {
-      "q": "PKI",
-      "a": "Certificate authorities, certificates, keys and trust infrastructure."
-    },
-    {
-      "q": "CSR",
-      "a": "Certificate signing request containing a public key and identity data."
-    },
-    {
-      "q": "OCSP",
-      "a": "Protocol for checking certificate revocation status."
-    },
-    {
-      "q": "TLS",
-      "a": "Protocol for protecting data in transit with authenticated cryptography."
-    },
-    {
-      "q": "SSH",
-      "a": "Encrypted remote shell and secure administration protocol."
-    },
-    {
-      "q": "IPsec",
-      "a": "Suite of protocols that secures IP traffic."
-    },
-    {
-      "q": "Ransomware",
-      "a": "Malware that denies access, commonly through encryption, to extort victims."
-    },
-    {
-      "q": "Worm",
-      "a": "Malware capable of propagating without user-driven copying."
-    },
-    {
-      "q": "Rootkit",
-      "a": "Toolset designed to conceal attacker activity or persistence."
-    },
-    {
-      "q": "Fileless malware",
-      "a": "Attack using legitimate memory-resident tools or scripts instead of conventional files."
-    },
-    {
-      "q": "Phishing",
-      "a": "Fraudulent messaging intended to induce unsafe action or disclosure."
-    },
-    {
-      "q": "Spear phishing",
-      "a": "Targeted phishing tailored to a recipient or organization."
-    },
-    {
-      "q": "Whaling",
-      "a": "Phishing targeting high-value senior personnel."
-    },
-    {
-      "q": "Vishing",
-      "a": "Voice-based phishing."
-    },
-    {
-      "q": "Smishing",
-      "a": "Text/SMS-based phishing."
-    },
-    {
-      "q": "BEC",
-      "a": "Business email compromise involving impersonated or hijacked business communications."
-    },
-    {
-      "q": "SQL injection",
-      "a": "Abuse of unsafe SQL query construction through untrusted input."
-    },
-    {
-      "q": "XSS",
-      "a": "Injection of attacker-controlled script into a trusted web context."
-    },
-    {
-      "q": "CSRF",
-      "a": "Tricking an authenticated browser into submitting unintended actions."
-    },
-    {
-      "q": "DDoS",
-      "a": "Traffic or requests from distributed systems exhaust a target."
-    },
-    {
-      "q": "On-path attack",
-      "a": "Interception or alteration of traffic between endpoints."
-    },
-    {
-      "q": "ARP spoofing",
-      "a": "Forged local ARP associations redirect or intercept LAN traffic."
-    },
-    {
-      "q": "CVE",
-      "a": "Identifier for publicly known vulnerabilities."
-    },
-    {
-      "q": "CVSS",
-      "a": "Framework for measuring vulnerability severity, not entire business risk."
-    },
-    {
-      "q": "False positive",
-      "a": "Tool flags an issue that is not actually present."
-    },
-    {
-      "q": "DMZ",
-      "a": "Network segment separating exposed services from protected internal resources."
-    },
-    {
-      "q": "NAC",
-      "a": "Network access control assessing identity or posture before permitting access."
-    },
-    {
-      "q": "Microsegmentation",
-      "a": "Fine-grained control between workloads or individual applications."
-    },
-    {
-      "q": "Shared responsibility",
-      "a": "Cloud customer/provider security duties vary by service model."
-    },
-    {
-      "q": "RTO",
-      "a": "Target maximum acceptable time to restore a service."
-    },
-    {
-      "q": "RPO",
-      "a": "Target maximum acceptable amount of data loss measured in time."
-    },
-    {
-      "q": "Immutable backup",
-      "a": "Backup copy not alterable for a defined retention period."
-    },
-    {
-      "q": "DLP",
-      "a": "Controls intended to prevent unauthorized leakage of sensitive data."
-    },
-    {
-      "q": "SIEM",
-      "a": "Centralizes and correlates security events and telemetry."
-    },
-    {
-      "q": "SOAR",
-      "a": "Orchestrates and automates predefined security response workflows."
-    },
-    {
-      "q": "IDS",
-      "a": "Detects suspect activity, usually alerts rather than blocking."
-    },
-    {
-      "q": "IPS",
-      "a": "Inline system that can block suspicious traffic."
-    },
-    {
-      "q": "WAF",
-      "a": "Application-layer protection focused on HTTP/web traffic."
-    },
-    {
-      "q": "EDR",
-      "a": "Endpoint detection and response tooling."
-    },
-    {
-      "q": "PAM",
-      "a": "Privileged access management."
-    },
-    {
-      "q": "Chain of custody",
-      "a": "Documented possession and handling of evidence."
-    },
-    {
-      "q": "BIA",
-      "a": "Business impact analysis: essential services, impacts, and recovery needs."
-    },
-    {
-      "q": "Risk appetite",
-      "a": "Amount and type of risk an organization is willing to pursue or retain."
-    },
-    {
-      "q": "Residual risk",
-      "a": "Risk that remains after controls are applied."
-    },
-    {
-      "q": "DMARC",
-      "a": "Email authentication policy/reporting that builds on SPF/DKIM alignment."
-    },
-    {
-      "q": "3-2-1 backups",
-      "a": "Common resilience heuristic: three copies, two media/types, one offsite."
-    },
-    {
-      "q": "ACL",
-      "a": "Access Control List; explicit rules controlling operations or permitted network flows."
-    },
-    {
-      "q": "AEAD",
-      "a": "Authenticated Encryption with Associated Data; encryption that also detects tampering."
-    },
-    {
-      "q": "ALE",
-      "a": "Annualized Loss Expectancy; estimated annual loss, typically SLE multiplied by ARO."
-    },
-    {
-      "q": "ARO",
-      "a": "Annualized Rate of Occurrence; estimated event frequency per year."
-    },
-    {
-      "q": "API",
-      "a": "Application Programming Interface; a defined way software components exchange requests and results."
-    },
-    {
-      "q": "ARP",
-      "a": "Address Resolution Protocol; maps IPv4 neighbors to link-layer addresses on a LAN."
-    },
-    {
-      "q": "ATT&CK",
-      "a": "MITRE ATT&CK; a knowledge base of observed adversary tactics and techniques."
-    },
-    {
-      "q": "BYOD",
-      "a": "Bring Your Own Device; personal equipment used for work under organizational controls."
-    },
-    {
-      "q": "CA",
-      "a": "Certificate Authority; entity that issues signed digital certificates."
-    },
-    {
-      "q": "CASB",
-      "a": "Cloud Access Security Broker; policy enforcement/visibility for cloud service use."
-    },
-    {
-      "q": "CIS",
-      "a": "Center for Internet Security; organization publishing security benchmarks and controls."
-    },
-    {
-      "q": "CNAME",
-      "a": "Canonical Name DNS record; points an alias to a canonical DNS name."
-    },
-    {
-      "q": "CRL",
-      "a": "Certificate Revocation List; CA-published list of revoked certificate serial numbers."
-    },
-    {
-      "q": "DKIM",
-      "a": "DomainKeys Identified Mail; signed email headers enabling verification of domain association."
-    },
-    {
-      "q": "DNSSEC",
-      "a": "DNS Security Extensions; signatures authenticating DNS record integrity and origin."
-    },
-    {
-      "q": "DR",
-      "a": "Disaster Recovery; restoring technology capability after significant disruption."
-    },
-    {
-      "q": "ECC",
-      "a": "Elliptic Curve Cryptography; asymmetric cryptography based on elliptic curve mathematics."
-    },
-    {
-      "q": "EPSS",
-      "a": "Exploit Prediction Scoring System; estimates probability of known vulnerability exploitation in the wild."
-    },
-    {
-      "q": "FIDO2",
-      "a": "Fast Identity Online 2; public-key authentication supporting phishing-resistant passkeys/security keys."
-    },
-    {
-      "q": "IAM",
-      "a": "Identity and Access Management; processes and systems governing accounts and permissions."
-    },
-    {
-      "q": "IaaS",
-      "a": "Infrastructure as a Service; customer-managed virtual machines/networking hosted by a cloud provider."
-    },
-    {
-      "q": "JIT",
-      "a": "Just-In-Time access; temporary privilege activation when needed."
-    },
-    {
-      "q": "KMS",
-      "a": "Key Management Service; managed system for creating, storing and controlling cryptographic keys."
-    },
-    {
-      "q": "LDAP",
-      "a": "Lightweight Directory Access Protocol; protocol for querying and modifying directory data."
-    },
-    {
-      "q": "MAM",
-      "a": "Mobile Application Management; policy over managed applications and organizational data."
-    },
-    {
-      "q": "MDM",
-      "a": "Mobile Device Management; centralized configuration/compliance of mobile devices."
-    },
-    {
-      "q": "MTTR",
-      "a": "Mean Time To Recover/Repair; average time to restore service, according to measurement definition."
-    },
-    {
-      "q": "NDR",
-      "a": "Network Detection and Response; analyzes network telemetry for suspicious activity."
-    },
-    {
-      "q": "NGFW",
-      "a": "Next-Generation Firewall; firewall with application-aware and threat-aware inspection."
-    },
-    {
-      "q": "OIDC",
-      "a": "OpenID Connect; authentication layer built on OAuth 2.0."
-    },
-    {
-      "q": "OAuth",
-      "a": "OAuth 2.0; delegated authorization framework to access resources without sharing a password."
-    },
-    {
-      "q": "OT",
-      "a": "Operational Technology; computing controlling physical industrial operations."
-    },
-    {
-      "q": "PaaS",
-      "a": "Platform as a Service; provider-managed runtime/platform for customer applications."
-    },
-    {
-      "q": "PBQ",
-      "a": "Performance-Based Question; interactive exam item involving a practical scenario."
-    },
-    {
-      "q": "PFS",
-      "a": "Perfect Forward Secrecy; property protecting past session keys after long-term key compromise."
-    },
-    {
-      "q": "RADIUS",
-      "a": "Remote Authentication Dial-In User Service; centralized authentication/accounting protocol often used by enterprise Wi-Fi."
-    },
-    {
-      "q": "SaaS",
-      "a": "Software as a Service; provider-hosted application accessed by customers."
-    },
-    {
-      "q": "SAN",
-      "a": "Subject Alternative Name; certificate extension listing permitted service identities."
-    },
-    {
-      "q": "SBOM",
-      "a": "Software Bill of Materials; inventory of components and dependencies in software."
-    },
-    {
-      "q": "SLE",
-      "a": "Single Loss Expectancy; expected loss from one incident, often asset value times exposure factor."
-    },
-    {
-      "q": "SPF",
-      "a": "Sender Policy Framework; DNS-based mechanism identifying authorized mail-sending hosts."
-    },
-    {
-      "q": "TPM",
-      "a": "Trusted Platform Module; dedicated capability for device-backed cryptographic keys and trust."
-    },
-    {
-      "q": "UEFI",
-      "a": "Unified Extensible Firmware Interface; firmware interface controlling hardware startup/boot."
-    },
-    {
-      "q": "VPN",
-      "a": "Virtual Private Network; authenticated tunnel connecting devices or networks over another network."
-    },
-    {
-      "q": "XDR",
-      "a": "Extended Detection and Response; correlates detection across endpoint, identity, network or cloud sources."
-    },
-    {
-      "q": "ZTNA",
-      "a": "Zero Trust Network Access; policy-controlled access to applications without broad network trust."
-    }
-  ],
+  {
+    "q": "CIA Triad",
+    "a": "Confidentiality, integrity, and availability: the three foundational goals used to evaluate information security."
+  },
+  {
+    "q": "AAA",
+    "a": "Authentication, authorization, and accounting used together to control and track access."
+  },
+  {
+    "q": "Least Privilege",
+    "a": "Granting only the minimum permissions necessary to perform an assigned task."
+  },
+  {
+    "q": "Zero Trust",
+    "a": "A security model that assumes no user, device, or network location is inherently trusted and requires continuous verification."
+  },
+  {
+    "q": "Defense in Depth",
+    "a": "Using multiple independent security layers so one failed control does not expose the entire environment."
+  },
+  {
+    "q": "Preventive Control",
+    "a": "A control intended to stop a security event before it occurs."
+  },
+  {
+    "q": "Detective Control",
+    "a": "A control intended to identify or discover security events that are occurring or have occurred."
+  },
+  {
+    "q": "Corrective Control",
+    "a": "A control intended to fix or restore systems after an incident or control failure."
+  },
+  {
+    "q": "Compensating Control",
+    "a": "An alternative safeguard used when the preferred security control cannot be implemented."
+  },
+  {
+    "q": "RBAC",
+    "a": "Role-Based Access Control: permissions are assigned to roles and users receive access through their roles."
+  },
+  {
+    "q": "ABAC",
+    "a": "Attribute-Based Access Control: access decisions are based on attributes of users, resources, actions, and environment."
+  },
+  {
+    "q": "MFA",
+    "a": "Multi-factor authentication: requires authentication factors from two or more different factor categories."
+  },
+  {
+    "q": "SSO",
+    "a": "Single Sign-On: allows a user to authenticate once and access multiple authorized applications."
+  },
+  {
+    "q": "SAML",
+    "a": "Security Assertion Markup Language: XML-based standard commonly used to exchange authentication and authorization assertions for enterprise SSO."
+  },
+  {
+    "q": "OAuth",
+    "a": "An authorization framework that lets applications obtain limited access to resources without receiving the user's password."
+  },
+  {
+    "q": "OpenID Connect",
+    "a": "An identity layer built on OAuth 2.0 that adds standardized authentication and user identity information."
+  },
+  {
+    "q": "AES",
+    "a": "Widely used symmetric encryption algorithm."
+  },
+  {
+    "q": "SHA-256",
+    "a": "Cryptographic hash function, not encryption."
+  },
+  {
+    "q": "HMAC",
+    "a": "Message authentication using a secret key and hash construction."
+  },
+  {
+    "q": "PKI",
+    "a": "Public Key Infrastructure: the people, policies, hardware, software, and procedures used to create and manage digital certificates."
+  },
+  {
+    "q": "CSR",
+    "a": "Certificate signing request containing a public key and identity data."
+  },
+  {
+    "q": "OCSP",
+    "a": "Online Certificate Status Protocol: a method for checking a certificate's revocation status in near real time."
+  },
+  {
+    "q": "TLS",
+    "a": "Transport Layer Security: cryptographically protects application traffic in transit."
+  },
+  {
+    "q": "SSH",
+    "a": "Encrypted remote shell and secure administration protocol."
+  },
+  {
+    "q": "IPsec",
+    "a": "A suite of protocols providing authentication, integrity, and encryption for IP network traffic."
+  },
+  {
+    "q": "Ransomware",
+    "a": "Malware that encrypts, locks, or steals data and demands payment or another concession."
+  },
+  {
+    "q": "Worm",
+    "a": "Self-replicating malware that can spread across networks without attaching to another program."
+  },
+  {
+    "q": "Rootkit",
+    "a": "Malware designed to obtain privileged access and conceal its presence or other malicious activity."
+  },
+  {
+    "q": "Fileless malware",
+    "a": "Attack using legitimate memory-resident tools or scripts instead of conventional files."
+  },
+  {
+    "q": "Phishing",
+    "a": "Social engineering using deceptive messages or sites to trick users into revealing information or performing an action."
+  },
+  {
+    "q": "Spear Phishing",
+    "a": "A highly targeted phishing attack customized for a specific person, organization, or role."
+  },
+  {
+    "q": "Whaling",
+    "a": "Phishing directed at executives or other high-value targets."
+  },
+  {
+    "q": "Vishing",
+    "a": "Phishing conducted through voice calls or voice-based communication."
+  },
+  {
+    "q": "Smishing",
+    "a": "Phishing delivered through SMS or text messages."
+  },
+  {
+    "q": "Business Email Compromise (BEC)",
+    "a": "A social engineering attack that impersonates a trusted business identity to manipulate financial or sensitive transactions."
+  },
+  {
+    "q": "SQL Injection",
+    "a": "Injecting malicious SQL through application input to manipulate or access a database."
+  },
+  {
+    "q": "XSS",
+    "a": "Injection of attacker-controlled script into a trusted web context."
+  },
+  {
+    "q": "CSRF",
+    "a": "Tricking an authenticated browser into submitting unintended actions."
+  },
+  {
+    "q": "DDoS",
+    "a": "Distributed denial-of-service: many systems overwhelm a target's resources or network capacity."
+  },
+  {
+    "q": "On-Path Attack",
+    "a": "An attacker secretly intercepts and potentially modifies communication between two parties."
+  },
+  {
+    "q": "ARP spoofing",
+    "a": "Forged local ARP associations redirect or intercept LAN traffic."
+  },
+  {
+    "q": "CVE",
+    "a": "Common Vulnerabilities and Exposures: a standardized identifier for publicly disclosed vulnerabilities."
+  },
+  {
+    "q": "CVSS",
+    "a": "Common Vulnerability Scoring System: a framework for rating vulnerability severity."
+  },
+  {
+    "q": "False Positive",
+    "a": "A security tool reports a problem that is not actually present."
+  },
+  {
+    "q": "DMZ",
+    "a": "A perimeter network segment that isolates public-facing services from the internal trusted network."
+  },
+  {
+    "q": "NAC",
+    "a": "Network Access Control: enforces device or user requirements before and during network access."
+  },
+  {
+    "q": "Microsegmentation",
+    "a": "Applying granular security boundaries between individual workloads, applications, or small groups of resources."
+  },
+  {
+    "q": "Shared responsibility",
+    "a": "Cloud customer/provider security duties vary by service model."
+  },
+  {
+    "q": "RTO",
+    "a": "Recovery Time Objective: maximum targeted time to restore a service after disruption."
+  },
+  {
+    "q": "RPO",
+    "a": "Recovery Point Objective: maximum acceptable amount of data loss measured in time."
+  },
+  {
+    "q": "Immutable backup",
+    "a": "Backup copy not alterable for a defined retention period."
+  },
+  {
+    "q": "DLP",
+    "a": "Data Loss Prevention: technologies and policies used to detect and prevent unauthorized disclosure of sensitive data."
+  },
+  {
+    "q": "SIEM",
+    "a": "Security Information and Event Management: aggregates, correlates, searches, and alerts on security log data."
+  },
+  {
+    "q": "SOAR",
+    "a": "Security Orchestration, Automation, and Response: automates security workflows and coordinates actions across tools."
+  },
+  {
+    "q": "IDS",
+    "a": "Intrusion Detection System: detects suspicious or malicious activity and generates alerts."
+  },
+  {
+    "q": "IPS",
+    "a": "Intrusion Prevention System: detects malicious activity and can automatically block or prevent it."
+  },
+  {
+    "q": "WAF",
+    "a": "Application-layer protection focused on HTTP/web traffic."
+  },
+  {
+    "q": "EDR",
+    "a": "Endpoint Detection and Response: continuously monitors endpoints for suspicious behavior and supports investigation and response."
+  },
+  {
+    "q": "PAM",
+    "a": "Privileged Access Management: protects, controls, monitors, and audits powerful administrative accounts and credentials."
+  },
+  {
+    "q": "Chain of Custody",
+    "a": "Documented record showing who collected, handled, transferred, stored, and controlled evidence."
+  },
+  {
+    "q": "BIA",
+    "a": "Business Impact Analysis: identifies critical functions and evaluates the effect of their disruption."
+  },
+  {
+    "q": "Risk Appetite",
+    "a": "The overall amount and type of risk an organization is willing to pursue or retain."
+  },
+  {
+    "q": "Residual Risk",
+    "a": "Risk remaining after controls and mitigation measures are applied."
+  },
+  {
+    "q": "DMARC",
+    "a": "Email authentication policy/reporting that builds on SPF/DKIM alignment."
+  },
+  {
+    "q": "3-2-1 backups",
+    "a": "Common resilience heuristic: three copies, two media/types, one offsite."
+  },
+  {
+    "q": "ACL",
+    "a": "Access Control List; explicit rules controlling operations or permitted network flows."
+  },
+  {
+    "q": "AEAD",
+    "a": "Authenticated Encryption with Associated Data; encryption that also detects tampering."
+  },
+  {
+    "q": "ALE",
+    "a": "Annualized Loss Expectancy: expected yearly loss, commonly calculated as SLE multiplied by ARO."
+  },
+  {
+    "q": "ARO",
+    "a": "Annualized Rate of Occurrence: the estimated number of times a risk event occurs per year."
+  },
+  {
+    "q": "API",
+    "a": "Application Programming Interface; a defined way software components exchange requests and results."
+  },
+  {
+    "q": "ARP",
+    "a": "Address Resolution Protocol; maps IPv4 neighbors to link-layer addresses on a LAN."
+  },
+  {
+    "q": "ATT&CK",
+    "a": "MITRE ATT&CK; a knowledge base of observed adversary tactics and techniques."
+  },
+  {
+    "q": "BYOD",
+    "a": "Bring Your Own Device: employees use personally owned devices for organizational work."
+  },
+  {
+    "q": "Certificate Authority (CA)",
+    "a": "A trusted entity that issues and signs digital certificates."
+  },
+  {
+    "q": "CASB",
+    "a": "Cloud Access Security Broker: enforces security policy between users and cloud services."
+  },
+  {
+    "q": "CIS",
+    "a": "Center for Internet Security; organization publishing security benchmarks and controls."
+  },
+  {
+    "q": "CNAME",
+    "a": "Canonical Name DNS record; points an alias to a canonical DNS name."
+  },
+  {
+    "q": "Certificate Revocation List (CRL)",
+    "a": "A published list of certificates that a certificate authority has revoked before expiration."
+  },
+  {
+    "q": "DKIM",
+    "a": "DomainKeys Identified Mail; signed email headers enabling verification of domain association."
+  },
+  {
+    "q": "DNSSEC",
+    "a": "DNS Security Extensions; signatures authenticating DNS record integrity and origin."
+  },
+  {
+    "q": "Disaster Recovery",
+    "a": "Plans and processes focused on restoring IT systems, data, and infrastructure after a major disruption."
+  },
+  {
+    "q": "ECC",
+    "a": "Elliptic Curve Cryptography; asymmetric cryptography based on elliptic curve mathematics."
+  },
+  {
+    "q": "EPSS",
+    "a": "Exploit Prediction Scoring System; estimates probability of known vulnerability exploitation in the wild."
+  },
+  {
+    "q": "FIDO2",
+    "a": "Fast Identity Online 2; public-key authentication supporting phishing-resistant passkeys/security keys."
+  },
+  {
+    "q": "IAM",
+    "a": "Identity and Access Management: processes and technologies for managing identities, authentication, authorization, and access lifecycle."
+  },
+  {
+    "q": "IaaS",
+    "a": "Infrastructure as a Service: cloud provider supplies compute, storage, and networking while the customer manages higher layers."
+  },
+  {
+    "q": "JIT",
+    "a": "Just-In-Time access; temporary privilege activation when needed."
+  },
+  {
+    "q": "KMS",
+    "a": "Key Management Service; managed system for creating, storing and controlling cryptographic keys."
+  },
+  {
+    "q": "LDAP",
+    "a": "Lightweight Directory Access Protocol: used to query and manage directory services."
+  },
+  {
+    "q": "MAM",
+    "a": "Mobile Application Management: controls and protects organizational applications and their data without necessarily managing the entire device."
+  },
+  {
+    "q": "MDM",
+    "a": "Mobile Device Management: centralized enrollment, configuration, security, inventory, and remote control of mobile devices."
+  },
+  {
+    "q": "MTTR",
+    "a": "Mean Time to Repair or Restore: average time required to restore a failed service or component."
+  },
+  {
+    "q": "NDR",
+    "a": "Network Detection and Response; analyzes network telemetry for suspicious activity."
+  },
+  {
+    "q": "NGFW",
+    "a": "Next-Generation Firewall; firewall with application-aware and threat-aware inspection."
+  },
+  {
+    "q": "OT",
+    "a": "Operational Technology: systems that monitor or control physical processes and industrial equipment."
+  },
+  {
+    "q": "PaaS",
+    "a": "Platform as a Service: provider manages infrastructure and runtime platform while the customer deploys applications and data."
+  },
+  {
+    "q": "PBQ",
+    "a": "Performance-Based Question; interactive exam item involving a practical scenario."
+  },
+  {
+    "q": "PFS",
+    "a": "Perfect Forward Secrecy; property protecting past session keys after long-term key compromise."
+  },
+  {
+    "q": "RADIUS",
+    "a": "Remote Authentication Dial-In User Service; centralized authentication/accounting protocol often used by enterprise Wi-Fi."
+  },
+  {
+    "q": "SaaS",
+    "a": "Software as a Service: provider operates the application and underlying platform while customers use the service."
+  },
+  {
+    "q": "SAN",
+    "a": "Subject Alternative Name; certificate extension listing permitted service identities."
+  },
+  {
+    "q": "SBOM",
+    "a": "Software Bill of Materials; inventory of components and dependencies in software."
+  },
+  {
+    "q": "SLE",
+    "a": "Single Loss Expectancy: the expected monetary loss from one occurrence of a risk event."
+  },
+  {
+    "q": "SPF",
+    "a": "Sender Policy Framework; DNS-based mechanism identifying authorized mail-sending hosts."
+  },
+  {
+    "q": "TPM",
+    "a": "Trusted Platform Module: hardware-based secure storage and cryptographic functions commonly used for measured boot and key protection."
+  },
+  {
+    "q": "UEFI",
+    "a": "Unified Extensible Firmware Interface; firmware interface controlling hardware startup/boot."
+  },
+  {
+    "q": "VPN",
+    "a": "Virtual Private Network: creates a protected logical connection across an untrusted network."
+  },
+  {
+    "q": "XDR",
+    "a": "Extended Detection and Response: correlates telemetry across multiple security layers such as endpoints, identity, email, cloud, and network."
+  },
+  {
+    "q": "ZTNA",
+    "a": "Zero Trust Network Access; policy-controlled access to applications without broad network trust."
+  },
+  {
+    "q": "Confidentiality",
+    "a": "Ensuring information is accessible only to authorized users, systems, and processes."
+  },
+  {
+    "q": "Integrity",
+    "a": "Ensuring data remains accurate, complete, and protected from unauthorized modification."
+  },
+  {
+    "q": "Availability",
+    "a": "Ensuring systems, services, and data are accessible when authorized users need them."
+  },
+  {
+    "q": "Non-repudiation",
+    "a": "Providing proof of origin or action so a party cannot credibly deny performing it."
+  },
+  {
+    "q": "Authentication",
+    "a": "Verifying the identity of a user, device, service, or process."
+  },
+  {
+    "q": "Authorization",
+    "a": "Determining what an authenticated identity is allowed to access or perform."
+  },
+  {
+    "q": "Accounting",
+    "a": "Recording and tracking user or system activity for auditing and accountability."
+  },
+  {
+    "q": "Need to Know",
+    "a": "Restricting information access to people whose duties specifically require that information."
+  },
+  {
+    "q": "Separation of Duties",
+    "a": "Dividing sensitive responsibilities among multiple people to reduce fraud, error, and abuse."
+  },
+  {
+    "q": "Dual Control",
+    "a": "Requiring two authorized people to complete a sensitive operation."
+  },
+  {
+    "q": "Implicit Deny",
+    "a": "Denying access unless it has been explicitly permitted by a rule or policy."
+  },
+  {
+    "q": "Attack Surface",
+    "a": "The total set of points where an attacker could attempt to enter, interact with, or extract data from a system."
+  },
+  {
+    "q": "Security Control",
+    "a": "A safeguard or countermeasure used to reduce risk or enforce a security objective."
+  },
+  {
+    "q": "Deterrent Control",
+    "a": "A control intended to discourage attackers or policy violations."
+  },
+  {
+    "q": "Directive Control",
+    "a": "A policy, standard, procedure, or instruction that tells people what security behavior is required."
+  },
+  {
+    "q": "Technical Control",
+    "a": "A security safeguard implemented using hardware, software, or technical configuration."
+  },
+  {
+    "q": "Managerial Control",
+    "a": "A governance, policy, risk, or administrative control directed by management."
+  },
+  {
+    "q": "Operational Control",
+    "a": "A security control carried out primarily by people and organizational processes."
+  },
+  {
+    "q": "Physical Control",
+    "a": "A security measure that physically protects facilities, equipment, or people."
+  },
+  {
+    "q": "Change Management",
+    "a": "A formal process for requesting, evaluating, approving, documenting, testing, and implementing changes."
+  },
+  {
+    "q": "Configuration Management",
+    "a": "Maintaining known, approved, and documented configurations for systems and devices."
+  },
+  {
+    "q": "Baseline Configuration",
+    "a": "A documented standard configuration used as an approved starting point for systems."
+  },
+  {
+    "q": "Secure Baseline",
+    "a": "A hardened minimum-security configuration used to consistently deploy systems."
+  },
+  {
+    "q": "Cryptography",
+    "a": "Using mathematical techniques to protect data confidentiality, integrity, authenticity, or non-repudiation."
+  },
+  {
+    "q": "Encryption",
+    "a": "Transforming readable plaintext into ciphertext using an algorithm and key."
+  },
+  {
+    "q": "Decryption",
+    "a": "Transforming ciphertext back into readable plaintext using the appropriate key."
+  },
+  {
+    "q": "Symmetric Encryption",
+    "a": "Encryption in which the same secret key is used to encrypt and decrypt data."
+  },
+  {
+    "q": "Asymmetric Encryption",
+    "a": "Encryption using a mathematically related public key and private key pair."
+  },
+  {
+    "q": "Hashing",
+    "a": "A one-way process that converts data into a fixed-length digest primarily for integrity verification."
+  },
+  {
+    "q": "Salting",
+    "a": "Adding unique random data to a password before hashing to resist precomputed hash attacks."
+  },
+  {
+    "q": "Digital Signature",
+    "a": "A cryptographic value created with a private key that provides integrity, authentication, and non-repudiation."
+  },
+  {
+    "q": "Digital Certificate",
+    "a": "A signed electronic credential that binds an identity to a public key."
+  },
+  {
+    "q": "Registration Authority (RA)",
+    "a": "An entity that verifies certificate applicant identities on behalf of a certificate authority."
+  },
+  {
+    "q": "Key Escrow",
+    "a": "Securely storing a copy of a cryptographic key so authorized recovery is possible."
+  },
+  {
+    "q": "Key Rotation",
+    "a": "Replacing cryptographic keys on a defined schedule or after specific events."
+  },
+  {
+    "q": "Tokenization",
+    "a": "Replacing sensitive data with a non-sensitive substitute token that has no exploitable value by itself."
+  },
+  {
+    "q": "Data Masking",
+    "a": "Obscuring sensitive data while preserving a usable format for testing, display, or limited operations."
+  },
+  {
+    "q": "Obfuscation",
+    "a": "Making code, data, or logic intentionally harder to understand without necessarily providing strong cryptographic protection."
+  },
+  {
+    "q": "Threat Actor",
+    "a": "An individual, group, or organization capable of intentionally or unintentionally causing a security incident."
+  },
+  {
+    "q": "Nation-State",
+    "a": "A government-backed threat actor typically possessing significant funding, skill, patience, and strategic objectives."
+  },
+  {
+    "q": "Hacktivist",
+    "a": "A threat actor motivated primarily by political, ideological, or social causes."
+  },
+  {
+    "q": "Insider Threat",
+    "a": "A security threat originating from a trusted user, contractor, partner, or other person with legitimate access."
+  },
+  {
+    "q": "Script Kiddie",
+    "a": "An inexperienced attacker who relies heavily on existing tools or exploits created by others."
+  },
+  {
+    "q": "Organized Crime",
+    "a": "A financially motivated criminal group conducting coordinated cybercrime for profit."
+  },
+  {
+    "q": "Shadow IT",
+    "a": "Technology, applications, or services used without formal approval or oversight from the organization."
+  },
+  {
+    "q": "Vulnerability",
+    "a": "A weakness that could be exploited by a threat to compromise a system or business process."
+  },
+  {
+    "q": "Exploit",
+    "a": "Code, commands, or techniques designed to take advantage of a vulnerability."
+  },
+  {
+    "q": "Zero-Day",
+    "a": "A previously unknown or unpatched vulnerability for which defenders may have little or no preparation."
+  },
+  {
+    "q": "Attack Vector",
+    "a": "The path or method an attacker uses to reach and exploit a target."
+  },
+  {
+    "q": "Malware",
+    "a": "Malicious software designed to disrupt, damage, spy on, control, or gain unauthorized access to systems."
+  },
+  {
+    "q": "Virus",
+    "a": "Malware that attaches to a host file or program and commonly requires user execution to spread."
+  },
+  {
+    "q": "Trojan",
+    "a": "Malware disguised as legitimate or desirable software to trick a user into executing it."
+  },
+  {
+    "q": "Spyware",
+    "a": "Malware that secretly collects information about users, systems, or activity."
+  },
+  {
+    "q": "Keylogger",
+    "a": "Software or hardware that records keystrokes to capture sensitive information such as passwords."
+  },
+  {
+    "q": "Logic Bomb",
+    "a": "Malicious code that activates when a specific condition, time, or event occurs."
+  },
+  {
+    "q": "Botnet",
+    "a": "A group of compromised devices remotely controlled to perform coordinated malicious activity."
+  },
+  {
+    "q": "Command and Control (C2)",
+    "a": "Infrastructure or communication channels attackers use to remotely control compromised systems."
+  },
+  {
+    "q": "Backdoor",
+    "a": "A hidden or undocumented method of bypassing normal authentication or security controls."
+  },
+  {
+    "q": "Pretexting",
+    "a": "Creating a fabricated scenario or identity to persuade a target to disclose information or take an action."
+  },
+  {
+    "q": "Baiting",
+    "a": "Enticing a victim with something desirable to cause unsafe behavior such as opening a file or connecting media."
+  },
+  {
+    "q": "Quid Pro Quo",
+    "a": "Offering a benefit or service in exchange for information, access, or an unsafe action."
+  },
+  {
+    "q": "Tailgating",
+    "a": "Following an authorized person into a restricted area without independently authenticating."
+  },
+  {
+    "q": "Shoulder Surfing",
+    "a": "Observing a person's screen, keyboard, or documents to steal sensitive information."
+  },
+  {
+    "q": "Dumpster Diving",
+    "a": "Searching discarded materials for sensitive information that can aid an attack."
+  },
+  {
+    "q": "Typosquatting",
+    "a": "Registering look-alike domain names based on common typing errors to deceive users."
+  },
+  {
+    "q": "Watering Hole Attack",
+    "a": "Compromising a site frequently visited by a target group so visitors can be attacked."
+  },
+  {
+    "q": "Credential Stuffing",
+    "a": "Using previously stolen username-password pairs to attempt logins on other services."
+  },
+  {
+    "q": "Password Spraying",
+    "a": "Trying one or a few common passwords against many accounts to avoid lockouts."
+  },
+  {
+    "q": "Brute-Force Attack",
+    "a": "Systematically trying many possible passwords, keys, or values until one succeeds."
+  },
+  {
+    "q": "Dictionary Attack",
+    "a": "Attempting authentication using a prepared list of likely words and commonly used passwords."
+  },
+  {
+    "q": "Rainbow Table",
+    "a": "A precomputed table of password hash values used to speed attacks against unsalted hashes."
+  },
+  {
+    "q": "Replay Attack",
+    "a": "Capturing valid authentication or transaction data and retransmitting it later to impersonate a legitimate action."
+  },
+  {
+    "q": "Session Hijacking",
+    "a": "Taking control of an authenticated session by stealing or predicting session identifiers."
+  },
+  {
+    "q": "ARP Poisoning",
+    "a": "Sending forged ARP messages to associate an attacker's MAC address with another device's IPv4 address."
+  },
+  {
+    "q": "DNS Poisoning",
+    "a": "Corrupting DNS information so users are redirected to incorrect or malicious destinations."
+  },
+  {
+    "q": "MAC Flooding",
+    "a": "Overwhelming a switch MAC table with bogus entries in an attempt to alter normal forwarding behavior."
+  },
+  {
+    "q": "VLAN Hopping",
+    "a": "An attack that attempts to send traffic into a VLAN the attacker is not authorized to access."
+  },
+  {
+    "q": "DoS",
+    "a": "Denial-of-service: making a system or service unavailable by exhausting or disrupting resources."
+  },
+  {
+    "q": "Cross-Site Scripting (XSS)",
+    "a": "Injecting malicious client-side script into content viewed by other users."
+  },
+  {
+    "q": "Cross-Site Request Forgery (CSRF)",
+    "a": "Tricking an authenticated user's browser into submitting an unwanted request to a trusted application."
+  },
+  {
+    "q": "Directory Traversal",
+    "a": "Manipulating file paths to access files or directories outside the intended application location."
+  },
+  {
+    "q": "Buffer Overflow",
+    "a": "Writing more data to a memory buffer than it can hold, potentially causing crashes or code execution."
+  },
+  {
+    "q": "Race Condition",
+    "a": "A flaw where system behavior depends on the timing or order of concurrent operations."
+  },
+  {
+    "q": "TOCTOU",
+    "a": "Time-of-check to time-of-use: a race condition where a resource changes after validation but before use."
+  },
+  {
+    "q": "Privilege Escalation",
+    "a": "Gaining permissions beyond those originally granted to an account or process."
+  },
+  {
+    "q": "Remote Code Execution (RCE)",
+    "a": "A vulnerability or exploit that lets an attacker execute code on a remote target."
+  },
+  {
+    "q": "Supply Chain Attack",
+    "a": "Compromising a supplier, dependency, update path, or other trusted third party to reach the final target."
+  },
+  {
+    "q": "Malicious Update",
+    "a": "A compromised or intentionally harmful software or firmware update delivered through a trusted-looking mechanism."
+  },
+  {
+    "q": "Firmware Attack",
+    "a": "An attack targeting low-level device firmware to gain persistence or control beneath the operating system."
+  },
+  {
+    "q": "Side-Channel Attack",
+    "a": "Deriving sensitive information from indirect signals such as timing, power use, electromagnetic leakage, or cache behavior."
+  },
+  {
+    "q": "Vulnerability Scan",
+    "a": "Automated inspection used to identify known weaknesses, missing patches, and insecure configurations."
+  },
+  {
+    "q": "Penetration Test",
+    "a": "An authorized attempt to exploit weaknesses to measure real-world security impact."
+  },
+  {
+    "q": "False Negative",
+    "a": "A security tool fails to detect a real malicious event or vulnerability."
+  },
+  {
+    "q": "Patch Management",
+    "a": "The process of identifying, testing, deploying, and verifying software and firmware updates."
+  },
+  {
+    "q": "Hardening",
+    "a": "Reducing attack surface by securely configuring systems, removing unnecessary functions, and applying protections."
+  },
+  {
+    "q": "Segmentation",
+    "a": "Dividing a network or environment into security zones to limit access and contain compromise."
+  },
+  {
+    "q": "Isolation",
+    "a": "Separating a system or workload so it has little or no communication with other resources."
+  },
+  {
+    "q": "Quarantine",
+    "a": "Restricting a suspicious or noncompliant device while allowing limited access for remediation or investigation."
+  },
+  {
+    "q": "Network Segmentation",
+    "a": "Dividing networks into separate logical or physical zones to limit lateral movement and enforce policy."
+  },
+  {
+    "q": "Air Gap",
+    "a": "Physical or logical separation that prevents direct network connectivity between systems."
+  },
+  {
+    "q": "Jump Server",
+    "a": "A hardened intermediary system used by administrators to securely access systems in restricted networks."
+  },
+  {
+    "q": "Bastion Host",
+    "a": "A hardened system intentionally exposed to an untrusted network to provide a controlled access point or service."
+  },
+  {
+    "q": "Firewall",
+    "a": "A security device or service that allows or blocks network traffic based on defined rules."
+  },
+  {
+    "q": "Stateful Firewall",
+    "a": "A firewall that tracks active connections and makes filtering decisions using session state."
+  },
+  {
+    "q": "Web Application Firewall (WAF)",
+    "a": "A firewall that inspects HTTP and HTTPS traffic to protect web applications from application-layer attacks."
+  },
+  {
+    "q": "Proxy Server",
+    "a": "An intermediary that makes network requests on behalf of clients and can filter, log, cache, or mask connections."
+  },
+  {
+    "q": "Reverse Proxy",
+    "a": "An intermediary placed in front of servers that receives client requests and forwards them to backend services."
+  },
+  {
+    "q": "NIDS",
+    "a": "Network-based Intrusion Detection System that monitors traffic on network segments."
+  },
+  {
+    "q": "HIDS",
+    "a": "Host-based Intrusion Detection System that monitors activity on an individual endpoint or server."
+  },
+  {
+    "q": "Site-to-Site VPN",
+    "a": "A VPN connecting entire networks or locations through secure gateways."
+  },
+  {
+    "q": "Remote-Access VPN",
+    "a": "A VPN that securely connects an individual remote user's device to an organization's network."
+  },
+  {
+    "q": "Secure Access Service Edge (SASE)",
+    "a": "A cloud-delivered architecture combining networking and security services such as SD-WAN, secure web gateway, and zero-trust access."
+  },
+  {
+    "q": "SD-WAN",
+    "a": "Software-defined wide area networking that centrally manages and optimizes WAN connectivity across multiple links."
+  },
+  {
+    "q": "Load Balancer",
+    "a": "Distributes requests across multiple servers to improve availability, scalability, and resilience."
+  },
+  {
+    "q": "High Availability",
+    "a": "Designing systems to minimize downtime through redundancy, failover, and resilient components."
+  },
+  {
+    "q": "Redundancy",
+    "a": "Providing duplicate components, links, or systems so service can continue after a failure."
+  },
+  {
+    "q": "Fault Tolerance",
+    "a": "The ability of a system to continue operating despite failure of one or more components."
+  },
+  {
+    "q": "RAID",
+    "a": "Redundant Array of Independent Disks: combines drives to improve resilience, performance, or both depending on level."
+  },
+  {
+    "q": "Cloud Computing",
+    "a": "On-demand access to shared computing resources delivered over a network with scalable and measured service."
+  },
+  {
+    "q": "Public Cloud",
+    "a": "Cloud resources offered over shared provider infrastructure to multiple customers."
+  },
+  {
+    "q": "Private Cloud",
+    "a": "Cloud environment dedicated to a single organization."
+  },
+  {
+    "q": "Hybrid Cloud",
+    "a": "An architecture combining private infrastructure with public cloud services."
+  },
+  {
+    "q": "Community Cloud",
+    "a": "Cloud infrastructure shared by organizations with common requirements or missions."
+  },
+  {
+    "q": "Shared Responsibility Model",
+    "a": "Cloud security model dividing security duties between the cloud provider and customer."
+  },
+  {
+    "q": "Container",
+    "a": "A lightweight isolated application environment sharing the host operating system kernel."
+  },
+  {
+    "q": "Virtual Machine",
+    "a": "A software-defined computer with virtualized hardware and its own guest operating system."
+  },
+  {
+    "q": "Hypervisor",
+    "a": "Software or firmware that creates and manages virtual machines."
+  },
+  {
+    "q": "Type 1 Hypervisor",
+    "a": "A bare-metal hypervisor that runs directly on physical hardware."
+  },
+  {
+    "q": "Type 2 Hypervisor",
+    "a": "A hosted hypervisor that runs as an application on a conventional operating system."
+  },
+  {
+    "q": "Serverless Computing",
+    "a": "A cloud execution model where the provider manages servers and customers deploy event-driven functions or code."
+  },
+  {
+    "q": "Edge Computing",
+    "a": "Processing data closer to users, devices, or data sources rather than only in centralized data centers."
+  },
+  {
+    "q": "IoT",
+    "a": "Internet of Things: network-connected embedded devices such as sensors, cameras, appliances, and controllers."
+  },
+  {
+    "q": "ICS",
+    "a": "Industrial Control System: hardware and software used to control industrial processes."
+  },
+  {
+    "q": "SCADA",
+    "a": "Supervisory Control and Data Acquisition: systems used to monitor and control geographically distributed industrial processes."
+  },
+  {
+    "q": "Embedded System",
+    "a": "A specialized computer built into a larger device to perform a dedicated function."
+  },
+  {
+    "q": "Data at Rest",
+    "a": "Data stored on persistent media such as disks, databases, backups, or removable storage."
+  },
+  {
+    "q": "Data in Transit",
+    "a": "Data actively moving between systems across a network or communication channel."
+  },
+  {
+    "q": "Data in Use",
+    "a": "Data currently being processed in memory or by an active application."
+  },
+  {
+    "q": "Secure Web Gateway",
+    "a": "A service or appliance that filters outbound web traffic and blocks malicious or prohibited content."
+  },
+  {
+    "q": "HSM",
+    "a": "Hardware Security Module: tamper-resistant hardware used to securely generate, store, and use cryptographic keys."
+  },
+  {
+    "q": "Secure Boot",
+    "a": "A boot security process that allows only cryptographically trusted firmware and software to execute during startup."
+  },
+  {
+    "q": "Something You Know",
+    "a": "An authentication factor based on knowledge, such as a password or PIN."
+  },
+  {
+    "q": "Something You Have",
+    "a": "An authentication factor based on possession, such as a smart card or hardware token."
+  },
+  {
+    "q": "Something You Are",
+    "a": "An authentication factor based on biometrics such as fingerprint or facial characteristics."
+  },
+  {
+    "q": "Somewhere You Are",
+    "a": "An authentication factor based on geographic or network location."
+  },
+  {
+    "q": "Something You Do",
+    "a": "An authentication factor based on behavioral characteristics such as typing rhythm or gestures."
+  },
+  {
+    "q": "Federation",
+    "a": "Establishing trust between separate identity domains so identities can access external services."
+  },
+  {
+    "q": "Kerberos",
+    "a": "A ticket-based network authentication protocol using a trusted Key Distribution Center."
+  },
+  {
+    "q": "DAC",
+    "a": "Discretionary Access Control: resource owners decide who receives access."
+  },
+  {
+    "q": "MAC Access Control",
+    "a": "Mandatory Access Control: centrally enforced access based on security labels and classifications."
+  },
+  {
+    "q": "Password Manager",
+    "a": "A tool that securely stores and generates credentials to reduce password reuse and weak passwords."
+  },
+  {
+    "q": "Antivirus",
+    "a": "Software that detects, blocks, and removes known or suspicious malicious software."
+  },
+  {
+    "q": "Allow List",
+    "a": "A policy that permits only explicitly approved applications, addresses, users, or actions."
+  },
+  {
+    "q": "Block List",
+    "a": "A policy that denies known prohibited applications, addresses, users, or actions."
+  },
+  {
+    "q": "Application Control",
+    "a": "Restricting which applications may execute or what actions applications may perform."
+  },
+  {
+    "q": "Host Firewall",
+    "a": "A software firewall running on an endpoint that filters traffic entering or leaving that host."
+  },
+  {
+    "q": "Full-Disk Encryption",
+    "a": "Encrypting an entire storage volume to protect data when a device is lost, stolen, or accessed offline."
+  },
+  {
+    "q": "COPE",
+    "a": "Corporate-Owned, Personally Enabled: organization-owned devices allow limited personal use."
+  },
+  {
+    "q": "CYOD",
+    "a": "Choose Your Own Device: users choose from an approved set of organization-supported devices."
+  },
+  {
+    "q": "COPE vs BYOD",
+    "a": "Device ownership distinction: COPE is company-owned with personal use allowed; BYOD is personally owned and used for work."
+  },
+  {
+    "q": "Asset Inventory",
+    "a": "A maintained record of hardware, software, cloud resources, accounts, and other assets."
+  },
+  {
+    "q": "Asset Management",
+    "a": "Tracking assets throughout acquisition, deployment, maintenance, ownership, and disposal."
+  },
+  {
+    "q": "EOL",
+    "a": "End of Life: a product is retired and may no longer receive updates or support."
+  },
+  {
+    "q": "EOSL",
+    "a": "End of Service Life: the vendor ends support or maintenance services for a product."
+  },
+  {
+    "q": "Secure Erase",
+    "a": "A sanitization process intended to make stored data unrecoverable using approved logical erase methods."
+  },
+  {
+    "q": "Data Sanitization",
+    "a": "Removing or destroying data so it cannot be recovered by unauthorized parties."
+  },
+  {
+    "q": "Shredding",
+    "a": "Physically destroying paper or certain media by cutting it into small pieces."
+  },
+  {
+    "q": "Degaussing",
+    "a": "Using a strong magnetic field to erase data from magnetic media."
+  },
+  {
+    "q": "Incident Response",
+    "a": "The structured process used to prepare for, detect, contain, eradicate, recover from, and learn from security incidents."
+  },
+  {
+    "q": "Preparation",
+    "a": "Incident response phase focused on plans, training, tools, access, communications, and readiness before an incident."
+  },
+  {
+    "q": "Detection and Analysis",
+    "a": "Incident response work used to identify potential incidents, validate alerts, scope impact, and determine severity."
+  },
+  {
+    "q": "Containment",
+    "a": "Incident response actions that limit the spread and impact of an active compromise."
+  },
+  {
+    "q": "Eradication",
+    "a": "Removing malicious artifacts, compromised accounts, vulnerabilities, and root causes from affected systems."
+  },
+  {
+    "q": "Recovery",
+    "a": "Safely restoring systems and services to normal operation after an incident."
+  },
+  {
+    "q": "Lessons Learned",
+    "a": "Post-incident review used to identify improvements to controls, processes, and response procedures."
+  },
+  {
+    "q": "Order of Volatility",
+    "a": "Priority for collecting evidence based on how quickly the data is likely to disappear or change."
+  },
+  {
+    "q": "Forensic Image",
+    "a": "A bit-for-bit copy of storage media created for forensic analysis while preserving the original evidence."
+  },
+  {
+    "q": "Write Blocker",
+    "a": "A hardware or software mechanism that prevents forensic tools from modifying source evidence."
+  },
+  {
+    "q": "Hash Verification",
+    "a": "Using cryptographic hashes to demonstrate that evidence or files have not changed."
+  },
+  {
+    "q": "Log",
+    "a": "A timestamped record of events generated by systems, applications, devices, or security tools."
+  },
+  {
+    "q": "Syslog",
+    "a": "A standard mechanism for transmitting event and log messages from devices to centralized collectors."
+  },
+  {
+    "q": "SNMP",
+    "a": "Simple Network Management Protocol: used to monitor and manage network devices."
+  },
+  {
+    "q": "NetFlow",
+    "a": "Network telemetry that summarizes traffic flows between endpoints, including addresses, ports, and byte counts."
+  },
+  {
+    "q": "Packet Capture",
+    "a": "Recording network packets for detailed protocol and traffic analysis."
+  },
+  {
+    "q": "Protocol Analyzer",
+    "a": "A tool such as Wireshark used to inspect and analyze captured network traffic."
+  },
+  {
+    "q": "Baseline",
+    "a": "A measured normal state used for comparison when identifying anomalies or performance changes."
+  },
+  {
+    "q": "Anomaly",
+    "a": "Activity or behavior that differs significantly from an established normal baseline."
+  },
+  {
+    "q": "Threat Intelligence",
+    "a": "Analyzed information about adversaries, indicators, tactics, vulnerabilities, and emerging threats."
+  },
+  {
+    "q": "IOC",
+    "a": "Indicator of Compromise: observable evidence suggesting that a system or environment may have been breached."
+  },
+  {
+    "q": "TTP",
+    "a": "Tactics, Techniques, and Procedures: patterns describing how adversaries operate."
+  },
+  {
+    "q": "Threat Hunting",
+    "a": "Proactively searching an environment for hidden threats not detected by automated tools."
+  },
+  {
+    "q": "Sandboxing",
+    "a": "Executing suspicious code in an isolated environment so behavior can be observed safely."
+  },
+  {
+    "q": "Honeypot",
+    "a": "A decoy system or service designed to attract attackers and reveal malicious activity."
+  },
+  {
+    "q": "Honeynet",
+    "a": "A network of decoy systems designed to observe attacker behavior."
+  },
+  {
+    "q": "DNS Sinkhole",
+    "a": "A defensive DNS technique that redirects malicious domains to a controlled destination."
+  },
+  {
+    "q": "Playbook",
+    "a": "A documented or automated set of actions for responding to a specific security event or scenario."
+  },
+  {
+    "q": "Runbook",
+    "a": "A detailed operational procedure describing how to perform a recurring technical task."
+  },
+  {
+    "q": "Security Automation",
+    "a": "Using scripts, orchestration, APIs, or platforms to perform security tasks with reduced manual effort."
+  },
+  {
+    "q": "Governance",
+    "a": "The framework of leadership, policies, responsibilities, and oversight used to direct an organization's security program."
+  },
+  {
+    "q": "Policy",
+    "a": "A high-level mandatory statement describing management's security expectations and rules."
+  },
+  {
+    "q": "Standard",
+    "a": "A mandatory detailed requirement that supports a policy and promotes consistency."
+  },
+  {
+    "q": "Procedure",
+    "a": "Step-by-step instructions for performing a specific task or process."
+  },
+  {
+    "q": "Guideline",
+    "a": "A recommended but generally non-mandatory security practice."
+  },
+  {
+    "q": "Risk",
+    "a": "The potential for loss or harm when a threat exploits a vulnerability."
+  },
+  {
+    "q": "Risk Assessment",
+    "a": "The process of identifying assets, threats, vulnerabilities, likelihood, and impact to determine risk."
+  },
+  {
+    "q": "Risk Tolerance",
+    "a": "The acceptable variation or specific amount of risk permitted around objectives."
+  },
+  {
+    "q": "Risk Register",
+    "a": "A documented list of identified risks, owners, ratings, responses, and status."
+  },
+  {
+    "q": "Risk Acceptance",
+    "a": "Acknowledging a risk and choosing to take no additional mitigation action."
+  },
+  {
+    "q": "Risk Avoidance",
+    "a": "Eliminating the activity or condition that creates the risk."
+  },
+  {
+    "q": "Risk Mitigation",
+    "a": "Reducing the likelihood or impact of a risk through security controls."
+  },
+  {
+    "q": "Risk Transfer",
+    "a": "Shifting some financial or operational impact of a risk to another party, such as through insurance."
+  },
+  {
+    "q": "Inherent Risk",
+    "a": "Risk that exists before security controls or treatments are applied."
+  },
+  {
+    "q": "Qualitative Risk Analysis",
+    "a": "Risk analysis using descriptive categories such as low, medium, and high rather than exact monetary values."
+  },
+  {
+    "q": "Quantitative Risk Analysis",
+    "a": "Risk analysis using numerical values and financial calculations."
+  },
+  {
+    "q": "MTBF",
+    "a": "Mean Time Between Failures: average operating time between repairable system failures."
+  },
+  {
+    "q": "Business Continuity",
+    "a": "Planning that keeps critical business functions operating during and after disruptions."
+  },
+  {
+    "q": "Hot Site",
+    "a": "A fully equipped alternate facility designed for rapid recovery with systems and connectivity ready."
+  },
+  {
+    "q": "Warm Site",
+    "a": "An alternate site with partial infrastructure that requires some setup or restoration before operation."
+  },
+  {
+    "q": "Cold Site",
+    "a": "An alternate facility with basic space and utilities but little or no ready computing equipment."
+  },
+  {
+    "q": "Full Backup",
+    "a": "A backup that copies all selected data regardless of whether it changed since previous backups."
+  },
+  {
+    "q": "Incremental Backup",
+    "a": "A backup that copies data changed since the most recent backup of any type."
+  },
+  {
+    "q": "Differential Backup",
+    "a": "A backup that copies data changed since the most recent full backup."
+  },
+  {
+    "q": "3-2-1 Backup Rule",
+    "a": "Maintain three copies of data on two different media types with one copy stored offsite."
+  },
+  {
+    "q": "Data Classification",
+    "a": "Categorizing data by sensitivity, value, and required protection."
+  },
+  {
+    "q": "Data Owner",
+    "a": "The person or role accountable for classifying data and determining protection and access requirements."
+  },
+  {
+    "q": "Data Custodian",
+    "a": "A person or team responsible for implementing and maintaining protections directed by the data owner."
+  },
+  {
+    "q": "Data Processor",
+    "a": "An entity that processes personal data on behalf of a data controller."
+  },
+  {
+    "q": "Data Controller",
+    "a": "An entity that determines the purposes and means of processing personal data."
+  },
+  {
+    "q": "Data Retention",
+    "a": "Rules defining how long information must be kept before deletion or archival."
+  },
+  {
+    "q": "Privacy",
+    "a": "The appropriate collection, use, storage, sharing, and protection of personal information."
+  },
+  {
+    "q": "PII",
+    "a": "Personally Identifiable Information: data that can identify or reasonably be linked to an individual."
+  },
+  {
+    "q": "PHI",
+    "a": "Protected Health Information: individually identifiable health information protected by applicable healthcare rules."
+  },
+  {
+    "q": "PCI DSS",
+    "a": "Payment Card Industry Data Security Standard: security requirements for environments handling payment card data."
+  },
+  {
+    "q": "HIPAA",
+    "a": "A U.S. law and regulatory framework governing privacy and security of certain protected health information."
+  },
+  {
+    "q": "GDPR",
+    "a": "European Union privacy regulation governing processing and protection of personal data."
+  },
+  {
+    "q": "NDA",
+    "a": "Non-Disclosure Agreement: a contract requiring parties to protect confidential information."
+  },
+  {
+    "q": "SLA",
+    "a": "Service Level Agreement: defines measurable service expectations such as uptime or response times."
+  },
+  {
+    "q": "MOU",
+    "a": "Memorandum of Understanding: documents an agreement or shared expectations between parties."
+  },
+  {
+    "q": "MSA",
+    "a": "Master Service Agreement: establishes general contractual terms governing ongoing services between parties."
+  },
+  {
+    "q": "Due Care",
+    "a": "Taking reasonable actions expected to protect assets and reduce known risks."
+  },
+  {
+    "q": "Due Diligence",
+    "a": "Investigating, assessing, and continuously verifying that reasonable security measures are appropriate and effective."
+  },
+  {
+    "q": "Third-Party Risk",
+    "a": "Risk introduced by vendors, suppliers, contractors, service providers, or other external organizations."
+  },
+  {
+    "q": "Vendor Assessment",
+    "a": "Evaluating a supplier's security posture, controls, risks, and compliance before or during a relationship."
+  },
+  {
+    "q": "Security Awareness Training",
+    "a": "Education that teaches users to recognize threats and follow secure behaviors and organizational policies."
+  },
+  {
+    "q": "Acceptable Use Policy (AUP)",
+    "a": "A policy describing permitted and prohibited use of organizational technology and information resources."
+  },
+  {
+    "q": "Incident Response Plan",
+    "a": "A formal document defining roles, communications, escalation, and procedures for responding to security incidents."
+  },
+  {
+    "q": "Tabletop Exercise",
+    "a": "A discussion-based exercise where participants walk through a simulated incident or disaster scenario."
+  },
+  {
+    "q": "Audit",
+    "a": "A formal examination of controls, records, processes, or compliance against defined criteria."
+  },
+  {
+    "q": "Compliance",
+    "a": "Meeting applicable laws, regulations, standards, contracts, and internal requirements."
+  }
+],
   "questions": [
     {
       "d": 0,
