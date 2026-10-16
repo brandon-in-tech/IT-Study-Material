@@ -4783,9 +4783,7 @@ function showLesson(index) {
 function buildToc() {
   $('sidebarToc').innerHTML='<div class="toc-heading">TABLE OF CONTENTS</div>'+DATA.domains.map((g,d)=>{
     const buttons=DATA.lessons.map((l,i)=>l.domain===d?`<button data-lesson="${i}">${String(i+1).padStart(2,'0')} · ${esc(l.title)}</button>`:'').join('');
-    return 
-`<details class="toc-group" data-group="${d}"><summary>${d+1}. ${esc(g.name)} · ${g.weight}%</summary><div class="toc-links">${buttons}</div></details>`;
-
+    return `<details class="toc-group" data-group="${d}" ${d===0?'open':''}><summary>${d+1}. ${esc(g.name)} · ${g.weight}%</summary><div class="toc-links">${buttons}</div></details>`;
   }).join('');
   document.querySelectorAll('[data-lesson]').forEach(btn=>btn.onclick=()=>showLesson(Number(btn.dataset.lesson)));
 }
