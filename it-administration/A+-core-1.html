@@ -1,0 +1,1487 @@
+<!doctype html>
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width,initial-scale=1" name="viewport"/>
+  <meta content="Complete CompTIA A+ Core 1 220-1201 masterclass with hardware, networking, cloud, troubleshooting, labs, flashcards, quizzes and guided slide-by-slide lessons." name="description"/>
+  <title>
+   CompTIA A+ Core 1 220-1201 | Complete Study Masterclass
+  </title>
+  <style>
+   /* ============================================================
+   A+ CORE 1 MASTERCLASS — CONSOLIDATED STYLES
+   Shared components first; responsive layouts at the bottom.
+   ============================================================ */
+
+:root {
+  --ink: #101f33;
+  --navy: #102b4d;
+  --navy2: #183d67;
+  --blue: #2566ae;
+  --bg: #f4f7fa;
+  --white: #fff;
+  --muted: #607086;
+  --line: #dce5ed;
+  --good: #17644c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.68 Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+}
+
+a {
+  color: #185a9c;
+}
+
+button,input,select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+/* 01 — Layout & typography */
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0,1fr);
+  max-width: 1550px;
+  margin: auto;
+  gap: 23px;
+  padding: 22px;
+}
+
+
+/* 02 — Sidebar & navigation */
+
+.sidebar {
+  background: linear-gradient(150deg,#102746,#183e68);
+  color: #fff;
+  border-radius: 19px;
+  padding: 24px;
+  position: sticky;
+  top: 18px;
+  height: calc(100vh - 36px);
+  overflow: auto;
+  box-shadow: 0 18px 40px #0f315422;
+}
+
+.sidebar .brand {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9ec8ec;
+}
+
+.sidebar h1 {
+  line-height: 1.17;
+  font-size: 25px;
+  margin: 12px 0;
+}
+
+.sidebar p {
+  color: #ccdeed;
+  font-size: 13px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 24px 0;
+}
+
+.nav button {
+  border: 1px solid #ffffff24;
+  background: #ffffff0c;
+  color: #dbeafa;
+  border-radius: 10px;
+  text-align: left;
+  padding: 11px 12px;
+}
+
+.nav button.active,.nav button:hover {
+  background: #eaf3ff;
+  color: #153658;
+}
+
+.sidebar small {
+  color: #c5d9eb;
+}
+
+.content {
+  min-width: 0;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.tags span {
+  background: #ffffff18;
+  border: 1px solid #ffffff34;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+}
+
+
+/* 03 — Study sections & statistics */
+
+.section {
+  display: none;
+}
+
+.section.visible {
+  display: block;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.stat {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 17px;
+}
+
+.stat strong {
+  display: block;
+  color: #174977;
+  font-size: 25px;
+}
+
+.stat span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+
+/* 04 — Lessons, controls & content */
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 25px;
+  margin: 18px 0;
+  box-shadow: 0 6px 20px #2945620a;
+}
+
+.panel h3 {
+  font-size: 24px;
+  margin: 0 0 13px;
+  color: #142f4f;
+}
+
+.panel h4 {
+  font-size: 17px;
+  color: #17436b;
+  margin: 15px 0 7px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.domain {
+  margin: 20px 0;
+}
+
+.domain-head {
+  background: #eaf2fa;
+  border-radius: 12px;
+  padding: 14px 17px;
+  font-weight: 700;
+  color: #19456f;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lesson {
+  border: 1px solid #dce7f2;
+  border-radius: 12px;
+  margin-top: 11px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.lesson summary {
+  cursor: pointer;
+  padding: 18px 20px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #163c62;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.lesson summary::marker {
+  color: #2e6caa;
+}
+
+.lesson-body {
+  border-top: 1px solid #e5edf4;
+  padding: 8px 21px 19px;
+}
+
+.callout {
+  padding: 13px 17px;
+  background: #f0f6fd;
+  border-left: 4px solid #2868a8;
+  border-radius: 5px;
+  margin: 12px 0;
+}
+
+.caution {
+  background: #f9f4e8;
+  border-left-color: #a97929;
+}
+
+.search {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #bbccdf;
+  border-radius: 10px;
+  background: #fff;
+  margin: 10px 0;
+}
+
+.btn {
+  border: 0;
+  background: #1b568f;
+  color: #fff;
+  border-radius: 9px;
+  padding: 10px 15px;
+  font-weight: 650;
+}
+
+.btn.secondary {
+  background: #e6f0fa;
+  color: #18476f;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.progress {
+  background: #e3ebf3;
+  border-radius: 20px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress>div {
+  height: 100%;
+  background: #1c699f;
+  width: 0;
+  transition: width .25s;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #245579;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.check input {
+  accent-color: #185c92;
+}
+
+.flashcard {
+  background: linear-gradient(145deg,#143356,#1b4a78);
+  color: #fff;
+  min-height: 205px;
+  border-radius: 15px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 700;
+  white-space: pre-line;
+}
+
+.flashcard.answer {
+  background: linear-gradient(145deg,#184b6b,#24698b);
+}
+
+.question {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 17px;
+  margin: 12px 0;
+}
+
+.question strong {
+  display: block;
+  margin-bottom: 9px;
+}
+
+.choice {
+  display: block;
+  border: 1px solid #d9e6f1;
+  background: #f7fafd;
+  border-radius: 8px;
+  padding: 9px 12px;
+  margin: 6px 0;
+  text-align: left;
+  width: 100%;
+  color: #173650;
+}
+
+.choice.chosen {
+  background: #d8eafa;
+  border-color: #2c6aa2;
+}
+
+.choice.good {
+  border-color: #2f9167;
+  background: #e8f7ee;
+}
+
+.choice.bad {
+  border-color: #be5454;
+  background: #ffebeb;
+}
+
+.explain {
+  background: #eff5fc;
+  padding: 10px 13px;
+  border-radius: 8px;
+  margin-top: 11px;
+}
+
+.lab {
+  border: 1px solid #dae7f1;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 13px 0;
+}
+
+.lab h4 {
+  margin: 0 0 8px;
+}
+
+.pill {
+  display: inline-block;
+  background: #e6f0fa;
+  color: #1d4d7a;
+  border-radius: 50px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  margin: 4px 3px 4px 0;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 15px;
+}
+
+.roadmap {
+  padding-left: 25px;
+}
+
+.roadmap li {
+  padding: 7px;
+}
+
+.footer {
+  padding: 30px 5px;
+  color: #62758a;
+  font-size: 12px;
+}
+
+code {
+  background: #edf3f9;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,th {
+  padding: 10px;
+  border-bottom: 1px solid #e4ebf2;
+  text-align: left;
+}
+
+th {
+  color: #1e4d7a;
+}
+
+ul {
+  padding-left: 22px;
+}
+
+
+/* 05 — Branding & deep-dive topics */
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 17px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.site-brand img {
+  width: 43px;
+  height: 43px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.site-brand small {
+  display: block;
+  letter-spacing: .06em;
+  color: #b6d8fb;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.hero-brand {
+  position: absolute;
+  right: 24px;
+  top: 19px;
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px #fff);
+  z-index: 2;
+}
+
+.lesson-body .deep-topic {
+  border-left: 3px solid #2869aa;
+  margin: 18px 0 15px;
+  padding: 5px 0 5px 17px;
+  background: linear-gradient(90deg,#eaf3fd 0%,#fff 90%);
+  border-radius: 0 10px 10px 0;
+}
+
+.lesson-body .deep-topic h4 {
+  margin: 6px 0;
+  color: #173d6a;
+}
+
+.lesson-body .deep-topic p {
+  margin: 5px 0 10px;
+  line-height: 1.85;
+}
+
+
+/* ============================================================
+   06 — Hero artwork, typography & gradient
+   One canonical definition: no background overrides or !important.
+   ============================================================ */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 390px;
+  padding: 58px 43px;
+  border-radius: 20px;
+  color: #0b2948;
+  background-color: #f5faff;
+  background-image:
+    linear-gradient(90deg,
+      rgba(245,250,255,.98) 0%,
+      rgba(245,250,255,.92) 15%,
+      rgba(245,250,255,.55) 27%,
+      rgba(245,250,255,0) 40%),
+    url('../assets/aplus-core-1-hero.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0 16px 40px #143e6520;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+  color: #a9d4fb;
+}
+
+.hero .eyebrow {
+  color: #1d568a;
+  font-weight: 800;
+  max-width: 57%;
+  text-shadow: 0 1px 0 #fff9;
+}
+
+.hero h2 {
+  color: #102c50;
+  max-width: 60%;
+  font-size: clamp(31px, 3.7vw, 52px);
+  line-height: 1.13;
+  margin: 13px 0;
+  text-shadow: 0 1px 6px #fff9;
+}
+
+.hero p {
+  color: #203e60;
+  max-width: 54%;
+  font-size: 16px;
+  font-weight: 550;
+  text-shadow: 0 1px 5px #fff;
+}
+
+.hero .tags {
+  max-width: 65%;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .tags span {
+  background: #ffffffd9;
+  border: 1px solid #9ac4e1;
+  color: #164c7d;
+  font-weight: 650;
+}
+
+/* ============================================================
+   07 — Responsive tablet
+   ============================================================ */
+@media (max-width: 1000px) {
+  .layout { display: block; padding: 12px; }
+  .sidebar { position: relative; height: auto; top: 0; }
+  .nav { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 780px) {
+  .hero {
+    min-height: 370px;
+    padding: 31px 24px;
+    background-position: 47% center;
+  }
+  .hero h2,
+  .hero p,
+  .hero .eyebrow,
+  .hero .tags { max-width: 92%; }
+  .hero-brand { width: 38px; height: 38px; right: 13px; top: 12px; }
+}
+
+/* ============================================================
+   08 — Responsive mobile: hero → navigation → study sections
+   Preserve source HTML and all JavaScript hooks unchanged.
+   ============================================================ */
+@media (max-width: 600px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 12px;
+  }
+
+  /* Allows the existing hero and sections to be reordered
+     without moving or removing HTML elements. */
+  .content { display: contents; }
+
+  .content > .hero {
+    order: -1;
+    width: 100%;
+    min-height: 440px;
+    margin: 0;
+    padding: 31px 24px;
+    border-radius: 18px;
+    background-position: 65% center;
+    background-image:
+      linear-gradient(90deg,
+        rgba(245,250,255,.88) 0%,
+        rgba(245,250,255,.60) 17%,
+        rgba(245,250,255,.10) 38%,
+        rgba(245,250,255,0) 50%),
+      url('../assets/aplus-core-1-hero.png');
+  }
+
+  .sidebar {
+    order: 0;
+    position: relative;
+    top: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  .content > .section {
+    order: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .content > .footer { order: 2; width: 100%; }
+
+  /* The original description remains in the DOM and keeps
+     its height; only its visual rendering is hidden. */
+  .content > .hero > p { visibility: hidden; }
+
+  .hero h2,
+  .hero .eyebrow,
+  .hero .tags { max-width: 92%; }
+
+  .hero-brand { width: 38px; height: 38px; right: 13px; top: 12px; }
+  .panel { padding: 18px; }
+  .nav { grid-template-columns: repeat(2, 1fr); }
+  .grid2 { grid-template-columns: 1fr; }
+  .flashcard { font-size: 19px; padding: 20px; }
+  .domain-head { display: block; }
+}
+
+
+/* STUDY CONTENT ORGANIZATION — hero styling intentionally untouched */
+.study-toc { margin:20px 0 25px; padding:23px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 6px 20px #2945620a; }
+.study-toc h3 { margin:0 0 7px; color:#142f4f; font-size:23px; }
+.study-toc > p { color:var(--muted); margin:0 0 17px; }
+.toc-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; }
+.toc-group { border:1px solid #dce7f2; border-radius:12px; overflow:hidden; background:#f9fbfe; }
+.toc-group h4 { margin:0; background:#eaf2fa; color:#19456f; padding:13px 15px; font-size:14px; line-height:1.45; }
+.toc-group h4 .weight { font-size:11px; font-weight:600; color:#56718c; white-space:nowrap; }
+.toc-group ol { margin:0; padding:9px 12px 12px 36px; }
+.toc-group li { font-size:13px; line-height:1.5; padding:4px 0; color:#58758e; }
+.toc-link { color:#185a9c; text-decoration:none; cursor:pointer; border:0; background:none; padding:0; font:inherit; text-align:left; }
+.toc-link:hover, .toc-link:focus-visible { color:#103b67; text-decoration:underline; }
+.domain-intro { margin:0 0 13px; padding:15px 18px; background:#f4f8fc; border:1px solid #dce7f2; border-top:0; border-radius:0 0 12px 12px; color:#405e79; }
+.domain-intro p { margin:0; }
+.domain-head { border-radius:12px 12px 0 0; }
+.lesson-number { color:#4b769c; font-weight:700; font-size:12px; min-width:27px; }
+.lesson:target { outline:2px solid #3779af; outline-offset:3px; }
+.section-heading { display:flex; align-items:center; flex-wrap:wrap; justify-content:space-between; gap:10px; margin:26px 0 8px; padding:13px 17px; background:#102b4d; color:#fff; border-radius:11px; }
+.section-heading h4 { color:#fff; margin:0; font-size:18px; }
+.section-heading span { color:#c9e1f5; font-size:12px; }
+@media(max-width:780px){.toc-grid{grid-template-columns:1fr}.study-toc{padding:17px}}
+
+/* Sidebar-only table of contents. Hero and lesson artwork intentionally unchanged. */
+.sidebar-toc{margin:22px 0 16px;padding-top:19px;border-top:1px solid #ffffff30}
+.sidebar-toc-title{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#fff;font-size:14px;font-weight:800;letter-spacing:.02em}
+.sidebar-toc-title span{color:#b6d8fb;font-size:10px;white-space:nowrap;font-weight:600}
+.sidebar-toc-help{font-size:11px!important;line-height:1.5;margin:7px 0 14px;color:#c5d9eb!important}
+.sidebar-toc-group{border:1px solid #ffffff22;border-radius:10px;background:#ffffff08;margin:8px 0;overflow:hidden}
+.sidebar-toc-group summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;color:#e5f1ff;font-size:12px;font-weight:700;line-height:1.45;list-style:none}
+.sidebar-toc-group summary::-webkit-details-marker{display:none}
+.sidebar-toc-group summary::before{content:'▸';font-size:12px;color:#9ec8ec;flex-shrink:0}
+.sidebar-toc-group[open] summary::before{content:'▾'}
+.sidebar-toc-group summary span{flex:1}
+.sidebar-toc-group summary small{color:#b6d8fb;font-size:10px;white-space:nowrap}
+.sidebar-toc-group[open] summary{background:#ffffff12}
+.sidebar-toc-links{display:flex;flex-direction:column;gap:2px;padding:6px}
+.sidebar-toc-link{width:100%;color:#d5e5f5;border:0;border-radius:6px;text-align:left;background:transparent;padding:9px 10px;font-size:12px;line-height:1.4;cursor:pointer}
+.sidebar-toc-link:hover,.sidebar-toc-link:focus-visible,.sidebar-toc-link.selected{background:#eaf3ff;color:#153658}
+@media(max-width:1000px){.sidebar-toc-links{max-height:280px;overflow:auto}}
+
+/* Reader mode: one complete topic per page, matching the existing colors. */
+.sidebar-toc{margin:4px 0 18px;padding-top:13px}
+.reader-slide{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;margin-top:20px;min-height:560px}
+.reader-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;background:#eaf2fa;color:#19456f;padding:16px 22px;font-weight:750;font-size:13px}
+.reader-intro{padding:16px 22px;background:#f7fafd;border-bottom:1px solid var(--line);color:#50677e}
+.reader-count{padding:24px 24px 0;color:#2566ae;font-weight:800;letter-spacing:.09em;font-size:11px}
+.reader-count span{color:var(--muted);font-weight:550;letter-spacing:0}
+.reader-title{font-size:clamp(23px,3vw,34px)!important;line-height:1.23;margin:8px 24px 12px!important}
+.reader-body{padding:0 24px 22px;font-size:15px;line-height:1.85}
+.reader-body h4{font-size:18px;color:#17436b;margin:26px 0 9px;border-bottom:1px solid #e5edf4;padding-bottom:8px}
+.reader-body .deep-topic{border-left:3px solid #2869aa;margin:24px 0;padding:7px 15px;background:linear-gradient(90deg,#eaf3fd,#fff);border-radius:0 10px 10px 0}
+.reader-body .deep-topic h4{border:0;margin:3px 0 7px;padding:0}
+.reader-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 23px;border-top:1px solid var(--line);background:#f7fafd}
+.reader-footer span{color:#607086;font-size:13px}
+.reader-footer button:disabled{opacity:.45;cursor:not-allowed}
+#lessonsRoot{scroll-margin-top:18px}
+@media(max-width:600px){.reader-meta,.reader-intro{padding:13px 15px}.reader-body{padding:0 15px 18px}.reader-count{padding:18px 15px 0}.reader-title{margin:8px 15px 14px!important}.reader-footer{padding:14px 10px;gap:6px}.reader-footer .btn{padding:9px 10px;font-size:12px}}
+
+/* A+ content adaptation — keeps the Security+ reader geometry */
+.hero { background-position: center center; }
+.hero .eyebrow, .hero h2, .hero p { max-width: 60%; }
+.hero .tags { max-width: 65%; }
+.reader-body ul, .reader-body ol { padding-left: 24px; }
+.reader-body li { margin: 9px 0; }
+.reader-check { display: inline-flex; align-items: center; gap: 9px; padding: 11px 13px; border: 1px solid #d5e6f2; border-radius: 9px; color: #19456f; font-weight: 750; background: #edf6ff; cursor: pointer; }
+.reader-check input { accent-color: #1d568a; }
+.reader-footer button { min-width: 90px; }
+#lessonsRoot { min-height: 500px; }
+@media (max-width: 600px) {
+  .content > .hero { background-position: 76% center; }
+  .content > .hero > p { visibility: hidden; }
+  .hero .eyebrow, .hero h2, .hero p, .hero .tags { max-width: 92%; }
+  .hero .tags { margin-top: 15px; }
+}
+  </style>
+ </head>
+ <body>
+  <div class="layout">
+   <aside class="sidebar">
+    <a aria-label="Brandon Stevenson IT Study Materials home" class="site-brand" href="../index.html">
+     <img alt="Brandon Stevenson logo" onerror="this.style.display='none'" src="../assets/brandons-logo.png"/>
+     <span>
+      IT Study Materials
+      <small>
+       Brandon Stevenson
+      </small>
+     </span>
+    </a>
+    <nav aria-label="A+ Core 1 lesson table of contents" class="sidebar-toc" id="sidebarToc">
+    </nav>
+    <h1>
+     A+ Core 1
+     <br/>
+     Complete Masterclass
+    </h1>
+    <p>
+     · In-depth hardware, networking, cloud and troubleshooting exam preparation
+    </p>
+    <div class="nav" id="nav">
+     <button data-page="overview">
+      Overview
+     </button>
+     <button class="active" data-page="lessons">
+      Detailed Lessons
+     </button>
+     <button data-page="flashcards">
+      Flashcards
+     </button>
+     <button data-page="quiz">
+      Practice Exam
+     </button>
+     <button data-page="labs">
+      Hands-on Labs
+     </button>
+     <button data-page="plan">
+      Study Plan
+     </button>
+     <button data-page="reference">
+      Quick Reference
+     </button>
+    </div>
+    <p>
+     <small>
+      Progress is stored locally in this browser. No account or backend required.
+     </small>
+    </p>
+    <button class="btn secondary" id="reset">
+     Reset progress
+    </button>
+   </aside>
+   <main class="content">
+    <header class="hero">
+     <img alt="Brandon Stevenson logo" class="hero-brand" onerror="this.style.display='none'" src="../assets/brandons-logo.png"/>
+     <div class="eyebrow">
+      Hardware · Networking · Mobile Devices · Cloud · Troubleshooting
+     </div>
+     <h2>
+      CompTIA A+ Core 1
+      <br/>
+      220-1201 Study Guide
+     </h2>
+     <p>
+      An in-depth IT infrastructure and hardware curriculum: explore mobile devices, networking, computer components, cloud platforms and real-world troubleshooting through technical lessons and practical exercises.
+     </p>
+     <div class="tags">
+      <span>
+       Five exam domains
+      </span>
+      <span>
+       25 detailed lessons
+      </span>
+      <span>
+       Flashcards &amp; feedback
+      </span>
+      <span>
+       8 hands-on labs
+      </span>
+      <span>
+       Local progress
+      </span>
+     </div>
+    </header>
+    <section class="section" id="overview">
+     <div class="stats" id="stats">
+     </div>
+     <div class="panel">
+      <h3>
+       Start here
+      </h3>
+      <p>
+       The A+ Core 1 220-1201 curriculum builds foundations in mobile devices, networking, hardware, virtualization, cloud infrastructure and hardware/network troubleshooting. Work through a complete lesson one at a time, then apply the concepts in labs.
+      </p>
+      <div class="actions">
+       <button class="btn" data-jump="lessons">
+        Start detailed lessons →
+       </button>
+       <button class="btn" data-jump="quiz">
+        Take a practice exam
+       </button>
+      </div>
+     </div>
+     <div class="panel">
+      <h3>
+       220-1201 exam domains
+      </h3>
+      <p>
+       The five Core 1 domains below organize your study sequence. Use the sidebar table of contents to jump to a specific topic.
+      </p>
+      <div id="weights">
+      </div>
+     </div>
+     <div class="panel">
+      <h3>
+       How to study effectively
+      </h3>
+      <p>
+       Read one lesson, practice the troubleshooting workflow, complete a safe lab on equipment you own or are authorized to use, and test your knowledge with flashcards and practice questions.
+      </p>
+     </div>
+    </section>
+    <section class="section visible" id="lessons">
+     <div class="panel">
+      <h3>
+       Detailed A+ Core 1 learning modules
+      </h3>
+      <p class="muted">
+       Study one full topic at a time, just like Security+. Select a lesson in the left table of contents or use Previous / Next. Search to narrow the lessons.
+      </p>
+      <input class="search" id="lessonSearch" placeholder="Search lessons: RAID, printers, CPU, DHCP, Wi-Fi..." type="search"/>
+      <div class="progress">
+       <div id="progressFill">
+       </div>
+      </div>
+      <p class="muted" id="progressText">
+      </p>
+      <div id="lessonsRoot">
+      </div>
+     </div>
+    </section>
+    <section class="section" id="flashcards">
+     <div class="panel">
+      <h3>
+       Interactive A+ Core 1 flashcards
+      </h3>
+      <p class="muted">
+       Flip cards to reveal the explanation. Filter by a word or acronym to focus your revision.
+      </p>
+      <input class="search" id="cardSearch" placeholder="Find a card: PCIe, NVMe, DNS, RAID..."/>
+      <div class="stats" style="grid-template-columns:repeat(2,1fr)">
+       <div class="stat">
+        <strong id="cardIndex">
+         1
+        </strong>
+        <span>
+         Current card
+        </span>
+       </div>
+       <div class="stat">
+        <strong id="cardTotal">
+         0
+        </strong>
+        <span>
+         Matching cards
+        </span>
+       </div>
+      </div>
+      <div aria-label="Flip current flashcard" class="flashcard" id="card" role="button" tabindex="0">
+      </div>
+      <p class="muted" style="text-align:center">
+       Click or press Enter to flip.
+      </p>
+      <div class="actions" style="justify-content:center">
+       <button class="btn secondary" id="prevCard">
+        ← Previous
+       </button>
+       <button class="btn" id="flipCard">
+        Flip Card
+       </button>
+       <button class="btn secondary" id="nextCard">
+        Next →
+       </button>
+       <button class="btn secondary" id="shuffleCards">
+        Shuffle
+       </button>
+      </div>
+     </div>
+    </section>
+    <section class="section" id="quiz">
+     <div class="panel">
+      <h3>
+       A+ Core 1 practice exam with explanations
+      </h3>
+      <p class="muted">
+       Choose a domain or all domains, then generate a randomized practice set. Questions are original, exam-style learning practice—not official exam questions.
+      </p>
+      <div class="actions">
+       <select class="search" id="quizDomain" style="max-width:440px">
+       </select>
+       <button class="btn" id="newQuiz">
+        Generate practice exam
+       </button>
+       <button class="btn secondary" id="gradeQuiz">
+        Grade answers
+       </button>
+      </div>
+      <div class="callout" hidden="" id="quizScore">
+      </div>
+      <div id="quizRoot">
+      </div>
+     </div>
+    </section>
+    <section class="section" id="labs">
+     <div class="panel">
+      <h3>
+       8 hands-on A+ Core 1 labs and practical projects
+      </h3>
+      <p>
+       Practice on devices and virtual machines you own or have permission to manage. Preserve evidence in your portfolio and avoid altering production assets without authorization.
+      </p>
+      <div id="labsRoot">
+      </div>
+     </div>
+    </section>
+    <section class="section" id="plan">
+     <div class="panel">
+      <h3>
+       Eight-week A+ Core 1 preparation roadmap
+      </h3>
+      <ol class="roadmap">
+       <li>
+        Weeks 1–2: Mobile hardware, laptop components, wireless technology, network addresses and protocols.
+       </li>
+       <li>
+        Week 3: Computer hardware, motherboards, storage, RAID, expansion devices and printers.
+       </li>
+       <li>
+        Week 4: Virtualization, cloud concepts, networking equipment and troubleshooting tools.
+       </li>
+       <li>
+        Weeks 5–6: Work through all practical labs; record safe diagnostic workflows and screenshots.
+       </li>
+       <li>
+        Week 7: Review weak topics with the sidebar table of contents and flashcards.
+       </li>
+       <li>
+        Week 8: Take practice assessments, read explanations, and revisit official CompTIA objectives.
+       </li>
+      </ol>
+     </div>
+    </section>
+    <section class="section" id="reference">
+     <div class="panel">
+      <div class="eyebrow">
+       Quick reference
+      </div>
+      <h2>
+       Commands, port numbers &amp; workbench notes
+      </h2>
+      <h3>
+       Essential Windows network checks
+      </h3>
+      <pre>ipconfig /all                  # Read addressing and DNS settings
+ping 127.0.0.1                # Test local TCP/IP loopback
+ping 192.168.1.1              # Test an example local gateway
+nslookup example.com          # Query DNS
+tracert example.com           # View IP path hops
+netstat -ano                  # Show connections/listening sockets
+powershell: Test-NetConnection example.com -Port 443</pre>
+      <h3>
+       Common service ports
+      </h3>
+      <div class="tablewrap">
+       <table>
+        <thead>
+         <tr>
+          <th>
+           Service
+          </th>
+          <th>
+           Port
+          </th>
+          <th>
+           Purpose
+          </th>
+         </tr>
+        </thead>
+        <tbody>
+         <tr>
+          <td>
+           FTP
+          </td>
+          <td>
+           20/21 TCP
+          </td>
+          <td>
+           Legacy file transfer
+          </td>
+         </tr>
+         <tr>
+          <td>
+           SSH
+          </td>
+          <td>
+           22 TCP
+          </td>
+          <td>
+           Encrypted remote CLI
+          </td>
+         </tr>
+         <tr>
+          <td>
+           SMTP
+          </td>
+          <td>
+           25 TCP
+          </td>
+          <td>
+           Mail transfer
+          </td>
+         </tr>
+         <tr>
+          <td>
+           DNS
+          </td>
+          <td>
+           53 UDP/TCP
+          </td>
+          <td>
+           Name resolution
+          </td>
+         </tr>
+         <tr>
+          <td>
+           DHCP
+          </td>
+          <td>
+           67/68 UDP
+          </td>
+          <td>
+           Address leasing
+          </td>
+         </tr>
+         <tr>
+          <td>
+           HTTP / HTTPS
+          </td>
+          <td>
+           80 / 443 TCP
+          </td>
+          <td>
+           Web traffic
+          </td>
+         </tr>
+         <tr>
+          <td>
+           POP3 / IMAP
+          </td>
+          <td>
+           110 / 143 TCP
+          </td>
+          <td>
+           Mail retrieval
+          </td>
+         </tr>
+         <tr>
+          <td>
+           NTP
+          </td>
+          <td>
+           123 UDP
+          </td>
+          <td>
+           Time synchronization
+          </td>
+         </tr>
+         <tr>
+          <td>
+           SNMP
+          </td>
+          <td>
+           161/162 UDP
+          </td>
+          <td>
+           Monitoring/traps
+          </td>
+         </tr>
+         <tr>
+          <td>
+           LDAP
+          </td>
+          <td>
+           389 TCP/UDP
+          </td>
+          <td>
+           Directory communication
+          </td>
+         </tr>
+         <tr>
+          <td>
+           SMB
+          </td>
+          <td>
+           445 TCP
+          </td>
+          <td>
+           File sharing
+          </td>
+         </tr>
+         <tr>
+          <td>
+           RDP
+          </td>
+          <td>
+           3389 TCP/UDP
+          </td>
+          <td>
+           Remote desktop
+          </td>
+         </tr>
+        </tbody>
+       </table>
+      </div>
+      <h3>
+       Fault isolation ladder
+      </h3>
+      <p class="focus">
+       Power → physical link → interface status → valid local IP → default gateway → remote IP → DNS → application/port → user workflow. This is a diagnostic heuristic, not a mandatory order for every incident.
+      </p>
+      <h3>
+       Free learning references
+      </h3>
+      <p>
+       <a href="https://www.comptia.org/certifications/a" rel="noopener noreferrer" target="_blank">
+        CompTIA exam overview
+       </a>
+       ·
+       <a href="https://learn.microsoft.com/en-us/windows/" rel="noopener noreferrer" target="_blank">
+        Microsoft Windows technical documentation
+       </a>
+       ·
+       <a href="https://www.netacad.com/" rel="noopener noreferrer" target="_blank">
+        Cisco Networking Academy
+       </a>
+       ·
+       <a href="https://www.wireshark.org/docs/" rel="noopener noreferrer" target="_blank">
+        Wireshark documentation
+       </a>
+       ·
+       <a href="https://www.virtualbox.org/manual/" rel="noopener noreferrer" target="_blank">
+        VirtualBox manual
+       </a>
+       .
+      </p>
+     </div>
+    </section>
+    <footer class="footer">
+     © 2026 Brandon Stevenson · Independent IT Study Materials · CompTIA A+ Core 1 220-1201 · Progress saved in your browser.
+    </footer>
+   </main>
+  </div>
+  <script id="course-data" type="application/json">
+   {"lessons":[{"domain":0,"title":"Laptop components and safe replacement","objective":"1.1","concept":"Service laptops as tightly integrated systems: their size constraints, thermal design, and manufacturer-specific assemblies make disassembly more delicate than desktop repair.","details":["Before touching hardware, verify power off, unplug the charger, remove removable batteries, disconnect embedded battery where the service guide recommends it, and apply ESD protection. Record screw locations; different lengths can puncture batteries or damage displays.","Replaceable parts commonly include SODIMM memory, M.2 SSDs, wireless adapters, keyboards, trackpads, displays, fans and batteries. Some modern models solder RAM or storage to the board; inspect the model service manual first.","Battery swelling, puncture or heat is a safety hazard. Do not press, bend or charge a swollen battery; follow approved handling and recycling procedures. LCD assemblies contain fragile flex and antenna cables.","Match replacements by physical dimensions, interface, power specifications and compatibility—not simply by product family name."],"scenario":"A laptop shuts down at 35% charge. Check battery-health report and charging circuit before assuming an OS reinstall is needed.","steps":["Locate manufacturer service manual and identify replaceable components","Document device model and current symptoms","Power down and isolate battery/power","Inspect connectors, swap known-good supported part","Reassemble, run diagnostics and document results"],"pitfall":"Forcing a connector or mixing screw lengths can permanently damage a laptop.","terms":["SODIMM","M.2","eDP","ESD","battery health"]},{"domain":0,"title":"Mobile displays, batteries and wireless","objective":"1.1–1.3","concept":"Differentiate handset and tablet components, displays, and mobile radios so you can diagnose physical faults versus configuration issues.","details":["OLED pixels emit their own light and can produce deep blacks; LCD panels use backlights. Dead pixels, image retention and cracked digitizers imply different replacement paths.","Mobile devices may support Wi-Fi, cellular, Bluetooth, NFC, GPS and hotspot/tethering. An eSIM stores carrier credentials digitally rather than in a removable physical SIM.","Screen rotation depends on accelerometer/gyroscope readings and OS settings. Biometrics and secure enclaves require careful vendor-approved replacement procedures.","Battery capacity, charging standards and port cleanliness affect charge behavior. Avoid metallic probing in powered connectors."],"scenario":"A tablet connects over Wi-Fi but cannot use cellular data. Inspect cellular capability, active SIM/eSIM, APN, signal and carrier provisioning.","steps":["Inventory wireless functions","Verify radio toggles and airplane mode","Check SIM/eSIM provisioning and battery condition","Test with known-good charger/cable","Record result"],"pitfall":"NFC is short-range contactless communication; it is not the same as cellular networking.","terms":["OLED","LCD","digitizer","eSIM","NFC","APN"]},{"domain":0,"title":"Mobile peripherals, docks and ports","objective":"1.2","concept":"Identify accessory interfaces and troubleshoot external displays, docking, pairing, charging and input devices.","details":["USB-C describes a reversible connector—not guaranteed speed, DisplayPort Alternate Mode or Power Delivery. Confirm host, cable and dock capabilities individually.","Thunderbolt supports high-speed data and display features with compatible hardware. Dock bandwidth and power budget may limit simultaneous monitors and peripherals.","Bluetooth pairing involves discovery, trust and supported profiles; disconnect/re-pair only after verifying radio and firmware.","A docking fault might come from power, firmware, monitor input selection, cable damage or a host USB-C mode mismatch."],"scenario":"An external monitor attached through USB-C shows no video while USB devices work. Verify DP Alt Mode or Thunderbolt support on the exact port and cable.","steps":["Inspect connection and physical damage","Check docking power budget","Test known-good display/cable","Check host port video capabilities","Update manufacturer-approved firmware if necessary"],"pitfall":"Never assume every USB-C port can output video.","terms":["USB-C","USB PD","Thunderbolt","DP Alt Mode","Bluetooth"]},{"domain":0,"title":"Mobile network configuration and management","objective":"1.3","concept":"Know wireless configuration, mobile sync, security settings and the role of enterprise mobile management.","details":["Wi-Fi association requires compatible security modes and correct credentials. Cellular issues can stem from coverage, carrier account, APN or device hardware.","MDM administers device configuration/compliance; MAM governs organizational application data. BYOD approaches may keep private and work data separated.","Synchronization can involve IMAP, Exchange-style push, cloud accounts and backup. Verify account and data ownership before wiping or enrollment.","VPNs can secure connectivity to enterprise services but do not repair a failed Wi-Fi or cellular connection."],"scenario":"A newly enrolled phone stops accessing corporate email. Verify management enrollment, compliance and identity policy before factory resetting.","steps":["Check radio connectivity and IP","Validate identity and time","Check enrollment/compliance","Test synchronization in approved app","Escalate policy blockers"],"pitfall":"A mobile hotspot shares a cellular connection; it does not create internet access if upstream mobile data is unavailable.","terms":["MDM","MAM","BYOD","APN","hotspot"]},{"domain":1,"title":"TCP/IP, addressing and subnetting","objective":"2.1–2.2","concept":"A network needs addressing, switching, routing and name resolution. Troubleshoot in layers rather than treating every failure as “the internet.”","details":["IPv4 uses 32-bit addresses; a /24 mask provides 256 total addresses and normally 254 usable host addresses in a conventional subnet. IPv6 uses 128-bit addresses and link-local addresses commonly begin fe80::.","Default gateway forwards off-subnet traffic. DHCP leases host settings including IP, mask, gateway and DNS. DNS resolves names to addresses; it does not provide IP connectivity itself.","Private IPv4 includes 10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16. APIPA 169.254.0.0/16 commonly indicates DHCP failure on Windows.","MAC addresses operate at the local-link layer. Switches forward frames by MAC; routers move packets between networks."],"scenario":"A user gets 169.254.18.6 and cannot reach the gateway. Focus on DHCP path, VLAN and physical link before changing DNS.","steps":["Run ipconfig /all","Check address, mask and gateway","Ping loopback, local IP and gateway","Resolve a hostname with nslookup","Compare to a working device"],"pitfall":"A correct IP with an incorrect mask can cause intermittent-looking local and remote failures.","terms":["IPv4","IPv6","DHCP","DNS","APIPA","subnet mask","gateway"]},{"domain":1,"title":"Ports, protocols and secure transport","objective":"2.1","concept":"Associate common services with their ports and identify whether a service uses TCP or UDP.","details":["Common: FTP 20/21 TCP, SSH 22 TCP, Telnet 23 TCP, SMTP 25 TCP, DNS 53 UDP/TCP, DHCP 67/68 UDP, HTTP 80 TCP, POP3 110 TCP, NTP 123 UDP, IMAP 143 TCP, SNMP 161/162 UDP, LDAP 389 TCP/UDP, HTTPS 443 TCP, SMB 445 TCP and RDP 3389 TCP/UDP.","DNS primarily uses UDP 53 for normal queries but TCP 53 for larger responses and zone transfers. Avoid oversimplifying every protocol to exactly one transport.","Encryption differs from authentication: TLS can protect transit; identity and permissions still need correct configuration. SSH is preferred over Telnet for secure remote CLI.","Port knowledge helps isolate whether an application, firewall rule or name resolution is failing."],"scenario":"A file share works by IP but the mapped share fails by hostname. Check DNS before opening all firewall ports.","steps":["Identify failing application and protocol","Resolve hostname","Test network path","Test designated service port using Test-NetConnection","Check firewall and service state"],"pitfall":"Opening arbitrary inbound ports is not a troubleshooting substitute.","terms":["HTTPS 443","SSH 22","DNS 53","DHCP 67/68","SMB 445","RDP 3389"]},{"domain":1,"title":"Network equipment, topology and media","objective":"2.3–2.4","concept":"Recognize endpoints, switches, routers, wireless APs, firewalls and physical transport.","details":["A switch primarily moves Ethernet frames within a LAN; a router connects IP networks. Access points provide wireless LAN access; a firewall enforces rules. A modem/ONT provides upstream access over a provider medium.","Cat5e, Cat6 and Cat6a are copper cable categories; supported rates depend on cable quality, equipment and distance. Fiber optics use light and are resilient to electromagnetic interference.","Common fiber connectors include LC, SC and ST. Single-mode fiber supports long distances; multimode usually targets shorter links. Do not look into fiber ends.","PoE supplies power and data over Ethernet to supported devices; confirm equipment wattage budgets and standards.","Network diagrams should distinguish logical VLANs from physical cable paths."],"scenario":"A ceiling-mounted AP does not power on after moving to a different switch port. Check PoE capability and budget, link and port settings.","steps":["Trace port and cable","Check physical link LEDs","Verify switch port/VLAN and PoE","Test known-good patch cable","Record link speed and outcome"],"pitfall":"A passive splitter does not magically give two independent Gigabit Ethernet links.","terms":["switch","router","AP","ONT","PoE","LC","single-mode"]},{"domain":1,"title":"Wi-Fi design, security and troubleshooting","objective":"2.4–2.5","concept":"Wireless stability depends on RF environment, bands, channels, client support and security.","details":["2.4 GHz generally has longer reach and more interference; 5 GHz offers more non-overlapping channels and often greater throughput at shorter range. 6 GHz requires compatible Wi-Fi generations and regulatory conditions.","Wi-Fi 4/5/6/6E/7 refer to evolving 802.11 technologies. Channel width trades throughput potential against interference and spectrum availability.","WPA2-AES and WPA3 are modern security approaches; avoid deprecated WEP and TKIP. Enterprise Wi-Fi commonly uses 802.1X with a RADIUS backend.","Antenna placement, building materials, channel contention and roaming behavior explain many intermittent symptoms."],"scenario":"An office laptop disconnects only in a conference room. Measure signal and congestion, compare bands, channel plan and AP coverage.","steps":["Verify SSID and password","Check signal/RSSI and band","Check IP/DNS after association","Run a sustained ping","Inspect interference and roaming"],"pitfall":"A strong signal indicator does not guarantee clean RF or working DHCP.","terms":["2.4 GHz","5 GHz","6 GHz","WPA3","802.1X","SSID"]},{"domain":1,"title":"SOHO networking and internet connectivity","objective":"2.5–2.6","concept":"Configure small-network gateways safely and distinguish WAN, LAN, NAT, DHCP and DNS roles.","details":["Consumer routers often combine gateway routing, Wi-Fi access point, firewall, NAT and DHCP server. The WAN interface connects upstream; LAN interfaces serve local devices.","NAT maps private addresses to externally routable ones. Port forwarding creates inbound exposure and should be deliberate, minimal and documented.","Guest SSIDs/VLANs isolate untrusted clients when implemented with proper firewall rules. Disable unused remote management and update approved firmware.","IP conflicts, duplicate DHCP servers, wrong WAN addressing and DNS outages can look similar until tested systematically."],"scenario":"After adding a second router, clients randomly lose connectivity. Check for overlapping DHCP scopes and unintended double-NAT.","steps":["Document topology and WAN/LAN sides","Determine DHCP authority","Check NAT and default route","Validate guest isolation","Back up known-good configuration"],"pitfall":"Do not expose administrative interfaces directly to the internet.","terms":["NAT","WAN","LAN","port forwarding","SOHO"]},{"domain":2,"title":"Motherboards, CPU, firmware and buses","objective":"3.1–3.2","concept":"Learn how components interconnect physically and logically and how firmware initializes them.","details":["The CPU mounts in a compatible socket/package; the chipset/platform and firmware govern supported memory, PCIe lanes, storage interfaces and I/O.","PCIe connects high-bandwidth peripherals through lanes (x1/x4/x8/x16); connector size and electrical lane count may differ. SATA connects storage, while M.2 is a physical form factor capable of several interfaces.","UEFI replaces many legacy BIOS capabilities, supports modern boot management and Secure Boot. POST initializes hardware; diagnostic LED/beep indications are vendor-specific.","CMOS/RTC battery maintains clock and some platform settings when external power is absent. Resetting firmware settings may affect encryption and boot modes; follow policy.","TPM provides hardware-backed security capabilities such as key protection; do not clear a production TPM without authorization."],"scenario":"A newly installed NVMe drive is undetected. Verify socket PCIe/NVMe support, firmware, seating and lane-sharing limitations.","steps":["Identify motherboard/model","Inspect CPU socket, DIMM and PCIe","Review BIOS/UEFI storage and boot configuration","Check firmware compatibility","Document corrective action"],"pitfall":"M.2 specifies a form factor; not every M.2 slot supports NVMe.","terms":["PCIe","UEFI","POST","TPM","CPU socket","chipset","bus"]},{"domain":2,"title":"RAM and memory diagnosis","objective":"3.2","concept":"Select compatible memory and diagnose symptoms without confusing storage with RAM.","details":["DDR4 and DDR5 are electrically and mechanically distinct and cannot be substituted. Desktop DIMM and laptop SODIMM differ in size; ECC requires compatible platform support.","Memory performance depends on frequency/data rate, timings, channel topology and CPU/motherboard support. Dual-channel is a memory architecture, not two separate drives.","Symptoms of bad or unstable RAM include POST failure, unexpected restarts, freezes and memory-test errors. Confirm seating, compatibility and BIOS profiles.","Remove power and follow ESD precautions before reseating. For troubleshooting, try one known-good compatible module in a vendor-recommended slot."],"scenario":"A computer boots with one DIMM but fails with two. Test each DIMM, slot pairing and memory-profile compatibility.","steps":["Check model memory support","Inspect seating and slot use","Disable unstable memory profiles if appropriate","Run memory diagnostics","Record module/slot observations"],"pitfall":"RAM is volatile working memory, not persistent storage.","terms":["DIMM","SODIMM","ECC","DDR5","dual channel"]},{"domain":2,"title":"Storage drives and interfaces","objective":"3.2–3.3","concept":"Distinguish HDD, SATA SSD, NVMe SSD, removable media and interface constraints.","details":["HDDs store data magnetically on rotating platters; SSDs use NAND flash. NVMe is a protocol commonly using PCIe, often delivering lower latency than SATA devices.","SATA data and power connectors are separate. SAS is common in servers and not interchangeable in every controller/backplane configuration.","Drive capacity is not the same as performance or reliability. Check health metrics, cabling, controller status and filesystem/logical configuration.","Back up data before risky repairs, firmware changes, partition operations or failed-drive replacement. Storage media sanitization requires approved methods."],"scenario":"A SATA SSD intermittently disappears. Verify SATA power/data cables, connector, controller mode and drive health before reinstalling the OS.","steps":["Identify bus and connector","Inspect controller and BIOS recognition","Review SMART/health data","Test known-good cable/port","Protect data and document"],"pitfall":"An NVMe SSD can use M.2, but not every M.2 SSD is NVMe.","terms":["SATA","SAS","NVMe","SSD","HDD","SMART"]},{"domain":2,"title":"RAID and redundancy","objective":"3.3","concept":"Understand how logical disks are assembled and why redundancy is not backup.","details":["RAID 0 stripes data across disks for performance/capacity but has no redundancy. RAID 1 mirrors disks. RAID 5 stripes with single-parity fault tolerance (minimum 3 disks); RAID 10 combines mirrors and stripes (minimum 4 disks).","RAID usable capacity depends on level and member sizes. In general, RAID 1 usable space resembles one member in a two-drive mirror; RAID 5 is (N−1)×smallest member capacity.","Hardware controllers and software-defined arrays present logical volumes to operating systems. Hot spares can assist rebuild processes.","A rebuild taxes surviving drives and does not undo deletions, ransomware or corruption. Maintain tested backups independent of RAID."],"scenario":"A 4×2 TB RAID 5 array offers approximately 6 TB raw-decimal usable capacity before formatting/metadata.","steps":["Identify RAID level and fault status","Confirm backups","Replace only the confirmed failed disk","Monitor rebuild and controller logs","Verify application data"],"pitfall":"Never confuse RAID redundancy with a recoverable offsite backup.","terms":["RAID 0","RAID 1","RAID 5","RAID 10","hot spare"]},{"domain":2,"title":"Power supplies, cooling and connectors","objective":"3.2","concept":"Power and thermal problems often mimic motherboard or memory failures.","details":["A PSU converts AC mains into DC rails. Choose the correct form factor, connector pinouts, wattage and headroom for CPU/GPU loads; do not mix modular PSU cables across brands/models.","Common connectors: 24-pin motherboard power, 4/8-pin EPS CPU power, PCIe GPU power, SATA power and fan headers. USB headers are not power-substitutes.","Heat moves from chip to heatsink through thermal interface material, then out via airflow or liquid cooling. Fan directions, obstructions and dust affect performance.","UPS supports orderly shutdown and temporary availability; surge protection addresses transients but does not provide continued power."],"scenario":"A PC freezes under GPU load but runs at idle. Review temperatures and power capacity rather than only software.","steps":["Inspect power and connectors with equipment unplugged","Check fan and heatsink installation","Read temperatures and event logs","Test safe known-good PSU if needed","Verify under controlled load"],"pitfall":"Opening a PSU enclosure is hazardous, even when disconnected.","terms":["PSU","EPS","PCIe power","thermal paste","UPS"]},{"domain":2,"title":"Displays, cables and peripherals","objective":"3.1–3.2","concept":"Choose the correct display path, resolution, refresh rate and peripheral interface.","details":["HDMI, DisplayPort, USB-C with DP Alt Mode, DVI and VGA differ in capabilities; actual supported display modes depend on both endpoints and cable generation.","OLED, TN, IPS and VA panels differ in viewing angles, speed, contrast and cost. Native resolution, scaling and refresh rate can affect perceived quality.","USB hubs distribute connections but share upstream bandwidth/power. KVM switches let input devices and displays serve multiple systems.","Printer interfaces include USB, Ethernet and Wi-Fi. Separate connectivity failures from drivers and queue failures."],"scenario":"A monitor is restricted to low refresh rate. Check physical cable, port version, output setting and adapter limitations.","steps":["Check monitor input and cable","Confirm resolution/refresh capabilities","Check docking/adapter modes","Test another known-good monitor","Record solution"],"pitfall":"A USB-C connector does not guarantee monitor support.","terms":["HDMI","DisplayPort","KVM","IPS","refresh rate"]},{"domain":2,"title":"Printers and imaging devices","objective":"3.4","concept":"Understand laser, inkjet, thermal and impact printers, their consumables and fault patterns.","details":["Laser printing generally involves processing, charging, exposing, developing, transferring, fusing and cleaning. Toner is a powder; a fuser bonds toner to paper using heat/pressure.","Inkjet printers eject liquid ink through nozzles; clogged printheads cause streaks and missing colors. Thermal printers use heat-sensitive media or ribbons; impact devices use mechanical strike.","Common problems: ghosting/lines, jams, faded output, bad registration, smearing and queue errors. Match symptom to consumable, paper path or driver.","Follow lockout, cooldown and manufacturer guidance around hot fusers and moving components."],"scenario":"A laser printer produces toner that smears when touched. Consider fuser/temperature/media compatibility rather than immediately replacing the network card.","steps":["Print self-test/configuration page","Check physical media path and consumables","Separate printer hardware from driver issues","Inspect rollers/fuser safely","Document remedy"],"pitfall":"Do not touch a hot fuser or expose photosensitive imaging drums unnecessarily.","terms":["fuser","drum","toner","printhead","thermal printer"]},{"domain":2,"title":"Build specifications and upgrade selection","objective":"3.3","concept":"Translate user requirements into a balanced computer build.","details":["A gaming workstation prioritizes GPU, cooling, CPU and display; a CAD/virtualization machine may prioritize RAM, CPU cores, reliable storage and vendor compatibility.","Business endpoints often prioritize manageability, encryption compatibility, warranty and replacement parts over benchmark peaks.","Power and cooling headroom, case constraints, network connectivity, OS support and I/O should be reviewed before ordering.","Provide a bill of materials with interfaces, estimated capacity, risk and verification checklist."],"scenario":"A design department requests 4 monitors and virtualization. Validate GPU output support, docking paths, RAM headroom and CPU features.","steps":["Collect workload requirements","Size CPU/RAM/storage","Check interface and case compatibility","Estimate PSU/cooling headroom","Plan acceptance tests"],"pitfall":"Most expensive does not always mean most suitable.","terms":["BOM","compatibility","workstation","form factor"]},{"domain":3,"title":"Virtual machines and hypervisors","objective":"4.1","concept":"Virtualization abstracts physical hardware into isolated software-defined computers.","details":["Type 1 hypervisors run directly on hardware; Type 2 run atop a host OS. VM resources include vCPU, virtual RAM, storage and virtual network adapters.","Host hardware must support required CPU virtualization features. Virtual machine snapshots provide rollback convenience but are not a comprehensive backup strategy.","VM networking includes NAT, bridged and host-only modes; choose deliberately to avoid exposing a lab to a corporate or public LAN.","Resource overcommit can reduce host performance. Monitor capacity and isolate guest workloads."],"scenario":"A lab VM cannot talk to another VM. Compare virtual switch/adapter modes and IP subnets first.","steps":["Verify CPU virtualization and hypervisor","Create small VM with measured resources","Configure isolated virtual switch","Snapshot clean baseline","Test connectivity and rollback"],"pitfall":"A snapshot taken on the same storage is not equivalent to an off-host backup.","terms":["Type 1","Type 2","vCPU","snapshot","host-only"]},{"domain":3,"title":"Cloud models and shared responsibility","objective":"4.2","concept":"Match IaaS, PaaS and SaaS with control and operational responsibilities.","details":["IaaS offers compute, storage and networks while customers usually administer guest OS and installed applications. PaaS abstracts more platform operations; SaaS provides completed applications.","Public, private, hybrid and community cloud models differ by ownership, deployment and tenancy. Multitenancy requires sound isolation.","Elasticity adjusts resources to demand; scalability is the ability to handle workload growth. Metered billing and rapid provisioning are cloud characteristics.","Identity, data classification, configuration and access control remain important customer obligations under all models."],"scenario":"A company wants managed databases without patching database hosts. A PaaS database can reduce infrastructure maintenance.","steps":["Classify business need","Compare management responsibilities","Assess data sensitivity","Estimate recurring cost","Document resilience and exit plan"],"pitfall":"Cloud migration does not automatically deliver high availability.","terms":["IaaS","PaaS","SaaS","elasticity","multitenancy"]},{"domain":3,"title":"Cloud storage, VDI and service concepts","objective":"4.2","concept":"Distinguish storage access models and modern remote compute delivery.","details":["Object storage stores blobs with metadata and API access, suitable for many backup and media scenarios. Block storage presents volumes to hosts. File storage supports shared hierarchical filesystems.","VDI hosts user desktops centrally; DaaS delivers managed desktop services. Latency, identity and licensing influence experience.","Containers package an application and dependencies while sharing a host kernel, unlike full VMs that virtualize separate guest OS instances.","Cloud deployment requires responsibility boundaries, network segmentation, monitoring, recovery objectives and cost controls."],"scenario":"A small team needs centralized Windows desktops from laptops. Compare VDI/DaaS needs with remote desktop and local clients.","steps":["Classify storage workload","Choose object/block/file based on access","Evaluate latency and identity requirements","Estimate capacity and fees","Validate backup and recovery"],"pitfall":"Object storage is not a drop-in replacement for a mounted block disk.","terms":["VDI","DaaS","object storage","block storage","containers"]},{"domain":4,"title":"Structured hardware troubleshooting","objective":"5.1","concept":"Troubleshoot in a reproducible, low-risk order with evidence and verification.","details":["Start by identifying impact and collecting symptoms; ask what changed. Form a probable cause using evidence, test the least disruptive hypothesis, plan and implement the fix, verify and document.","No-POST, no-display and no-boot are separate states. Check power delivery, diagnostic LEDs, firmware/boot settings, storage recognition and OS startup accordingly.","Intermittent crashes call for environmental and trend checks: temperature, power, memory errors, drive faults or updated drivers.","Known-good swaps can isolate faults when performed safely and with approved compatible parts."],"scenario":"PC powers on with fans but no display. Test monitor/input, GPU path, POST indications and supported RAM before wiping storage.","steps":["Identify scope and changes","Check simple physical causes","Establish and test theory","Apply approved fix","Verify normal functionality","Document root cause"],"pitfall":"Do not wipe or reinstall a system before diagnosing power or POST faults.","terms":["no POST","no boot","known-good","root cause"]},{"domain":4,"title":"Storage, display and power failure cases","objective":"5.1","concept":"Associate distinct symptoms with likely components and prioritized checks.","details":["Clicking HDD noises or SMART warnings may signal imminent data loss; minimize unnecessary writes and secure backup/approved recovery.","Blank display with functioning system can involve brightness, external monitor selection, cable, panel, backlight or graphics path.","A machine turning off under load may involve thermal trips, PSU output or motherboard protection. Inspect logs and temperatures.","Clock resets after power removal can suggest an RTC battery issue, but firmware configuration and board faults are also possible."],"scenario":"PC says “no bootable device” after a drive replacement. Check UEFI boot mode, detection and EFI boot entries before assuming corrupt Windows.","steps":["Classify failure stage","Protect data","Test physical/interface layer","Review BIOS/OS diagnostic evidence","Verify and record"],"pitfall":"SMART health is predictive, not a guarantee of remaining life.","terms":["SMART","UEFI boot","RTC","thermal shutdown"]},{"domain":4,"title":"Wired and wireless network troubleshooting","objective":"5.2","concept":"Use a layered workflow to separate physical, address, routing, DNS and application faults.","details":["No link: inspect cable, NIC status, switch port and power. Link but no usable IP: check DHCP, VLAN and address conflicts. IP works but names fail: inspect DNS.","High latency or packet loss may stem from Wi-Fi interference, duplex mismatch, congestion, routing path or overloaded services.","Compare a failing host with a working device on the same segment; differences often narrow the cause faster than random changes.","Keep firewall rules narrow, and do not bypass enterprise security controls merely to make an application connect."],"scenario":"A laptop can ping 1.1.1.1 but cannot open named websites. Test DNS lookup and resolver reachability.","steps":["Check physical/radio link","Read IP config","Ping gateway then remote IP","Test DNS","Check application port","Document evidence"],"pitfall":"A successful ping does not prove every application service works.","terms":["ping","ipconfig","nslookup","tracert","packet loss"]},{"domain":4,"title":"Printer, mobile and peripheral troubleshooting","objective":"5.3–5.4","concept":"Separate local device defects from network, driver, app, queue and policy failures.","details":["If a printer self-test page works but host print jobs fail, focus on driver, queue, spooler, permissions and connectivity. If self-test fails, inspect device hardware and consumables.","Mobile battery drain can result from aging cells, high background activity, poor cellular signal and heat. Safe repair requires vendor procedures.","Peripheral problems often derive from cable, power, OS permissions, Bluetooth profile or firmware. Confirm reproduction with a known-good host.","Capture precise symptom, affected models, isolation results and final validation for reusable support documentation."],"scenario":"Every user cannot print to a network printer, but the printer self-test succeeds. Investigate network/service/print server dependencies.","steps":["Reproduce and scope issue","Run device-local self-test","Check connectivity and drivers","Test known-good swap","Document resolution"],"pitfall":"Replacing printer parts is wasteful when only a print queue is stalled.","terms":["print spooler","driver","pairing","self-test"]},{"domain":4,"title":"Operational safety, documentation and exam strategy","objective":"5.1–5.4","concept":"Every repair needs safe execution, evidence, user communication and verification.","details":["Follow ESD controls and PPE where appropriate. Batteries, laser printers, high-voltage PSUs and fiber optics have specific hazards.","Before disruptive steps, verify authorization, change impact, data backups and rollback plan. Respect user privacy and organizational policy.","An actionable ticket documents symptoms, affected assets, tests, cause, fix, verification and escalation context.","For exam scenarios, identify the FIRST/BEST/ MOST LIKELY wording, eliminate unsafe or unrelated actions, and follow least-disruptive troubleshooting."],"scenario":"A firmware update is proposed on a device with unknown BitLocker recovery status. Verify keys, permissions, risk and rollback before proceeding.","steps":["Capture baseline and authorization","Prepare backup/rollback","Perform one controlled change","Validate user workflow","Write concise evidence-based ticket"],"pitfall":"A successful change without verification and documentation is incomplete.","terms":["ESD","SOP","rollback","ticket","verification"]}],"questions":[{"d":0,"q":"Which component is most commonly used for laptop memory?","opts":["DIMM","SODIMM","PCIe x16","ATX"],"a":1,"why":"SODIMMs are compact modules designed for many laptop systems."},{"d":0,"q":"What technology stores a cellular subscriber profile without a removable SIM?","opts":["NFC","eSIM","GPS","OLED"],"a":1,"why":"eSIM stores carrier provisioning digitally."},{"d":0,"q":"A USB-C port charges a laptop but does not drive a monitor. What should you check first?","opts":["Replace the motherboard","Verify DisplayPort Alt Mode capability","Erase the SSD","Disable DHCP"],"a":1,"why":"USB-C port shape alone does not guarantee video output."},{"d":0,"q":"Which display technology has individually self-emitting pixels?","opts":["LCD","OLED","CRT","TN LCD"],"a":1,"why":"OLED pixels emit light without a separate backlight."},{"d":0,"q":"What wireless method supports very-short-range tap-to-pay communication?","opts":["LTE","NFC","802.11ax","GPS"],"a":1,"why":"Near-field communication is used for short-range exchanges."},{"d":0,"q":"What is a safe response to a visibly swollen lithium-ion battery?","opts":["Puncture it","Continue charging","Stop use and follow approved disposal procedures","Freeze it"],"a":2,"why":"Swollen batteries present fire and safety risks."},{"d":1,"q":"A Windows endpoint receives 169.254.44.10. Most likely issue?","opts":["Failed DHCP configuration/reachability","Incorrect web browser","Bad SMTP credentials","Monitor cable failure"],"a":0,"why":"APIPA usually means DHCP did not provide a usable IPv4 lease."},{"d":1,"q":"Which service translates a website name to an IP address?","opts":["DHCP","DNS","NTP","SNMP"],"a":1,"why":"DNS resolves hostnames into addresses."},{"d":1,"q":"Which port is typically used for HTTPS?","opts":["80","443","22","3389"],"a":1,"why":"HTTPS typically uses TCP 443."},{"d":1,"q":"Which protocol securely administers a remote CLI?","opts":["Telnet","FTP","SSH","TFTP"],"a":2,"why":"SSH encrypts remote terminal sessions."},{"d":1,"q":"Which device typically routes between different IP networks?","opts":["Layer 2 unmanaged switch","Router","Passive patch panel","USB hub"],"a":1,"why":"Routers forward packets between networks."},{"d":1,"q":"Which Wi-Fi security option is newer and generally preferred on compatible systems?","opts":["WEP","WPA with TKIP","WPA3","Open"],"a":2,"why":"WPA3 is modern Wi-Fi security; compatibility still matters."},{"d":1,"q":"Which range is a private IPv4 block?","opts":["8.8.8.0/24","192.168.0.0/16","169.254.0.0/16","224.0.0.0/4"],"a":1,"why":"192.168.0.0/16 is RFC1918 private space."},{"d":1,"q":"A DNS lookup fails but remote IP ping succeeds. Best area to examine?","opts":["Display panel","DNS resolver settings","CPU heatsink","SATA power"],"a":1,"why":"IP reachability exists; DNS resolution is the next likely failure."},{"d":1,"q":"An access point fails to power on via Ethernet. What should be checked?","opts":["PoE compatibility/budget","Browser cache","Printer fuser","Time zone"],"a":0,"why":"PoE must be supported with sufficient available power."},{"d":1,"q":"What does a default gateway do?","opts":["Stores DNS zones","Routes off-subnet packets","Assigns monitor resolution","Encrypts disks"],"a":1,"why":"The gateway carries traffic destined beyond a host local subnet."},{"d":2,"q":"Which interface/protocol commonly carries high-speed modern NVMe SSD traffic?","opts":["Parallel ATA","PCIe","VGA","PS/2"],"a":1,"why":"NVMe commonly uses PCIe lanes."},{"d":2,"q":"What does RAID 0 provide?","opts":["Mirroring","Parity fault tolerance","Striping without fault tolerance","Offsite backup"],"a":2,"why":"RAID 0 stripes data but does not survive a member disk failure."},{"d":2,"q":"Which RAID type mirrors two drives?","opts":["RAID 0","RAID 1","RAID 5","JBOD"],"a":1,"why":"RAID 1 stores duplicate copies on mirrored members."},{"d":2,"q":"What does UEFI do during computer startup?","opts":["Supply DC power","Initialize platform and manage boot","Resolve DNS","Cool the GPU"],"a":1,"why":"UEFI is system firmware responsible for platform init and boot services."},{"d":2,"q":"Which laptop RAM form factor is typically smaller?","opts":["ATX","SODIMM","PCIe x16","RJ45"],"a":1,"why":"SODIMM is a compact RAM module."},{"d":2,"q":"An M.2 slot does not detect a SATA M.2 SSD. Most useful first check?","opts":["Whether that M.2 slot supports SATA","Increase monitor brightness","Clear browser cookies","Enable printer sharing"],"a":0,"why":"An M.2 socket may support PCIe only or SATA only."},{"d":2,"q":"A laser printer output smears when touched. Suspect which component?","opts":["Fuser","NIC","Mouse sensor","RAM"],"a":0,"why":"The fuser bonds toner to the paper."},{"d":2,"q":"Which component converts wall AC power into computer DC rails?","opts":["Heatsink","PSU","NIC","RTC battery"],"a":1,"why":"A power supply converts AC to suitable DC voltages."},{"d":2,"q":"Why is RAID not the same as a backup?","opts":["RAID uses copper","RAID cannot protect against many deletion/corruption scenarios","RAID only exists on laptops","RAID eliminates disk faults"],"a":1,"why":"Backups provide independent recoverable copies; RAID alone does not."},{"d":2,"q":"Which expansion bus is used by modern dedicated GPUs?","opts":["PCIe","SATA power","USB 2.0","RJ11"],"a":0,"why":"Dedicated graphics cards commonly use PCIe expansion slots."},{"d":2,"q":"Which memory type supports correction of certain errors on compatible platforms?","opts":["ECC RAM","VRAM only","HDD cache","DRAMless SSD"],"a":0,"why":"ECC memory can detect and correct certain bit errors."},{"d":2,"q":"A PC overheats after fan replacement. Best first physical check?","opts":["Airflow direction and heatsink seating","NTP server","RDP port","User account picture"],"a":0,"why":"Cooling path and heatsink contact drive thermal behavior."},{"d":3,"q":"A hypervisor installed directly on physical hardware is what type?","opts":["Type 1","Type 2","SaaS","VDI"],"a":0,"why":"Type 1 hypervisors run on host hardware."},{"d":3,"q":"Which cloud service model provides a complete end-user application?","opts":["IaaS","PaaS","SaaS","Bare metal"],"a":2,"why":"SaaS delivers an application rather than raw infrastructure."},{"d":3,"q":"Which cloud service most directly provides VMs, virtual disks and networking?","opts":["SaaS","IaaS","DaaS","MAM"],"a":1,"why":"Infrastructure as a service exposes fundamental compute resources."},{"d":3,"q":"What is a key limitation of VM snapshots?","opts":["They are always offsite","They replace all backups","They may share the same failure domain as the VM","They require a printer"],"a":2,"why":"Snapshots may be stored with VM data and do not replace independent backups."},{"d":3,"q":"Which virtual network mode usually isolates guests from the physical LAN while allowing host-to-guest communication?","opts":["Host-only","Bridged","Direct WAN","Port forwarding"],"a":0,"why":"Host-only virtual networks create local isolated host-and-VM segments."},{"d":3,"q":"Which storage model works with objects accessed through an API?","opts":["Object storage","DDR5","PCIe lanes","RAM disk only"],"a":0,"why":"Object storage serves data blobs with metadata via object interfaces."},{"d":4,"q":"Computer powers on but POST fails. Which is a sensible early step?","opts":["Reinstall Windows","Check POST indicators and memory seating","Reset cloud password","Replace printer toner"],"a":1,"why":"No-POST occurs before OS loading; test hardware/firmware first."},{"d":4,"q":"A host has network link but no valid IPv4 lease. What should be checked?","opts":["DHCP scope and VLAN path","DisplayPort cable","Thermal paste","Print spooler"],"a":0,"why":"Address assignment failures point to DHCP or network path."},{"d":4,"q":"PC loses power only under heavy load. Likely things to examine?","opts":["PSU and cooling","DNS suffix","Keyboard layout","NFC reader"],"a":0,"why":"Thermal and power faults frequently manifest under load."},{"d":4,"q":"Which test best separates printer hardware from host driver problems?","opts":["Printer self-test page","Change browser home page","Ping 127.0.0.1","Clear DNS cache"],"a":0,"why":"A printer-local test bypasses the host/driver pipeline."},{"d":4,"q":"A drive reports imminent SMART failure. What should you prioritize?","opts":["Back up/recover important data","Defragment repeatedly","Increase monitor refresh rate","Disable updates"],"a":0,"why":"Protect data immediately when storage health is suspect."},{"d":4,"q":"What should happen after implementing a repair?","opts":["Close ticket without checking","Verify functionality and document outcome","Erase system logs","Ignore user impact"],"a":1,"why":"Verification and documentation are crucial troubleshooting stages."},{"d":4,"q":"A laptop cannot resolve a hostname but can ping a known remote IP. Likely problem?","opts":["DNS","GPU","Battery","Printer tray"],"a":0,"why":"DNS is needed for hostname resolution."},{"d":4,"q":"A display has no video but system appears otherwise running. First practical check?","opts":["Input selection and cable","Factory reset phone","Rebuild RAID","Rotate Wi-Fi password"],"a":0,"why":"Begin with low-risk visual path checks."},{"d":4,"q":"An unknown replacement laptop battery is swollen. What action is unsafe?","opts":["Isolate it","Use approved disposal channel","Puncture it for inspection","Notify appropriate staff"],"a":2,"why":"Never puncture swollen lithium-ion batteries."},{"d":4,"q":"Why compare a failed device against a working device?","opts":["To change many variables at once","To identify configuration or environmental differences","To avoid documentation","To bypass security"],"a":1,"why":"Controlled comparisons narrow down causes."}],"cards":[["APIPA","169.254.0.0/16: often indicates failed IPv4 DHCP"],["DNS","Resolves names to IP addresses"],["DHCP","Automatically distributes network configuration"],["Default gateway","Routes packets to other subnets"],["SSH","Encrypted remote command-line access, TCP 22"],["HTTPS","Encrypted web traffic, commonly TCP 443"],["SMB","Windows file sharing, commonly TCP 445"],["RDP","Remote Desktop Protocol, typically 3389"],["NFC","Very short-range contactless wireless"],["eSIM","Digitally provisioned cellular subscriber identity"],["USB-C","Connector shape; not a guarantee of video or speed"],["DisplayPort Alt Mode","Video output capability over supported USB-C"],["SODIMM","Compact memory module common in laptops"],["DDR5","Modern RAM generation not pin-compatible with DDR4"],["NVMe","Storage protocol usually over PCIe"],["M.2","Physical form factor with multiple possible interfaces"],["SATA","Storage interface for HDDs and SSDs"],["SAS","Enterprise storage interface"],["SMART","Drive health monitoring technology"],["RAID 0","Striping without disk fault tolerance"],["RAID 1","Mirroring for redundancy"],["RAID 5","Striping with parity; min. 3 disks"],["RAID 10","Striped mirrors; min. 4 disks"],["UEFI","Firmware platform initialization and boot services"],["POST","Power-on self-test before OS boot"],["TPM","Hardware-backed security/key operations"],["PCIe","High-speed expansion interconnect"],["PSU","Converts AC power to system DC rails"],["EPS connector","Dedicated CPU power connector"],["PoE","Power and data over Ethernet"],["WPA3","Modern Wi-Fi security standard"],["802.1X","Port-based network access control"],["2.4 GHz Wi-Fi","Longer reach, more interference tendency"],["5 GHz Wi-Fi","More capacity, generally shorter reach"],["6 GHz Wi-Fi","Additional spectrum with compatible devices"],["NAT","Maps private and public IP endpoints"],["Type 1 hypervisor","Runs directly on physical hardware"],["Type 2 hypervisor","Runs atop a host operating system"],["IaaS","Cloud compute/storage/network resources"],["PaaS","Managed application platform"],["SaaS","Delivered application service"],["Object storage","API-accessed objects with metadata"],["Block storage","Volumes presented to host systems"],["VDI","Centrally hosted desktop environments"],["RTO","Target maximum recovery time"],["RPO","Acceptable data-loss time window"],["Fuser","Bonds laser toner to paper"],["Print spooler","Manages queued print jobs"],["ESD","Electrostatic discharge can damage components"],["Known-good swap","Controlled component substitution to isolate faults"],["Loopback IPv4","127.0.0.1 tests local IP stack"],["LAN","Local area network"],["WAN","Wide area network"],["VLAN","Logical segmentation of a LAN"]],"labs":[["Identify & document a Windows host","Read-only","Use systeminfo, msinfo32, Get-ComputerInfo, Get-PhysicalDisk and ipconfig /all on a permitted PC. Create a hardware/software inventory; label CPU, RAM, firmware mode and storage interfaces.","Commands, redacted system info, component map, one-page findings."],["Diagnose an isolated DHCP failure","Packet Tracer / offline","Create a small router-switch-client LAN. Disable DHCP service or break connectivity intentionally. Identify APIPA/address symptoms, restore DHCP and document before/after tests.","Network diagram, IP screenshots, root cause and resolution."],["Wi-Fi coverage investigation","Home lab / simulated","Measure two locations using permitted Wi-Fi diagnostic tools or use supplied public examples. Compare 2.4/5 GHz signal, channels and connection quality without probing third-party networks.","Measurement table, interference hypotheses, remediation proposal."],["Storage resilience design","Paper lab / spreadsheet","Plan 4×2 TB drives under RAID 0, 1, 5 and 10. Calculate approximate usable capacity, tolerated failure patterns and backup requirements.","Capacity math, redundancy table, backup design."],["Windows performance triage","Read-only","Review Task Manager, Performance Monitor and Event Viewer for CPU, memory, disk queue and OS event correlations; do not change employer settings.","Timestamped screenshots and a brief incident report."],["Printer troubleshooting SOP","Offline documentation","Write a decision tree that separates device self-test faults from host driver, queue and network faults; use safe vendor documentation.","Troubleshooting flowchart, verification checklist and ticket template."],["Virtualization network demo","Authorized laptop only","If permitted, create two tiny Linux virtual machines on host-only network, assign IPs and test connectivity. Otherwise draw and annotate host-only, NAT and bridged modes.","Topology, ping results or annotated design, isolation explanation."],["PBQ-style support incident","Scenario only","Analyze a workstation with no link, bad IP, DNS symptoms and application failures. Build layered troubleshooting order and justify each next test.","Diagnosis worksheet, hypothesis log and resolution criteria."]]}
+  </script>
+  <script>
+   (() => {
+  'use strict';
+
+  /* ==========================================================
+     A+ CORE 1 — DATA AND STATE
+     ========================================================== */
+  const DATA = JSON.parse(document.getElementById('course-data').textContent);
+  const DOMAINS = [
+    ['Mobile Devices', '13%'],
+    ['Networking', '23%'],
+    ['Hardware', '25%'],
+    ['Virtualization & Cloud', '11%'],
+    ['Hardware & Network Troubleshooting', '28%']
+  ];
+  const $ = (id) => document.getElementById(id);
+  const esc = (value) => String(value ?? '').replace(/[&<>"']/g, char => ({
+    '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'
+  }[char]));
+  const read = (key, fallback) => { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch { return fallback; } };
+  const completed = new Set(read('aplus1201done', []));
+  const completedLabs = new Set(read('aplus1201labs', []));
+  let activePage = 'lessons';
+  let activeLesson = 0;
+  let filteredLessons = DATA.lessons.map((_, i) => i);
+
+  function store() {
+    try {
+      localStorage.setItem('aplus1201done', JSON.stringify([...completed]));
+      localStorage.setItem('aplus1201labs', JSON.stringify([...completedLabs]));
+    } catch (_) {}
+    updateStats();
+  }
+
+  /* ==========================================================
+     SIDEBAR, TABLE OF CONTENTS AND PAGE SWITCHING
+     ========================================================== */
+  function showPage(id) {
+    activePage = id;
+    document.querySelectorAll('.section').forEach(section => {
+      section.classList.toggle('visible', section.id === id);
+    });
+    document.querySelectorAll('#nav [data-page]').forEach(button => {
+      button.classList.toggle('active', button.dataset.page === id);
+    });
+    if (id === 'lessons') renderLessons();
+  }
+
+  document.querySelectorAll('[data-page]').forEach(button => {
+    button.addEventListener('click', () => showPage(button.dataset.page));
+  });
+  document.querySelectorAll('[data-jump]').forEach(button => {
+    button.addEventListener('click', () => showPage(button.dataset.jump));
+  });
+
+  function buildToc() {
+    $('sidebarToc').innerHTML = `
+      <div class="sidebar-toc-title">Table of Contents <span>${DATA.lessons.length} lessons</span></div>
+      <p class="sidebar-toc-help">Select a domain or lesson to open its full-page reader.</p>
+      ${DOMAINS.map(([name, weight], d) => `
+        <details class="sidebar-toc-group" ${d === DATA.lessons[activeLesson].domain ? 'open' : ''}>
+          <summary><span>${esc(name)}</span><small>${weight}</small></summary>
+          <div class="sidebar-toc-links">
+            ${DATA.lessons.map((lesson, i) => lesson.domain === d ? `
+              <button class="sidebar-toc-link ${i === activeLesson ? 'selected' : ''}"
+                data-lesson="${i}">${esc(lesson.title)}</button>` : '').join('')}
+          </div>
+        </details>
+      `).join('')}`;
+    $('sidebarToc').querySelectorAll('[data-lesson]').forEach(button => {
+      button.addEventListener('click', () => selectLesson(Number(button.dataset.lesson)));
+    });
+  }
+
+  function selectLesson(index) {
+    activeLesson = index;
+    showPage('lessons');
+    buildToc();
+    $('lessonsRoot').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  /* ==========================================================
+     FULL-SCREEN LESSON READER — ONE TOPIC AT A TIME
+     ========================================================== */
+  function renderLessons() {
+    const lesson = DATA.lessons[activeLesson];
+    const pos = filteredLessons.indexOf(activeLesson);
+    const prev = pos > 0 ? filteredLessons[pos - 1] : null;
+    const next = pos >= 0 && pos + 1 < filteredLessons.length ? filteredLessons[pos + 1] : null;
+    if (!lesson || pos === -1) {
+      $('lessonsRoot').innerHTML = '<p class="muted">No lessons match this search.</p>';
+      return;
+    }
+
+    $('lessonsRoot').innerHTML = `
+      <article class="reader-slide">
+        <div class="reader-meta">
+          <span>Domain ${lesson.domain + 1} · ${esc(DOMAINS[lesson.domain][0])}</span>
+          <span>Objective ${esc(lesson.objective)}</span>
+        </div>
+        <div class="reader-intro">Complete CompTIA A+ Core 1 lesson · 220-1201</div>
+        <div class="reader-count">LESSON ${pos + 1} <span>/ ${filteredLessons.length} in your current selection</span></div>
+        <h3 class="reader-title">${esc(lesson.title)}</h3>
+        <div class="reader-body">
+          <h4>Core concept</h4><p>${esc(lesson.concept)}</p>
+          <h4>Deep-dive explanation</h4>
+          <div class="deep-topic"><ul>${lesson.details.map(part => `<li>${esc(part)}</li>`).join('')}</ul></div>
+          <h4>Field troubleshooting scenario</h4><div class="callout">${esc(lesson.scenario)}</div>
+          <h4>Hands-on procedure</h4><ol>${lesson.steps.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
+          <h4>Common pitfall</h4><div class="callout caution">${esc(lesson.pitfall)}</div>
+          <h4>Key terminology</h4><p>${lesson.terms.map(term => `<span class="pill">${esc(term)}</span>`).join('')}</p>
+          <label class="reader-check"><input type="checkbox" id="lessonDone" ${completed.has(activeLesson) ? 'checked' : ''}> I can explain this lesson</label>
+        </div>
+        <div class="reader-footer">
+          <button class="btn secondary" id="previousLesson" ${prev === null ? 'disabled' : ''}>← Previous</button>
+          <span>${pos + 1} of ${filteredLessons.length}</span>
+          <button class="btn" id="nextLesson" ${next === null ? 'disabled' : ''}>Next →</button>
+        </div>
+      </article>`;
+    $('lessonDone').onchange = (event) => {
+      event.target.checked ? completed.add(activeLesson) : completed.delete(activeLesson);
+      store();
+    };
+    $('previousLesson').onclick = () => { if (prev !== null) selectLesson(prev); };
+    $('nextLesson').onclick = () => { if (next !== null) selectLesson(next); };
+  }
+
+  $('lessonSearch').addEventListener('input', event => {
+    const query = event.target.value.trim().toLowerCase();
+    filteredLessons = DATA.lessons.map((lesson, index) => {
+      const content = [lesson.title, lesson.concept, lesson.objective, ...lesson.details, ...lesson.terms].join(' ').toLowerCase();
+      return !query || content.includes(query) ? index : -1;
+    }).filter(index => index >= 0);
+    if (filteredLessons.length && !filteredLessons.includes(activeLesson)) activeLesson = filteredLessons[0];
+    buildToc();
+    renderLessons();
+  });
+
+  /* ==========================================================
+     STUDY PROGRESS AND EXAM DOMAIN OVERVIEW
+     ========================================================== */
+  function updateStats() {
+    $('stats').innerHTML = [
+      [`${completed.size}/${DATA.lessons.length}`, 'Lessons completed'],
+      [DATA.lessons.length, 'Detailed lessons'],
+      [DATA.questions.length, 'Practice questions'],
+      [DATA.cards.length, 'Flashcards']
+    ].map(([number, label]) => `<div class="stat"><strong>${number}</strong><span>${label}</span></div>`).join('');
+    const percent = Math.round(completed.size / DATA.lessons.length * 100);
+    $('progressFill').style.width = `${percent}%`;
+    $('progressText').textContent = `${completed.size} of ${DATA.lessons.length} lessons completed (${percent}%).`;
+  }
+  $('weights').innerHTML = DOMAINS.map(([name, percent]) => `
+    <div class="domain-head" style="margin:9px 0"><span>${esc(name)}</span><span>${percent}</span></div>
+  `).join('');
+  $('reset').onclick = () => {
+    if (!confirm('Reset your locally saved A+ Core 1 progress?')) return;
+    completed.clear();
+    completedLabs.clear();
+    store();renderLessons();renderLabs();
+  };
+
+  /* ==========================================================
+     FLASHCARDS
+     ========================================================== */
+  let cardOrder = DATA.cards.map((_, i) => i);
+  let currentCard = 0;
+  let flipped = false;
+
+  function drawCard() {
+    const pair = DATA.cards[cardOrder[currentCard]];
+    $('card').textContent = pair ? String(pair[flipped ? 1 : 0]) : 'No matching flashcards';
+    $('card').classList.toggle('answer', flipped);
+    $('cardIndex').textContent = cardOrder.length ? currentCard + 1 : 0;
+    $('cardTotal').textContent = cardOrder.length;
+  }
+  $('cardSearch').oninput = (event) => {
+    const q = event.target.value.toLowerCase();
+    cardOrder = DATA.cards.map((pair, i) => pair.join(' ').toLowerCase().includes(q) ? i : -1).filter(i => i >= 0);
+    currentCard = 0;flipped = false;drawCard();
+  };
+  const flip = () => { if (!cardOrder.length) return; flipped = !flipped;drawCard(); };
+  $('card').onclick = flip;
+  $('card').onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault();flip(); } };
+  $('flipCard').onclick = flip;
+  $('prevCard').onclick = () => { if (!cardOrder.length) return;currentCard = (currentCard - 1 + cardOrder.length) % cardOrder.length;flipped = false;drawCard(); };
+  $('nextCard').onclick = () => { if (!cardOrder.length) return;currentCard = (currentCard + 1) % cardOrder.length;flipped = false;drawCard(); };
+  $('shuffleCards').onclick = () => { cardOrder.sort(() => Math.random() - .5);currentCard = 0;flipped = false;drawCard(); };
+
+  /* ==========================================================
+     PRACTICE EXAM
+     ========================================================== */
+  $('quizDomain').innerHTML = '<option value="all">All exam domains</option>' +
+    DOMAINS.map(([name], index) => `<option value="${index}">${esc(name)}</option>`).join('');
+  let exam = [];
+  let responses = {};
+
+  function newQuiz() {
+    const value = $('quizDomain').value;
+    const pool = DATA.questions.filter(q => value === 'all' || q.d === Number(value));
+    exam = [...pool].sort(() => Math.random() - .5).slice(0, 15);
+    responses = {};
+    $('quizScore').hidden = true;
+    $('quizRoot').innerHTML = exam.map((q, i) => `
+      <article class="question" id="exam-question-${i}">
+        <strong>${i + 1}. ${esc(q.q)}</strong>
+        ${q.opts.map((opt, j) => `<button type="button" class="choice" data-q="${i}" data-option="${j}">${esc(opt)}</button>`).join('')}
+        <div class="explain" id="explain-${i}" hidden></div>
+      </article>
+    `).join('');
+    $('quizRoot').querySelectorAll('[data-q]').forEach(button => {
+      button.onclick = () => {
+        const index = Number(button.dataset.q);
+        responses[index] = Number(button.dataset.option);
+        $('exam-question-' + index).querySelectorAll('[data-option]').forEach(b => {
+          b.classList.toggle('chosen', Number(b.dataset.option) === responses[index]);
+        });
+      };
+    });
+  }
+  $('newQuiz').onclick = newQuiz;
+  $('quizDomain').onchange = newQuiz;
+  $('gradeQuiz').onclick = () => {
+    let score = 0;
+    exam.forEach((q, i) => {
+      const correct = responses[i] === q.a;
+      if (correct) score++;
+      const explanation = $('explain-' + i);
+      explanation.hidden = false;
+      explanation.innerHTML = `<strong>${correct ? 'Correct' : 'Review this question'}</strong> — ${esc(q.why)}`;
+      $('exam-question-' + i).querySelectorAll('[data-option]').forEach(button => {
+        const value = Number(button.dataset.option);
+        button.classList.toggle('good', value === q.a);
+        button.classList.toggle('bad', value === responses[i] && !correct);
+      });
+    });
+    $('quizScore').hidden = false;
+    $('quizScore').textContent = `Score: ${score}/${exam.length}. Review your explanations below.`;
+  };
+
+  /* ==========================================================
+     HANDS-ON LABS
+     ========================================================== */
+  function renderLabs() {
+    $('labsRoot').innerHTML = DATA.labs.map(([title, mode, steps, evidence], i) => `
+      <article class="lab">
+        <span class="pill">Lab ${String(i + 1).padStart(2, '0')} · ${esc(mode)}</span>
+        <h4>${esc(title)}</h4><p><strong>Exercise:</strong> ${esc(steps)}</p>
+        <p><strong>Evidence:</strong> ${esc(evidence)}</p>
+        <label class="check"><input type="checkbox" data-lab="${i}" ${completedLabs.has(i) ? 'checked' : ''}> Completed and documented</label>
+      </article>`).join('');
+    $('labsRoot').querySelectorAll('[data-lab]').forEach(input => {
+      input.onchange = () => {
+        const n = Number(input.dataset.lab);
+        input.checked ? completedLabs.add(n) : completedLabs.delete(n);
+        store();
+      };
+    });
+  }
+
+  updateStats();
+  buildToc();
+  renderLessons();
+  renderLabs();
+  drawCard();
+  newQuiz();
+  showPage('lessons');
+})();
+  </script>
+ </body>
+</html>
