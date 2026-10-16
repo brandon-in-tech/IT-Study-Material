@@ -1,0 +1,1757 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Brandon Stevenson's free interactive IT study resources, networking labs, cloud guides, security courses, and systems administration roadmaps.">
+  <title>IT Study Materials | Brandon Stevenson</title>
+
+
+<style>
+:root {
+  --navy:#0a2345;
+  --navy2:#123764;
+  --blue:#174f92;
+  --ink:#172d48;
+  --sub:#53677e;
+  --line:#dce6f1;
+  --paper:#fff;
+  --bg:#f7faff;
+  --pale:#edf4fc;
+  --shadow:0 10px 34px rgba(14,49,92,.06);
+}
+
+/* ==========================================
+   GLOBAL
+========================================== */
+
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font:15px/1.6 Inter,ui-sans-serif,system-ui,
+    -apple-system,"Segoe UI",sans-serif;
+}
+
+a {
+  color:inherit;
+  text-decoration:none;
+}
+
+button,input {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline:3px solid #73aaf8;
+  outline-offset:3px;
+}
+
+svg {
+  display:block;
+}
+
+.shell {
+  max-width:1270px;
+  margin:auto;
+  padding:0 28px;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.topbar {
+  background:#fff;
+  border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:20;
+  box-shadow:0 1px 7px #09294f08;
+}
+
+.topinner {
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+}
+
+.identity {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  min-width:0;
+}
+
+.logo {
+  width:57px;
+  height:57px;
+  object-fit:contain;
+  flex:none;
+}
+
+.brand-name {
+  font-size:15px;
+  font-weight:800;
+  letter-spacing:-.035em;
+  color:var(--navy);
+  line-height:1.15;
+}
+
+.brand-caption {
+  font-size:11px;
+  color:#687b91;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  font-weight:700;
+  margin-top:4px;
+}
+
+.nav {
+  display:flex;
+  align-items:center;
+  gap:27px;
+}
+
+.nav a {
+  font-size:13px;
+  font-weight:700;
+  color:#4c617a;
+}
+
+.nav a:hover {
+  color:var(--blue);
+}
+
+.nav .outline {
+  border:1px solid #cbd9e9;
+  border-radius:9px;
+  padding:10px 14px;
+  color:var(--navy);
+}
+
+/* ==========================================
+   HERO BACKGROUND
+========================================== */
+
+.hero {
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  min-height:505px;
+  background:#f5f9ff;
+  border-bottom:1px solid var(--line);
+}
+
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-2;
+  background-image:url("assets/study-hero.png");
+  background-position:center 42%;
+  background-repeat:no-repeat;
+  background-size:cover;
+}
+
+/* Original full-width desktop hero overlay */
+
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(
+    90deg,
+    #fff 0%,
+    rgba(255,255,255,.99) 24%,
+    rgba(255,255,255,.96) 32%,
+    rgba(255,255,255,.78) 40%,
+    rgba(255,255,255,.25) 52%,
+    rgba(255,255,255,0) 65%
+  );
+}
+
+.hero-inner {
+  min-height:505px;
+  display:flex;
+  align-items:center;
+  padding-top:72px;
+  padding-bottom:72px;
+  position:relative;
+}
+
+.hero-content {
+  max-width:620px;
+}
+
+.eyebrow {
+  text-transform:uppercase;
+  color:var(--blue);
+  font-size:11px;
+  letter-spacing:.2em;
+  font-weight:850;
+}
+
+/* ==========================================
+   DESKTOP H1 — METALLIC BLACK
+========================================== */
+
+.hero h1 {
+  font-size:clamp(42px,5vw,66px);
+  letter-spacing:-.062em;
+  line-height:1.07;
+  margin:15px 0 18px;
+  max-width:640px;
+  color:#0d0d0d;
+
+  background:linear-gradient(
+    180deg,
+    #838a94 0%,
+    #353b45 17%,
+    #11151c 38%,
+    #05070b 49%,
+    #454c56 55%,
+    #171c24 72%,
+    #030508 100%
+  );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* ==========================================
+   DESKTOP H1 — METALLIC BLUE
+========================================== */
+
+.hero h1 em {
+  font-style:normal;
+  color:#123c70;
+
+  background:linear-gradient(
+    180deg,
+    #7298c4 0%,
+    #416eaa 16%,
+    #1b4b82 34%,
+    #092b54 49%,
+    #3e689b 55%,
+    #173f70 70%,
+    #071f40 100%
+  );
+
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+
+  filter:drop-shadow(
+    0 1px 0 rgba(255,255,255,.26)
+  );
+}
+
+.hero p {
+  font-size:16px;
+  line-height:1.8;
+  color:#405871;
+  max-width:510px;
+  margin:0;
+  font-weight:450;
+}
+
+/* ==========================================
+   HERO BUTTONS
+========================================== */
+
+.hero-ctas {
+  display:flex;
+  flex-wrap:wrap;
+  gap:11px;
+  margin-top:29px;
+}
+
+.cta {
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:11px 17px;
+  font-size:13px;
+  font-weight:800;
+  border:1px solid #cbd9e9;
+  background:#fff;
+  color:var(--navy);
+  transition:transform .2s,box-shadow .2s;
+}
+
+.cta.primary {
+  background:var(--navy);
+  border-color:var(--navy);
+  color:#fff;
+}
+
+.cta:hover {
+  transform:translateY(-1px);
+  box-shadow:0 7px 18px #163c7222;
+}
+
+/* ==========================================
+   HERO STATISTICS
+========================================== */
+
+.hero-highlights {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:30px;
+}
+
+.hero-highlights span {
+  font-size:12px;
+  font-weight:700;
+  color:#1e456f;
+  background:rgba(255,255,255,.86);
+  border:1px solid #d9e6f5;
+  border-radius:999px;
+  padding:8px 13px;
+  box-shadow:0 2px 10px #1234580c;
+}
+
+.hero-highlights strong {
+  font-size:14px;
+  color:var(--navy);
+}
+
+/* ==========================================
+   SPOTLIGHT
+========================================== */
+
+.spotlight {
+  background:#fff;
+  border:1px solid #d6e3f2;
+  border-radius:19px;
+  box-shadow:var(--shadow);
+  padding:25px;
+}
+
+.spot-label {
+  font-size:11px;
+  color:#607a97;
+  letter-spacing:.16em;
+  font-weight:850;
+}
+
+.spotlight h2 {
+  color:var(--navy);
+  font-size:20px;
+  margin:8px 0 10px;
+  letter-spacing:-.035em;
+  line-height:1.3;
+}
+
+.spotlight p {
+  font-size:13px;
+  line-height:1.7;
+  margin:0 0 17px;
+}
+
+.spot-stats {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.spot-stats div {
+  background:var(--pale);
+  padding:14px;
+  border-radius:11px;
+}
+
+.spot-stats strong {
+  font-size:24px;
+  color:var(--navy);
+  display:block;
+  line-height:1.2;
+}
+
+.spot-stats span {
+  font-size:11px;
+  color:var(--sub);
+}
+
+/* ==========================================
+   STUDY LIBRARY
+========================================== */
+
+.workspace {
+  padding-top:46px;
+  padding-bottom:80px;
+}
+
+.workspace-head {
+  display:flex;
+  justify-content:space-between;
+  align-items:end;
+  gap:20px;
+  margin-bottom:24px;
+}
+
+.workspace-head h2 {
+  margin:6px 0;
+  font-size:29px;
+  letter-spacing:-.045em;
+  color:var(--navy);
+}
+
+.workspace-head p {
+  margin:0;
+  color:var(--sub);
+  font-size:13px;
+}
+
+.count-pill {
+  font-weight:750;
+  font-size:12px;
+  background:#e8f1fc;
+  color:var(--navy2);
+  border:1px solid #d0e1f5;
+  padding:8px 13px;
+  border-radius:30px;
+  white-space:nowrap;
+}
+
+.workspace-grid {
+  display:grid;
+  grid-template-columns:226px minmax(0,1fr);
+  gap:30px;
+  align-items:start;
+}
+
+/* ==========================================
+   SIDEBAR
+========================================== */
+
+.side {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:20px 14px;
+  position:sticky;
+  top:103px;
+}
+
+.side h3 {
+  font-size:10px;
+  letter-spacing:.17em;
+  color:#8191a3;
+  margin:1px 12px 14px;
+}
+
+.filter {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  background:transparent;
+  color:#51647c;
+  border:0;
+  text-align:left;
+  padding:11px 12px;
+  border-radius:9px;
+  font-size:13px;
+  font-weight:650;
+  margin:2px 0;
+}
+
+.filter:hover {
+  background:#f1f6fc;
+  color:var(--navy);
+}
+
+.filter.active {
+  color:var(--navy);
+  background:#eaf3ff;
+  font-weight:800;
+}
+
+.filter small {
+  font-size:11px;
+  color:#8496ab;
+}
+
+.aside-note {
+  font-size:12px;
+  color:#63768a;
+  line-height:1.65;
+  padding:14px 12px 2px;
+  border-top:1px solid var(--line);
+  margin-top:18px;
+}
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+.searchline {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  position:relative;
+  margin-bottom:23px;
+}
+
+.searchline input {
+  display:block;
+  width:100%;
+  border:1px solid #cddbea;
+  border-radius:12px;
+  padding:16px 18px 16px 48px;
+  background:#fff;
+  color:var(--ink);
+  box-shadow:0 2px 6px #0b264507;
+}
+
+.searchline input::placeholder {
+  color:#8292a4;
+}
+
+.searchline svg {
+  position:absolute;
+  left:17px;
+  color:#617c9d;
+}
+
+.mobile-filter {
+  display:none;
+  width:100%;
+  background:white;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px 14px;
+  margin-bottom:16px;
+  color:var(--navy);
+  font-weight:750;
+}
+
+/* ==========================================
+   RESOURCE SECTIONS AND CARDS
+========================================== */
+
+.section {
+  margin:0 0 40px;
+}
+
+.section-header {
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:15px;
+  margin:0 0 15px;
+  padding:0 0 11px;
+  border-bottom:1px solid var(--line);
+}
+
+.section-header h3 {
+  font-size:18px;
+  margin:0;
+  color:var(--navy);
+  letter-spacing:-.035em;
+}
+
+.section-header span {
+  font-size:12px;
+  color:#7790ab;
+}
+
+.cards {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+
+.card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  min-height:215px;
+  transition:
+    box-shadow .2s,
+    border-color .2s,
+    transform .2s;
+}
+
+.card:hover {
+  border-color:#aac5e8;
+  box-shadow:0 12px 28px #123b6b14;
+  transform:translateY(-2px);
+}
+
+.meta {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  justify-content:space-between;
+}
+
+.topic {
+  background:#edf4fc;
+  color:#23558b;
+  font-size:10px;
+  letter-spacing:.07em;
+  font-weight:850;
+  text-transform:uppercase;
+  border-radius:6px;
+  padding:5px 8px;
+}
+
+.format {
+  font-size:11px;
+  color:#8393a4;
+}
+
+.card h4 {
+  font-size:18px;
+  line-height:1.34;
+  color:var(--navy);
+  letter-spacing:-.025em;
+  margin:18px 0 9px;
+}
+
+.card p {
+  font-size:12.8px;
+  line-height:1.7;
+  color:var(--sub);
+  margin:0 0 20px;
+}
+
+.launch {
+  font-size:12px;
+  font-weight:850;
+  color:var(--blue);
+  margin-top:auto;
+  border-top:1px solid #e6eef7;
+  padding-top:13px;
+}
+
+.empty {
+  border:1px dashed #a8bfd9;
+  border-radius:14px;
+  background:#fff;
+  padding:36px;
+  text-align:center;
+  color:var(--sub);
+}
+
+.empty h3 {
+  color:var(--navy);
+  margin:0 0 8px;
+}
+
+.hidden {
+  display:none !important;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.footer {
+  border-top:1px solid var(--line);
+  background:#fff;
+  padding:26px 0;
+}
+
+.foot-inner {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  font-size:12px;
+  color:#637891;
+}
+
+.foot-inner a {
+  color:var(--navy2);
+  font-weight:750;
+}
+
+.footlinks {
+  display:flex;
+  gap:18px;
+  flex-wrap:wrap;
+}
+
+/* ==========================================
+   MOBILE CATEGORY PICKER — DEFAULT HIDDEN
+========================================== */
+
+.mobile-category-picker {
+  display:none;
+}
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width:1000px) {
+
+  .hero::before {
+    background-position:56% center;
+  }
+
+  .hero-inner {
+    min-height:460px;
+  }
+
+  .hero-content {
+    max-width:560px;
+  }
+
+  .spotlight {
+    max-width:580px;
+  }
+
+  .workspace-grid {
+    grid-template-columns:190px minmax(0,1fr);
+    gap:20px;
+  }
+
+  .cards {
+    grid-template-columns:1fr;
+  }
+}
+
+/* ==========================================
+   MOBILE — 680PX AND BELOW
+========================================== */
+
+@media (max-width:680px) {
+
+  /* HEADER */
+
+  .shell {
+    padding:0 17px;
+  }
+
+  .topinner {
+    min-height:70px;
+  }
+
+  .logo {
+    height:47px;
+    width:47px;
+  }
+
+  .brand-name {
+    font-size:14px;
+  }
+
+  .brand-caption {
+    font-size:10px;
+  }
+
+  .nav {
+    gap:10px;
+  }
+
+  .nav a:not(.outline) {
+    display:none;
+  }
+
+  .nav .outline {
+    font-size:11px;
+    padding:8px;
+  }
+
+  /* ==========================================
+     MOBILE HERO IMAGE
+     NO FULL-IMAGE OVERLAY
+  ========================================== */
+
+  .hero {
+    min-height:0;
+  }
+
+  .hero::before {
+    background-position:67% center;
+  }
+
+  .hero::after {
+    display:none;
+  }
+
+  .hero-inner {
+    min-height:445px;
+    padding-top:50px;
+    padding-bottom:65px;
+  }
+
+  .hero-content {
+    position:relative;
+    max-width:100%;
+    z-index:1;
+  }
+
+  /* ==========================================
+     MOBILE HEADING POSITION
+  ========================================== */
+
+  .hero-content > .eyebrow,
+  .hero-content > h1 {
+    transform:translateY(-35px);
+  }
+
+  /* ==========================================
+     MOBILE H1
+     SOLID BLACK AND SOFT WHITE HAZE
+  ========================================== */
+
+  .hero-content > h1 {
+    position:relative;
+    isolation:isolate;
+    width:max-content;
+    max-width:100%;
+    font-size:clamp(36px,9.2vw,48px);
+
+    color:#11151c;
+    background:none;
+    background-image:none;
+
+    -webkit-background-clip:border-box;
+    background-clip:border-box;
+    -webkit-text-fill-color:#11151c;
+
+    filter:none;
+    text-shadow:none;
+  }
+
+  /* Second heading line — solid dark blue */
+
+  .hero-content > h1 em {
+    font-style:normal;
+    color:#123c70;
+    background:none;
+    background-image:none;
+
+    -webkit-background-clip:border-box;
+    background-clip:border-box;
+    -webkit-text-fill-color:#123c70;
+
+    filter:none;
+    text-shadow:none;
+  }
+
+  /* ==========================================
+     WHITE HAZE — FIRST HEADING LINE
+     Learn the skills.
+  ========================================== */
+
+  .hero-content > h1::before {
+    content:"";
+    display:block;
+    position:absolute;
+    pointer-events:none;
+    z-index:-1;
+
+    left:-.16em;
+    top:-.10em;
+
+    width:min(100%,15.4ch);
+    height:1.22em;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+      ellipse at center,
+      rgba(255,255,255,.92) 0%,
+      rgba(255,255,255,.74) 37%,
+      rgba(255,255,255,.36) 68%,
+      rgba(255,255,255,0) 100%
+    );
+  }
+
+  /* ==========================================
+     WHITE HAZE — SECOND HEADING LINE
+     Build your future.
+  ========================================== */
+
+  .hero-content > h1::after {
+    content:"";
+    display:block;
+    position:absolute;
+    pointer-events:none;
+    z-index:-1;
+
+    left:-.16em;
+    top:.96em;
+
+    width:min(100%,17ch);
+    height:1.22em;
+
+    border-radius:50%;
+
+    background:radial-gradient(
+      ellipse at center,
+      rgba(255,255,255,.92) 0%,
+      rgba(255,255,255,.74) 37%,
+      rgba(255,255,255,.36) 68%,
+      rgba(255,255,255,0) 100%
+    );
+  }
+
+  /* ==========================================
+     MOBILE DESCRIPTION
+     INVISIBLE BUT KEEPS ITS SPACE
+  ========================================== */
+
+  .hero-content > p {
+    font-size:14px;
+    visibility:hidden;
+  }
+
+  /* ==========================================
+     MOBILE BUTTONS AND STATISTICS
+  ========================================== */
+
+  .hero-content > .hero-ctas,
+  .hero-content > .hero-highlights {
+    transform:translateY(35px);
+  }
+
+  .hero-highlights {
+    gap:7px;
+    margin-top:24px;
+  }
+
+  .hero-highlights span {
+    font-size:11px;
+  }
+
+  /* ==========================================
+     MOBILE STUDY LIBRARY
+  ========================================== */
+
+  .spotlight {
+    padding:20px;
+  }
+
+  .workspace {
+    padding-top:32px;
+    padding-bottom:50px;
+  }
+
+  .workspace-grid {
+    display:block;
+  }
+
+  .side,
+  .mobile-filter {
+    display:none;
+  }
+
+  .workspace-head h2 {
+    font-size:25px;
+  }
+
+  .count-pill {
+    display:none;
+  }
+
+  .card {
+    min-height:0;
+  }
+
+  .cards {
+    grid-template-columns:1fr;
+  }
+
+  .foot-inner {
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  /* ==========================================
+     MOBILE CATEGORY PICKER
+  ========================================== */
+
+  .mobile-category-picker {
+    display:block;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:23px 17px;
+    margin-bottom:21px;
+    box-shadow:var(--shadow);
+  }
+
+  .mobile-category-picker .picker-kicker {
+    font-size:10px;
+    letter-spacing:.16em;
+    color:var(--blue);
+    font-weight:850;
+    text-transform:uppercase;
+  }
+
+  .mobile-category-picker h3 {
+    font-size:23px;
+    line-height:1.2;
+    letter-spacing:-.04em;
+    color:var(--navy);
+    margin:10px 0;
+  }
+
+  .mobile-category-picker p {
+    font-size:13px;
+    line-height:1.7;
+    color:var(--sub);
+    margin:0 0 18px;
+  }
+
+  .mobile-category-options {
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+  }
+
+  .mobile-category-options button {
+    border:1px solid #c9d8e9;
+    border-radius:10px;
+    background:#f9fbfe;
+    color:var(--navy);
+    font-weight:750;
+    font-size:12px;
+    padding:11px 12px;
+    transition:
+      background .15s,
+      border-color .15s;
+  }
+
+  .mobile-category-options button:hover {
+    border-color:#94b3d9;
+    background:#edf4fc;
+  }
+
+  .mobile-category-options button[aria-pressed="true"] {
+    background:var(--navy);
+    border-color:var(--navy);
+    color:#fff;
+  }
+
+  .mobile-category-note {
+    font-size:12px;
+    color:#53677e;
+    margin-top:15px;
+    font-weight:650;
+  }
+
+  /* Resources hidden until category selected */
+
+  .workspace:not(.mobile-category-selected) .searchline,
+  .workspace:not(.mobile-category-selected) #sections,
+  .workspace:not(.mobile-category-selected) #empty {
+    display:none !important;
+  }
+}
+
+/* Docked-hero attribution: hidden on the full-size hero and mobile */
+.docked-hero-credit {
+  display: none;
+}
+
+/* ==========================================
+   DESKTOP SCROLL MORPH
+   HERO DOCKS INTO LEFT COLUMN
+========================================== */
+
+@media (min-width:1100px) {
+
+  /* Preserve the hero's original page space */
+
+  #top.hero-docked {
+    padding-top:505px;
+  }
+
+  /* ==========================================
+     DOCKED LEFT HERO PANEL
+  ========================================== */
+
+  #top.hero-docked > .hero {
+    position:fixed;
+    display:flex;
+    flex-direction:column;
+    top:96px;
+
+    left:max(
+      18px,
+      calc((100vw - 1400px) / 2)
+    );
+
+    width:min(37vw,490px);
+    height:calc(100vh - 116px);
+    min-height:0;
+
+    border:1px solid #d4e0ef;
+    border-radius:20px;
+
+    box-shadow:0 16px 46px rgba(14,49,92,.13);
+
+    z-index:12;
+
+    overflow-x:hidden;
+    overflow-y:auto;
+    scrollbar-width:thin;
+
+    animation:heroDockIn .32s ease both;
+  }
+
+  /* Attribution overlays only the bottom of the docked hero image */
+  #top.hero-docked > .hero .docked-hero-credit {
+    position: sticky;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    bottom: 0;
+    margin-top: auto;
+    padding: 17px 20px 19px;
+    width: 100%;
+    color: #fff;
+    background: linear-gradient(0deg, rgba(6, 20, 43, .96), rgba(9, 27, 51, .83));
+    border-top: 1px solid rgba(255,255,255,.25);
+    z-index: 2;
+    text-align: center;
+  }
+
+  #top.hero-docked > .hero .docked-hero-credit strong {
+    font-size: 12px;
+    line-height: 1.45;
+    letter-spacing: .01em;
+  }
+
+  #top.hero-docked > .hero .docked-hero-credit span {
+    font-size: 10px;
+    line-height: 1.45;
+    color: #cbdcf0;
+  }
+
+  /* ==========================================
+     ORIGINAL IMAGE ZOOM AND POSITION
+  ========================================== */
+
+  #top.hero-docked > .hero::before {
+    background-position:59% center;
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+
+  /* No gradient overlay while docked */
+
+  #top.hero-docked > .hero::after {
+    display:none;
+    content:none;
+    background:none;
+  }
+
+  /* ==========================================
+     PRESERVE ORIGINAL CONTENT DIMENSIONS
+  ========================================== */
+
+  #top.hero-docked .hero-inner {
+    flex:1 0 auto;
+    min-height:0;
+    width:100%;
+    padding:34px 27px;
+    align-items:center;
+  }
+
+  /* ==========================================
+     INVISIBLE HERO CONTENT
+     Retains all original spacing
+     Does NOT change image positioning
+  ========================================== */
+
+  #top.hero-docked .hero-content {
+    max-width:100%;
+    visibility:hidden;
+    pointer-events:none;
+  }
+
+  /* Preserve original docked heading size */
+
+  #top.hero-docked .hero h1 {
+    font-size:clamp(31px,3vw,43px);
+    letter-spacing:-.055em;
+  }
+
+  #top.hero-docked .hero p {
+    font-size:13px;
+    line-height:1.65;
+  }
+
+  #top.hero-docked .hero-ctas {
+    gap:8px;
+    margin-top:22px;
+  }
+
+  #top.hero-docked .cta {
+    padding:9px 12px;
+    font-size:11px;
+  }
+
+  #top.hero-docked .hero-highlights {
+    margin-top:23px;
+    gap:7px;
+  }
+
+  #top.hero-docked .hero-highlights span {
+    font-size:10px;
+    padding:6px 9px;
+  }
+
+  /* ==========================================
+     RIGHT STUDY LIBRARY COLUMN
+  ========================================== */
+
+  #top.hero-docked > .workspace {
+    max-width:none;
+    width:auto;
+
+    margin-left:calc(
+      max(18px,(100vw - 1400px) / 2)
+      + min(37vw,490px)
+      + 16px
+    );
+
+    margin-right:max(
+      18px,
+      calc((100vw - 1400px) / 2)
+    );
+
+    padding-left:0;
+    padding-right:0;
+  }
+
+  #top.hero-docked .workspace-grid {
+    grid-template-columns:
+      minmax(160px,195px)
+      minmax(0,1fr);
+
+    gap:19px;
+  }
+
+  #top.hero-docked .cards {
+    grid-template-columns:1fr;
+  }
+
+  #top.hero-docked .workspace-head {
+    flex-wrap:wrap;
+  }
+
+  #top.hero-docked .workspace-head h2 {
+    font-size:26px;
+  }
+
+  /* ==========================================
+     HERO DOCK ANIMATION
+  ========================================== */
+
+  @keyframes heroDockIn {
+    from {
+      opacity:.75;
+      transform:translateX(-12px) scale(.985);
+    }
+
+    to {
+      opacity:1;
+      transform:translateX(0) scale(1);
+    }
+  }
+}
+
+/* ==========================================
+   ACCESSIBILITY
+========================================== */
+
+@media (prefers-reduced-motion:reduce) {
+
+  html {
+    scroll-behavior:auto;
+  }
+
+  #top.hero-docked > .hero {
+    animation:none;
+  }
+
+  .card,
+  .cta {
+    transition:none;
+  }
+
+  .card:hover,
+  .cta:hover {
+    transform:none;
+  }
+}
+
+</style>
+
+
+
+
+
+
+</head>
+<body>
+  <header class="topbar"><div class="shell topinner">
+    <a class="identity" href="#top" aria-label="Brandon Stevenson study materials home"><img class="logo" src="assets/brandons-logo.png" alt="Brandon Stevenson BS logo"><div><div class="brand-name">Brandon Stevenson</div><div class="brand-caption">IT Study Materials</div></div></a>
+    <nav class="nav" aria-label="Main navigation"><a href="#library">Study Library</a><a href="README.md">About Collection</a><a class="outline" href="https://github.com/brandon-in-tech/IT-Study-Material" target="_blank" rel="noopener noreferrer">GitHub ↗</a></nav>
+  </div></header>
+  <main id="top">
+    <section class="hero" aria-label="IT study materials welcome">
+      <div class="shell hero-inner">
+        <div class="hero-content">
+          <div class="eyebrow">Brandon Stevenson · Free IT Learning Library</div>
+          <h1>Learn the skills.<br><em>Build your future.</em></h1>
+          <p>Explore interactive study guides, practice questions, technical references, and hands-on learning resources across networking, cloud, cybersecurity, and systems administration.</p>
+          <div class="hero-ctas">
+            <a class="cta primary" href="#library">Explore Study Library <span aria-hidden="true">→</span></a>
+            <a class="cta" href="it-administration/SysAdmin_Roadmap.html">System Admin Roadmap ↗</a>
+          </div>
+          <div class="hero-highlights" aria-label="Study collection overview">
+            <span><strong id="heroCount">13</strong> study resources</span>
+            <span><strong>6</strong> focus areas</span>
+            <span>Free &amp; self-paced</span>
+          </div>
+        </div>
+      </div>
+      <div class="docked-hero-credit" aria-label="Study guide authorship and trademark acknowledgment">
+        <strong>All study guides written &amp; designed by Brandon Stevenson</strong>
+        <span>CompTIA and its certification names are trademarks of CompTIA, Inc. Other trademarks belong to their respective owners. Independent resources; not affiliated with or endorsed by these organizations.</span>
+      </div>
+    </section>
+    
+<!-- ============================================================
+     FEATURED CERTIFICATION GUIDES — SCROLLING CAROUSEL
+     Insert immediately below the homepage hero section.
+     ============================================================ -->
+
+<section class="cert-ribbon" aria-label="Featured certification study guides">
+  <div class="cert-ribbon-header">
+    <div>
+      <span class="cert-ribbon-eyebrow">EXPLORE OUR MASTERCLASSES</span>
+      <h2>Featured Certification Guides</h2>
+      <p>Select a study guide to start learning.</p>
+    </div>
+
+    <span class="cert-ribbon-count">5 COMPLETE STUDY GUIDES</span>
+  </div>
+
+  <div class="cert-ribbon-viewport">
+    <div class="cert-ribbon-track">
+
+      <!-- First set -->
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-1.html">
+        <img src="assets/aplus-core-1-hero.png"
+             alt="A+ Core 1 robot studying in an autumn park"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 1</strong>
+          <span>220-1201 · Hardware & Networking</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-2.html">
+        <img src="assets/core2-hero.png"
+             alt="A+ Core 2 robot breakdancing in a neon roller rink"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 2</strong>
+          <span>220-1202 · Operating Systems & Security</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/net+-study.html">
+        <img src="assets/net+-hero.png"
+             alt="Network+ astronaut overlooking connected Earth"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Network+</strong>
+          <span>N10-009 · Networking & Infrastructure</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/security+-study.html">
+        <img src="assets/security-hero.png"
+             alt="Security+ cybersecurity professional at a workstation"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Security+</strong>
+          <span>SY0-701 · Cybersecurity & Defense</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/linux+-study.html">
+        <img src="assets/linux-hero.png"
+             alt="Linux+ robotic penguin in Antarctica"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Linux+</strong>
+          <span>XK0-006 · Linux Administration</span>
+        </div>
+      </a>
+
+      <!-- Duplicate set creates a seamless infinite loop -->
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-1.html"
+         aria-label="CompTIA A+ Core 1 study guide">
+        <img src="assets/aplus-core-1-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 1</strong>
+          <span>220-1201 · Hardware & Networking</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-2.html"
+         aria-label="CompTIA A+ Core 2 study guide">
+        <img src="assets/core2-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 2</strong>
+          <span>220-1202 · Operating Systems & Security</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/net+-study.html"
+         aria-label="CompTIA Network+ study guide">
+        <img src="assets/net+-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Network+</strong>
+          <span>N10-009 · Networking & Infrastructure</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/security+-study.html"
+         aria-label="CompTIA Security+ study guide">
+        <img src="assets/security-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Security+</strong>
+          <span>SY0-701 · Cybersecurity & Defense</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/linux+-study.html"
+         aria-label="CompTIA Linux+ study guide">
+        <img src="assets/linux-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Linux+</strong>
+          <span>XK0-006 · Linux Administration</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   FEATURED CERTIFICATION RIBBON
+   Scoped styling — won't affect the existing hero or cards.
+   ============================================================ */
+
+.cert-ribbon {
+  padding: 35px 0 38px;
+  background: #ffffff;
+  border-bottom: 1px solid #dce6f1;
+  overflow: hidden;
+}
+
+.cert-ribbon-header {
+  max-width: 1270px;
+  margin: 0 auto 23px;
+  padding: 0 28px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cert-ribbon-eyebrow {
+  font-size: 10px;
+  letter-spacing: .16em;
+  font-weight: 850;
+  color: #2566ae;
+}
+
+.cert-ribbon-header h2 {
+  margin: 5px 0 4px;
+  font-size: clamp(21px, 2.5vw, 28px);
+  letter-spacing: -.04em;
+  color: #0a2345;
+}
+
+.cert-ribbon-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #607086;
+}
+
+.cert-ribbon-count {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  color: #53677e;
+  white-space: nowrap;
+}
+
+.cert-ribbon-viewport {
+  width: 100%;
+  overflow: hidden;
+  padding: 5px 0 10px;
+}
+
+.cert-ribbon-track {
+  display: flex;
+  gap: 15px;
+  width: max-content;
+  animation: certRibbonScroll 38s linear infinite;
+  will-change: transform;
+}
+
+/* Each image and caption move together as one card */
+
+.cert-ribbon-card {
+  display: block;
+  flex: 0 0 285px;
+  width: 285px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #f9fbff;
+  border: 1px solid #dce6f1;
+  text-decoration: none;
+  color: #172d48;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.cert-ribbon-card:hover {
+  border-color: #8bb6e5;
+  box-shadow: 0 8px 22px #123b6b20;
+}
+
+.cert-ribbon-card img {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cert-ribbon-caption {
+  padding: 12px 14px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cert-ribbon-caption strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: #102b4d;
+}
+
+.cert-ribbon-caption span {
+  font-size: 11px;
+  color: #607086;
+  line-height: 1.45;
+}
+
+/* 5 cards + their gaps = exactly half the duplicated track */
+@keyframes certRibbonScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 7.5px));
+  }
+}
+
+/* The ribbon keeps moving while hovered or focused. */
+
+/* ============================================================
+   DOCKED HERO — RIBBON STARTS AFTER THE LEFT HERO PANEL
+   Move the entire ribbon, including its white background, to
+   the right of the docked hero. The carousel remains animated
+   and clips naturally at the new left edge of its viewport.
+   ============================================================ */
+@media (min-width: 1100px) {
+  #top.hero-docked > .cert-ribbon {
+    margin-left: calc(
+      max(18px, (100vw - 1400px) / 2)
+      + min(37vw, 490px)
+      + 16px
+    );
+  }
+}
+
+/* Tablet and mobile */
+
+@media (max-width: 680px) {
+  .cert-ribbon {
+    padding: 25px 0 28px;
+  }
+
+  .cert-ribbon-header {
+    padding: 0 17px;
+    margin-bottom: 17px;
+  }
+
+  .cert-ribbon-header h2 {
+    font-size: 22px;
+  }
+
+  .cert-ribbon-count {
+    display: none;
+  }
+
+  .cert-ribbon-track {
+    gap: 12px;
+    animation-duration: 32s;
+  }
+
+  .cert-ribbon-card {
+    flex-basis: 235px;
+    width: 235px;
+  }
+
+  .cert-ribbon-card img {
+    height: 125px;
+  }
+
+  .cert-ribbon-caption {
+    padding: 11px 12px;
+  }
+}
+
+/* Accessibility: no automatic animation when reduced motion is enabled */
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-ribbon-track {
+    animation: none;
+  }
+
+  .cert-ribbon-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .cert-ribbon-card {
+    scroll-snap-align: start;
+  }
+}
+</style>
+
+  <section class="shell workspace" id="library"><div class="workspace-head"><div><div class="eyebrow">Curated learning library</div><h2>Browse study materials</h2><p>Choose a topic from the menu, or search across the entire collection.</p></div><span class="count-pill" id="resultsCount">13 resources</span></div>
+    <div class="workspace-grid"><aside class="side" aria-label="Table of contents"><h3>TABLE OF CONTENTS</h3><div id="desktopFilters"></div><div class="aside-note">Every resource opens independently. No account or subscription required for the study materials.</div></aside>
+    <div><label for="studySearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search study materials</label><div class="searchline"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="studySearch" type="search" autocomplete="off" placeholder="Search CCNA, Azure, Linux+, Intune, Security+..."></div><div class="mobile-category-picker" id="mobileCategoryPicker" aria-label="Choose a study category"><div class="picker-kicker">Explore your learning path</div><h3>What would you like to study?</h3><p>Tap a category below to reveal its study guides, labs, and practice resources.</p><div class="mobile-category-options" id="mobileCategoryOptions"></div><div class="mobile-category-note" id="mobileCategoryNote" aria-live="polite">Choose a category to view resources ↓</div></div><select id="mobileFilter" class="mobile-filter" aria-label="Filter study category" hidden></select><div id="sections"></div><div id="empty" class="empty hidden" role="status"><h3>No matching materials</h3><p>Try a different technology, exam name, or topic.</p></div></div></div>
+  </section></main><footer class="footer"><div class="shell foot-inner"><span>© <span id="year">2026</span> Brandon Stevenson · Independently created IT study resources</span><div class="footlinks"><a href="README.md">Collection guide</a><a href="RENAMED-FILES.md">File paths</a><a href="https://github.com/brandon-in-tech/IT-Study-Material" target="_blank" rel="noopener noreferrer">GitHub repository ↗</a></div></div></footer>
+  <script>
+    // Desktop-only: convert the full-width hero into a persistent left panel
+    // once scrolling starts. The resource column continues to scroll normally.
+    const desktopDockQuery = window.matchMedia('(min-width: 1100px)');
+    const pageMain = document.getElementById('top');
+    function updateHeroDock() {
+      pageMain.classList.toggle('hero-docked', desktopDockQuery.matches && window.scrollY > 170);
+    }
+    window.addEventListener('scroll', updateHeroDock, { passive: true });
+    window.addEventListener('resize', updateHeroDock);
+    updateHeroDock();
+
+    const groups=[
+      {id:'systems',name:'Systems Administration'},
+       {id:'endpoint',name:'Endpoint Management'},
+      {id:'cloud',name:'Azure & Cloud'},
+      {id:'networking',name:'Networking & CCNA'},
+      {id:'security',name:'Cybersecurity'},
+      {id:'architecture',name:'Systems Architecture'}
+    ];
+    const resources=[
+      {group:'networking',tag:'Networking',format:'Interactive study hub',title:'CCNA Troubleshooting Scenarios',desc:'A complete interactive workspace combining fundamentals quizzes, scenario-based questions, guided troubleshooting, and 20 real-world tickets.',href:'networking/CCNA_Troubleshooting_Scenarios.html',keys:'ccna 60 questions 4 20 labs troubleshooting subnetting'},
+      {group:'networking',tag:'Networking',format:'Reference',title:'Cisco IOS Commands & Theory',desc:'Cisco IOS configuration and verification commands, protocols, device hardening, and network operations theory.',href:'networking/ccna-cisco-ios-commands-and-theory-reference.html',keys:'switch router cli'},
+
+{group:'networking',tag:'Networking',format:'Complete Master Class',title:'CCNA Master Class — Complete Course, Labs & Practice Exams',desc:'Comprehensive CCNA 200-301 master class covering networking fundamentals, subnetting, routing, switching, Cisco IOS, network security, hands-on labs, interactive flashcards, quizzes, and practice exams.',href:'networking/ccna-cisco-ios-commands-and-theory-reference.html',keys:'ccna master class complete study guide cisco 200-301 networking routing switching subnetting labs quizzes flashcards practice exams'},
+      {group:'systems',tag:'IT Administration',format:'Roadmap',title:'System Administration Master Roadmap',desc:'A 12-phase learning path covering Windows Server, AD, Linux, networking, virtualization, Azure, PowerShell, and security.',href:'it-administration/SysAdmin_Roadmap.html',keys:'sysadmin active directory windows server'},
+      {group:'systems',tag:'IT Administration',format:'Study guide & labs',title:'Linux+ Study Guide & Flashcards',desc:'Linux administration study collection with chapters, searchable flashcards, and hands-on labs.',href:'it-administration/linux+-study.html',keys:'linux comptia shell bash'},
+      {group:'systems',tag:'IT Administration',format:'Glossary',title:'IT Administration Glossary & Flashcards',desc:'Searchable definitions spanning identity, servers, storage, networking, endpoints, security, and operations.',href:'it-administration/it-administration-glossary-and-flashcards.html',keys:'terms definitions help desk'},
+      {group:'cloud',tag:'Azure',format:'Study guide',title:'AZ-900 Azure Fundamentals Study Guide',desc:'Azure cloud concepts, services, pricing, governance, exam preparation, and service comparisons.',href:'azure/az-900-azure-fundamentals-study-guide.html',keys:'microsoft cloud'},
+      {group:'cloud',tag:'Azure',format:'Flashcards',title:'AZ-900 Azure Fundamentals Flashcards',desc:'Flip-card practice for cloud principles, Azure services, identity, cost management, and governance.',href:'azure/az-900-azure-fundamentals-flashcards.html',keys:'microsoft cloud'},
+      {group:'security',tag:'Cybersecurity',format:'Interactive practice',title:'Security+ Interactive Study',desc:'Study cards and practice on security fundamentals, threats, architecture, operations, and governance.',href:'networking/security+-interactive-study.html',keys:'comptia sy0-701'},
+      {group:'security',tag:'Network Security',format:'Study guide & labs',title:'Palo Alto NGFW / PAN-OS',desc:'Firewall policies, NAT, App-ID, User-ID, VPNs, high availability, Panorama, automation, and guided exercises.',href:'network-security/palo-alto-ngfw-pan-os-study-guide-and-labs.html',keys:'firewall pcnsa'},
+      {group:'endpoint',tag:'Endpoint Management',format:'Field guide',title:'Microsoft MD-102 Endpoint Administrator',desc:'Intune, Autopilot, Entra ID, Windows deployment, compliance, updates, protection, and app management.',href:'endpoint-management/md-102-endpoint-administrator-field-guide.html',keys:'microsoft intune windows'},
+      {group:'architecture',tag:'Cloud Architecture',format:'Design guide',title:'Azure Cloud Systems Design',desc:'Cloud architecture patterns with a focus on reliability, security, cost, availability, and hands-on design exercises.',href:'cloud-architecture/azure-cloud-systems-design-study-guide.html',keys:'aws azure architecture'},
+      
+      {group:'networking',tag:'CompTIA Network+',format:'Complete Masterclass',title:'CompTIA Network+ — Complete Study Guide',desc:'Comprehensive N10-009 course covering networking concepts, implementation, operations, security, and troubleshooting. Includes 34 lessons, 88 flashcards, 54 practice questions, and 10 hands-on labs.',href:'networking/net+-study.html',keys:'comptia network+ net+ n10-009 networking subnetting routing switching vlans security troubleshooting wireshark labs flashcards'},
+       
+      {group:'security',tag:'CompTIA Security+',format:'Complete Masterclass',title:'CompTIA Security+ — Complete Study Guide',desc:'Comprehensive SY0-701 security course covering threats, vulnerabilities, cryptography, security architecture, operations, and risk management. Includes 35 lessons, 65 flashcards, 44 practice questions, and 10 hands-on labs.',href:'networking/security+-study.html',keys:'comptia security+ sy0-701 cybersecurity threats cryptography pki security operations siem incident response labs flashcards'},
+
+      {group:'systems',tag:'CompTIA A+',format:'Complete Masterclass',title:'CompTIA A+ Core 1 — Complete Study Guide',desc:'Comprehensive 220-1201 study course covering mobile devices, networking, hardware, virtualization, cloud computing, and troubleshooting. Includes interactive flashcards, practice questions, and hands-on labs.',href:'it-administration/A+-core-1.html',keys:'comptia a+ core 1 220-1201 hardware networking mobile devices virtualization troubleshooting flashcards labs'},
+
+      {group:'systems',tag:'CompTIA A+',format:'Complete Masterclass',title:'CompTIA A+ Core 2 — Complete Study Guide',desc:'Comprehensive 220-1202 study course covering operating systems, security, software troubleshooting, and operational procedures. Includes interactive flashcards, practice exams, and hands-on labs.',href:'it-administration/A+-core-2.html',keys:'comptia a+ core 2 220-1202 windows linux macos security troubleshooting operational procedures flashcards labs'},
+
+      {group:'architecture',tag:'Systems Engineering',format:'Masterclass',title:'IT Systems Design & Architecture',desc:'Enterprise architecture theory, high availability, scalability, resilience, capacity planning, and design exercises.',href:'it-administration/sys-design.html',keys:'distributed systems reliability'}
+    ];
+    let active='all';
+    let mobileActive=null;
+    const mobileQuery=window.matchMedia('(max-width:680px)');
+    const workspace=document.getElementById('library');
+    const mobileButtons=document.getElementById('mobileCategoryOptions');
+    const mobileNote=document.getElementById('mobileCategoryNote');
+    const search=document.getElementById('studySearch'), sections=document.getElementById('sections'), filters=document.getElementById('desktopFilters'), mobile=document.getElementById('mobileFilter');
+    const all=[{id:'all',name:'All Materials'},...groups];
+    const safe=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    function filterControls(){filters.innerHTML=all.map(g=>`<button type="button" class="filter ${active===g.id?'active':''}" data-filter="${g.id}" aria-pressed="${active===g.id}"><span>${safe(g.name)}</span><small>${g.id==='all'?resources.length:resources.filter(r=>r.group===g.id).length}</small></button>`).join('');mobile.innerHTML=all.map(g=>`<option value="${g.id}">${safe(g.name)}</option>`).join('');mobile.value=active;}
+    function render(){const onMobile=mobileQuery.matches;const chosen=onMobile?mobileActive:active;workspace.classList.toggle('mobile-category-selected',!onMobile||chosen!==null);const q=search.value.trim().toLowerCase();let count=0;sections.innerHTML=chosen===null?'':groups.map(g=>{if(chosen!=='all'&&chosen!==g.id)return '';const items=resources.filter(r=>r.group===g.id&&[r.title,r.desc,r.tag,r.format,r.keys].join(' ').toLowerCase().includes(q));if(!items.length)return '';count+=items.length;return `<section class="section" id="group-${g.id}"><div class="section-header"><h3>${safe(g.name)}</h3><span>${items.length} ${items.length===1?'resource':'resources'}</span></div><div class="cards">${items.map(r=>`<a class="card" href="${r.href}"><div class="meta"><span class="topic">${safe(r.tag)}</span><span class="format">${safe(r.format)}</span></div><h4>${safe(r.title)}</h4><p>${safe(r.desc)}</p><span class="launch">Open study material →</span></a>`).join('')}</div></section>`}).join('');document.getElementById('resultsCount').textContent=`${count} ${count===1?'resource':'resources'}`;document.getElementById('empty').classList.toggle('hidden',count!==0);}
+    function renderMobileChoices(){
+      mobileButtons.innerHTML=all.map(g=>`<button type="button" data-mobile-category="${g.id}" aria-pressed="${mobileActive===g.id}">${safe(g.name)}</button>`).join('');
+      const selected=all.find(g=>g.id===mobileActive);
+      mobileNote.textContent=selected?`Showing ${selected.name} resources below ↓`:'Choose a category to view resources ↓';
+    }
+    mobileButtons.addEventListener('click',e=>{
+      const btn=e.target.closest('[data-mobile-category]');if(!btn)return;
+      mobileActive=btn.dataset.mobileCategory;
+      search.value='';
+      renderMobileChoices();render();
+    });
+    if(mobileQuery.addEventListener)mobileQuery.addEventListener('change',render);
+    else mobileQuery.addListener(render);
+    filters.addEventListener('click',e=>{const btn=e.target.closest('[data-filter]');if(!btn)return;active=btn.dataset.filter;filterControls();render();});mobile.addEventListener('change',e=>{active=e.target.value;filterControls();render();});search.addEventListener('input',render);document.getElementById('heroCount').textContent=resources.length;document.getElementById('year').textContent=new Date().getFullYear();filterControls();renderMobileChoices();render();
+  </script>
+</body>
+</html>
