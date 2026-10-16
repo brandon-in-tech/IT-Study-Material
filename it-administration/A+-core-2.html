@@ -89,7 +89,14 @@ pre { overflow: auto; background: #102a49; color: #d3e7ff; border-radius: 9px; p
 @media (max-width: 600px) {
   .layout { display: flex; flex-direction: column; gap: 14px; padding: 12px; }
   .content { display: contents; }
-  .hero { order: -1; min-height: 440px; padding: 31px 24px; width: 100%; background-position: 76% center; background-image: linear-gradient(180deg,rgba(245,250,255,.92),rgba(245,250,255,.60) 36%,rgba(245,250,255,.05) 78%),url('../assets/core2-hero.png'); }
+.hero {
+  order: -1;
+  min-height: 440px;
+  padding: 31px 24px;
+  width: 100%;
+  background-position: 76% center;
+  background-image: linear-gradient(180deg,rgba(245,250,255,.92),rgba(245,250,255,.60) 36%,rgba(245,250,255,.05) 78%),url('../assets/core2-hero.png');
+}
   .hero > p { visibility: hidden; }
   .hero .eyebrow, .hero h2, .hero p, .tags { max-width: 92%; }
   .hero img { width: 38px; height: 38px; right: 13px; top: 12px; }
