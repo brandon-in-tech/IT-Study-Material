@@ -882,6 +882,316 @@ ul {
       </span>
      </div>
     </header>
+    
+<!-- ==========================================================
+     A+ CORE 1 — FIVE DOMAIN CAROUSEL
+     ========================================================== -->
+
+<section class="a1-carousel" aria-label="A+ Core 1 exam domains">
+
+  <div class="a1-carousel-header">
+    <div>
+      <span class="a1-kicker">COMPTIA A+ · 220-1201</span>
+      <h3>Explore the Five Exam Domains</h3>
+      <p>Select a domain to begin studying.</p>
+    </div>
+    <span class="a1-total">5 DOMAINS</span>
+  </div>
+
+  <div class="a1-carousel-viewport">
+    <div class="a1-carousel-track" id="a1DomainTrack"></div>
+  </div>
+
+</section>
+
+<style>
+/* Carousel container */
+
+.a1-carousel {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid #dce5ed;
+  border-radius: 16px;
+  margin: 20px 0 25px;
+  padding: 23px 0 20px;
+  box-shadow: 0 6px 20px #2945620a;
+}
+
+/* Heading */
+
+.a1-carousel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 22px;
+  margin-bottom: 20px;
+}
+
+.a1-kicker {
+  color: #2566ae;
+  font-size: 10px;
+  letter-spacing: .15em;
+  font-weight: 850;
+}
+
+.a1-carousel-header h3 {
+  color: #102b4d;
+  font-size: 22px;
+  margin: 5px 0;
+  line-height: 1.3;
+}
+
+.a1-carousel-header p {
+  font-size: 12px;
+  color: #607086;
+  margin: 0;
+}
+
+.a1-total {
+  font-size: 10px;
+  color: #56718c;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+/* Scrolling area */
+
+.a1-carousel-viewport {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.a1-carousel-track {
+  display: flex;
+  width: max-content;
+  animation: a1Scroll 34s linear infinite;
+  will-change: transform;
+}
+
+.a1-carousel-set {
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+  padding-right: 12px;
+}
+
+/* Domain cards */
+
+.a1-domain-card {
+  flex: 0 0 225px;
+  width: 225px;
+  min-height: 148px;
+  padding: 17px;
+  border-radius: 13px;
+  border: 1px solid #315881;
+  background: linear-gradient(145deg, #102746, #183e68);
+  color: white;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+  transition: background .2s, border-color .2s;
+}
+
+.a1-domain-card:hover,
+.a1-domain-card:focus-visible {
+  background: linear-gradient(145deg, #16416e, #2566ae);
+  border-color: #8bbbe8;
+}
+
+.a1-domain-num {
+  font-size: 10px;
+  color: #a9d8ff;
+  letter-spacing: .12em;
+  font-weight: 800;
+}
+
+.a1-domain-title {
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.4;
+  color: #fff;
+}
+
+.a1-domain-footer {
+  border-top: 1px solid #ffffff30;
+  padding-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.a1-domain-weight {
+  font-size: 11px;
+  color: #c5dfff;
+}
+
+.a1-domain-arrow {
+  font-size: 18px;
+  color: #a9d8ff;
+}
+
+/* Seamless continuous movement */
+
+@keyframes a1Scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* Pause for clicking */
+
+.a1-carousel-viewport:hover .a1-carousel-track,
+.a1-carousel-viewport:focus-within .a1-carousel-track {
+  animation-play-state: paused;
+}
+
+/* Mobile layout */
+
+@media (max-width: 780px) {
+  .a1-carousel {
+    padding: 18px 0;
+    margin: 15px 0 20px;
+  }
+
+  .a1-carousel-header {
+    padding: 0 16px;
+  }
+
+  .a1-carousel-header h3 {
+    font-size: 19px;
+  }
+
+  .a1-total {
+    display: none;
+  }
+
+  .a1-domain-card {
+    flex-basis: 205px;
+    width: 205px;
+    min-height: 138px;
+    padding: 15px;
+  }
+
+  .a1-carousel-track {
+    animation-duration: 29s;
+  }
+}
+
+/* Preserve the correct position in your mobile layout */
+
+@media (max-width: 600px) {
+  .content > .a1-carousel {
+    order: -1;
+    width: 100%;
+  }
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+  .a1-carousel-track {
+    animation: none;
+  }
+
+  .a1-carousel-viewport {
+    overflow-x: auto;
+  }
+}
+</style>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const track = document.getElementById("a1DomainTrack");
+  const course = document.getElementById("course-data");
+
+  if (!track || !course) return;
+
+  const data = JSON.parse(course.textContent);
+
+  const domains = [
+    ["Mobile Devices", "13%"],
+    ["Networking", "23%"],
+    ["Hardware", "25%"],
+    ["Virtualization & Cloud Computing", "11%"],
+    ["Hardware & Network Troubleshooting", "28%"]
+  ];
+
+  const cards = domains.map(([name, weight], index) => `
+    <a href="#lessons"
+       class="a1-domain-card"
+       data-a1-domain="${index}"
+       aria-label="Start Domain ${index + 1}: ${name}">
+
+      <span class="a1-domain-num">
+        DOMAIN ${String(index + 1).padStart(2, "0")}
+      </span>
+
+      <span class="a1-domain-title">
+        ${name}
+      </span>
+
+      <span class="a1-domain-footer">
+        <span class="a1-domain-weight">
+          ${weight} OF EXAM
+        </span>
+        <span class="a1-domain-arrow">→</span>
+      </span>
+
+    </a>
+  `).join("");
+
+  // Duplicate the card set for a seamless scrolling wheel.
+  track.innerHTML = `
+    <div class="a1-carousel-set">${cards}</div>
+    <div class="a1-carousel-set">${cards}</div>
+  `;
+
+  // Open the first lesson of the clicked domain.
+  track.addEventListener("click", (event) => {
+
+    const card = event.target.closest("[data-a1-domain]");
+    if (!card) return;
+
+    event.preventDefault();
+
+    const domainIndex = Number(card.dataset.a1Domain);
+
+    const firstLesson = data.lessons.findIndex(
+      lesson => lesson.domain === domainIndex
+    );
+
+    if (firstLesson === -1) return;
+
+    // Clear any search filter first.
+    const search = document.getElementById("lessonSearch");
+
+    if (search && search.value) {
+      search.value = "";
+      search.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+
+    // Use the existing sidebar lesson navigation.
+    const lessonButton = document.querySelector(
+      `#sidebarToc [data-lesson="${firstLesson}"]`
+    );
+
+    if (lessonButton) {
+      lessonButton.click();
+    }
+
+  });
+
+});
+</script>
+
+<!-- END A+ CORE 1 DOMAIN CAROUSEL -->
+
     <section class="section" id="overview">
      <div class="stats" id="stats">
      </div>
