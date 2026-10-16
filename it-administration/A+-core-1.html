@@ -699,7 +699,7 @@ ul {
 .sidebar-toc-title span{color:#b6d8fb;font-size:10px;white-space:nowrap;font-weight:600}
 .sidebar-toc-help{font-size:11px!important;line-height:1.5;margin:7px 0 14px;color:#c5d9eb!important}
 .sidebar-toc-group{border:1px solid #ffffff22;border-radius:10px;background:#ffffff08;margin:8px 0;overflow:hidden}
-.sidebar-toc-group summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;color:#e5f1ff;font-size:12px;font-weight:700;line-height:1.45;list-style:none}
+.sidebar-toc-group summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;color:#e5f1ff;font-size:12px;font-weight:700;line-height:1.45;list-:none}
 .sidebar-toc-group summary::-webkit-details-marker{display:none}
 .sidebar-toc-group summary::before{content:'▸';font-size:12px;color:#9ec8ec;flex-shrink:0}
 .sidebar-toc-group[open] summary::before{content:'▾'}
@@ -795,13 +795,18 @@ ul {
    /* Expanded curriculum readability */
 .reader-body{line-height:1.9}.reader-body .deep-topic li{margin:12px 0}.reader-body p{max-width:85ch}.lesson-glossary{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}.glossary-item{padding:12px 14px;border:1px solid #dce7f2;border-radius:9px;background:#f8fbfe}.glossary-item dt{font-weight:800;color:#133d63}.glossary-item dd{margin:5px 0 0;color:#4c6279}.reader-title{max-width:850px}@media(max-width:600px){.lesson-glossary{grid-template-columns:1fr}}
   
+
+/* MOBILE HERO — SMALLER ROBOT, NO GRADIENT */
 @media (max-width: 600px) {
   .content > .hero {
+    background-image: url('../assets/aplus-core-1-hero.png');
     background-size: auto 80%;
     background-position: 76% center;
+    background-repeat: no-repeat;
     background-color: #f5faff;
   }
 }
+
 
   </style>
  </head>
