@@ -1,0 +1,787 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Expanded CompTIA Security+ SY0-701 masterclass with 62 lessons, deep-dive security architecture and operations theory, flashcards, practice questions, labs and progress tracking."><title>CompTIA Security+ SY0-701 | Complete Study Masterclass</title><style>
+/* ============================================================
+   SECURITY+ MASTERCLASS — CONSOLIDATED STYLES
+   Shared components first; responsive layouts at the bottom.
+   ============================================================ */
+
+:root {
+  --ink: #101f33;
+  --navy: #102b4d;
+  --navy2: #183d67;
+  --blue: #2566ae;
+  --bg: #f4f7fa;
+  --white: #fff;
+  --muted: #607086;
+  --line: #dce5ed;
+  --good: #17644c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.68 Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+}
+
+a {
+  color: #185a9c;
+}
+
+button,input,select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+/* 01 — Layout & typography */
+
+.layout {
+  display: grid;
+  grid-template-columns: 280px minmax(0,1fr);
+  max-width: 1550px;
+  margin: auto;
+  gap: 23px;
+  padding: 22px;
+}
+
+
+/* 02 — Sidebar & navigation */
+
+.sidebar {
+  background: linear-gradient(150deg,#102746,#183e68);
+  color: #fff;
+  border-radius: 19px;
+  padding: 24px;
+  position: sticky;
+  top: 18px;
+  height: calc(100vh - 36px);
+  overflow: auto;
+  box-shadow: 0 18px 40px #0f315422;
+}
+
+.sidebar .brand {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9ec8ec;
+}
+
+.sidebar h1 {
+  line-height: 1.17;
+  font-size: 25px;
+  margin: 12px 0;
+}
+
+.sidebar p {
+  color: #ccdeed;
+  font-size: 13px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 24px 0;
+}
+
+.nav button {
+  border: 1px solid #ffffff24;
+  background: #ffffff0c;
+  color: #dbeafa;
+  border-radius: 10px;
+  text-align: left;
+  padding: 11px 12px;
+}
+
+.nav button.active,.nav button:hover {
+  background: #eaf3ff;
+  color: #153658;
+}
+
+.sidebar small {
+  color: #c5d9eb;
+}
+
+.content {
+  min-width: 0;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.tags span {
+  background: #ffffff18;
+  border: 1px solid #ffffff34;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 12px;
+}
+
+
+/* 03 — Study sections & statistics */
+
+.section {
+  display: none;
+}
+
+.section.visible {
+  display: block;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4,minmax(0,1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.stat {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  padding: 17px;
+}
+
+.stat strong {
+  display: block;
+  color: #174977;
+  font-size: 25px;
+}
+
+.stat span {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+
+/* 04 — Lessons, controls & content */
+
+.panel {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 25px;
+  margin: 18px 0;
+  box-shadow: 0 6px 20px #2945620a;
+}
+
+.panel h3 {
+  font-size: 24px;
+  margin: 0 0 13px;
+  color: #142f4f;
+}
+
+.panel h4 {
+  font-size: 17px;
+  color: #17436b;
+  margin: 15px 0 7px;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.domain {
+  margin: 20px 0;
+}
+
+.domain-head {
+  background: #eaf2fa;
+  border-radius: 12px;
+  padding: 14px 17px;
+  font-weight: 700;
+  color: #19456f;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.lesson {
+  border: 1px solid #dce7f2;
+  border-radius: 12px;
+  margin-top: 11px;
+  background: #fff;
+  overflow: hidden;
+}
+
+.lesson summary {
+  cursor: pointer;
+  padding: 18px 20px;
+  font-weight: 700;
+  font-size: 16px;
+  color: #163c62;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.lesson summary::marker {
+  color: #2e6caa;
+}
+
+.lesson-body {
+  border-top: 1px solid #e5edf4;
+  padding: 8px 21px 19px;
+}
+
+.callout {
+  padding: 13px 17px;
+  background: #f0f6fd;
+  border-left: 4px solid #2868a8;
+  border-radius: 5px;
+  margin: 12px 0;
+}
+
+.caution {
+  background: #f9f4e8;
+  border-left-color: #a97929;
+}
+
+.search {
+  width: 100%;
+  padding: 13px 16px;
+  border: 1px solid #bbccdf;
+  border-radius: 10px;
+  background: #fff;
+  margin: 10px 0;
+}
+
+.btn {
+  border: 0;
+  background: #1b568f;
+  color: #fff;
+  border-radius: 9px;
+  padding: 10px 15px;
+  font-weight: 650;
+}
+
+.btn.secondary {
+  background: #e6f0fa;
+  color: #18476f;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.progress {
+  background: #e3ebf3;
+  border-radius: 20px;
+  height: 10px;
+  overflow: hidden;
+}
+
+.progress>div {
+  height: 100%;
+  background: #1c699f;
+  width: 0;
+  transition: width .25s;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #245579;
+  font-size: 13px;
+  margin-top: 10px;
+}
+
+.check input {
+  accent-color: #185c92;
+}
+
+.flashcard {
+  background: linear-gradient(145deg,#143356,#1b4a78);
+  color: #fff;
+  min-height: 205px;
+  border-radius: 15px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 700;
+  white-space: pre-line;
+}
+
+.flashcard.answer {
+  background: linear-gradient(145deg,#184b6b,#24698b);
+}
+
+.question {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 17px;
+  margin: 12px 0;
+}
+
+.question strong {
+  display: block;
+  margin-bottom: 9px;
+}
+
+.choice {
+  display: block;
+  border: 1px solid #d9e6f1;
+  background: #f7fafd;
+  border-radius: 8px;
+  padding: 9px 12px;
+  margin: 6px 0;
+  text-align: left;
+  width: 100%;
+  color: #173650;
+}
+
+.choice.chosen {
+  background: #d8eafa;
+  border-color: #2c6aa2;
+}
+
+.choice.good {
+  border-color: #2f9167;
+  background: #e8f7ee;
+}
+
+.choice.bad {
+  border-color: #be5454;
+  background: #ffebeb;
+}
+
+.explain {
+  background: #eff5fc;
+  padding: 10px 13px;
+  border-radius: 8px;
+  margin-top: 11px;
+}
+
+.lab {
+  border: 1px solid #dae7f1;
+  border-radius: 12px;
+  padding: 20px;
+  margin: 13px 0;
+}
+
+.lab h4 {
+  margin: 0 0 8px;
+}
+
+.pill {
+  display: inline-block;
+  background: #e6f0fa;
+  color: #1d4d7a;
+  border-radius: 50px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 700;
+  margin: 4px 3px 4px 0;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 15px;
+}
+
+.roadmap {
+  padding-left: 25px;
+}
+
+.roadmap li {
+  padding: 7px;
+}
+
+.footer {
+  padding: 30px 5px;
+  color: #62758a;
+  font-size: 12px;
+}
+
+code {
+  background: #edf3f9;
+  padding: 2px 5px;
+  border-radius: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,th {
+  padding: 10px;
+  border-bottom: 1px solid #e4ebf2;
+  text-align: left;
+}
+
+th {
+  color: #1e4d7a;
+}
+
+ul {
+  padding-left: 22px;
+}
+
+
+/* 05 — Branding & deep-dive topics */
+
+.site-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+  margin-bottom: 17px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.site-brand img {
+  width: 43px;
+  height: 43px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.site-brand small {
+  display: block;
+  letter-spacing: .06em;
+  color: #b6d8fb;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.hero-brand {
+  position: absolute;
+  right: 24px;
+  top: 19px;
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 8px #fff);
+  z-index: 2;
+}
+
+.lesson-body .deep-topic {
+  border-left: 3px solid #2869aa;
+  margin: 18px 0 15px;
+  padding: 5px 0 5px 17px;
+  background: linear-gradient(90deg,#eaf3fd 0%,#fff 90%);
+  border-radius: 0 10px 10px 0;
+}
+
+.lesson-body .deep-topic h4 {
+  margin: 6px 0;
+  color: #173d6a;
+}
+
+.lesson-body .deep-topic p {
+  margin: 5px 0 10px;
+  line-height: 1.85;
+}
+
+
+/* ============================================================
+   06 — Hero artwork, typography & gradient
+   One canonical definition: no background overrides or !important.
+   ============================================================ */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 390px;
+  padding: 58px 43px;
+  border-radius: 20px;
+  color: #0b2948;
+  background-color: #f5faff;
+  background-image:
+    linear-gradient(90deg,
+      rgba(245,250,255,.98) 0%,
+      rgba(245,250,255,.92) 15%,
+      rgba(245,250,255,.55) 27%,
+      rgba(245,250,255,0) 40%),
+    url('../assets/security-hero.png');
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  box-shadow: 0 16px 40px #143e6520;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+  color: #a9d4fb;
+}
+
+.hero .eyebrow {
+  color: #1d568a;
+  font-weight: 800;
+  max-width: 57%;
+  text-shadow: 0 1px 0 #fff9;
+}
+
+.hero h2 {
+  color: #102c50;
+  max-width: 60%;
+  font-size: clamp(31px, 3.7vw, 52px);
+  line-height: 1.13;
+  margin: 13px 0;
+  text-shadow: 0 1px 6px #fff9;
+}
+
+.hero p {
+  color: #203e60;
+  max-width: 54%;
+  font-size: 16px;
+  font-weight: 550;
+  text-shadow: 0 1px 5px #fff;
+}
+
+.hero .tags {
+  max-width: 65%;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .tags span {
+  background: #ffffffd9;
+  border: 1px solid #9ac4e1;
+  color: #164c7d;
+  font-weight: 650;
+}
+
+/* ============================================================
+   07 — Responsive tablet
+   ============================================================ */
+@media (max-width: 1000px) {
+  .layout { display: block; padding: 12px; }
+  .sidebar { position: relative; height: auto; top: 0; }
+  .nav { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .stats { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 780px) {
+  .hero {
+    min-height: 370px;
+    padding: 31px 24px;
+    background-position: 47% center;
+  }
+  .hero h2,
+  .hero p,
+  .hero .eyebrow,
+  .hero .tags { max-width: 92%; }
+  .hero-brand { width: 38px; height: 38px; right: 13px; top: 12px; }
+}
+
+/* ============================================================
+   08 — Responsive mobile: hero → navigation → study sections
+   Preserve source HTML and all JavaScript hooks unchanged.
+   ============================================================ */
+@media (max-width: 600px) {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 12px;
+  }
+
+  /* Allows the existing hero and sections to be reordered
+     without moving or removing HTML elements. */
+  .content { display: contents; }
+
+  .content > .hero {
+    order: -1;
+    width: 100%;
+    min-height: 440px;
+    margin: 0;
+    padding: 31px 24px;
+    border-radius: 18px;
+    background-position: 65% center;
+    background-image:
+      linear-gradient(90deg,
+        rgba(245,250,255,.88) 0%,
+        rgba(245,250,255,.60) 17%,
+        rgba(245,250,255,.10) 38%,
+        rgba(245,250,255,0) 50%),
+      url('../assets/security-hero.png');
+  }
+
+  .sidebar {
+    order: 0;
+    position: relative;
+    top: auto;
+    width: 100%;
+    height: auto;
+    margin: 0;
+  }
+
+  .content > .section {
+    order: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .content > .footer { order: 2; width: 100%; }
+
+  /* The original description remains in the DOM and keeps
+     its height; only its visual rendering is hidden. */
+  .content > .hero > p { visibility: hidden; }
+
+  .hero h2,
+  .hero .eyebrow,
+  .hero .tags { max-width: 92%; }
+
+  .hero-brand { width: 38px; height: 38px; right: 13px; top: 12px; }
+  .panel { padding: 18px; }
+  .nav { grid-template-columns: repeat(2, 1fr); }
+  .grid2 { grid-template-columns: 1fr; }
+  .flashcard { font-size: 19px; padding: 20px; }
+  .domain-head { display: block; }
+}
+
+
+/* STUDY CONTENT ORGANIZATION — hero styling intentionally untouched */
+.study-toc { margin:20px 0 25px; padding:23px; background:#fff; border:1px solid var(--line); border-radius:16px; box-shadow:0 6px 20px #2945620a; }
+.study-toc h3 { margin:0 0 7px; color:#142f4f; font-size:23px; }
+.study-toc > p { color:var(--muted); margin:0 0 17px; }
+.toc-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:13px; }
+.toc-group { border:1px solid #dce7f2; border-radius:12px; overflow:hidden; background:#f9fbfe; }
+.toc-group h4 { margin:0; background:#eaf2fa; color:#19456f; padding:13px 15px; font-size:14px; line-height:1.45; }
+.toc-group h4 .weight { font-size:11px; font-weight:600; color:#56718c; white-space:nowrap; }
+.toc-group ol { margin:0; padding:9px 12px 12px 36px; }
+.toc-group li { font-size:13px; line-height:1.5; padding:4px 0; color:#58758e; }
+.toc-link { color:#185a9c; text-decoration:none; cursor:pointer; border:0; background:none; padding:0; font:inherit; text-align:left; }
+.toc-link:hover, .toc-link:focus-visible { color:#103b67; text-decoration:underline; }
+.domain-intro { margin:0 0 13px; padding:15px 18px; background:#f4f8fc; border:1px solid #dce7f2; border-top:0; border-radius:0 0 12px 12px; color:#405e79; }
+.domain-intro p { margin:0; }
+.domain-head { border-radius:12px 12px 0 0; }
+.lesson-number { color:#4b769c; font-weight:700; font-size:12px; min-width:27px; }
+.lesson:target { outline:2px solid #3779af; outline-offset:3px; }
+.section-heading { display:flex; align-items:center; flex-wrap:wrap; justify-content:space-between; gap:10px; margin:26px 0 8px; padding:13px 17px; background:#102b4d; color:#fff; border-radius:11px; }
+.section-heading h4 { color:#fff; margin:0; font-size:18px; }
+.section-heading span { color:#c9e1f5; font-size:12px; }
+@media(max-width:780px){.toc-grid{grid-template-columns:1fr}.study-toc{padding:17px}}
+
+/* Sidebar-only table of contents. Hero and lesson artwork intentionally unchanged. */
+.sidebar-toc{margin:22px 0 16px;padding-top:19px;border-top:1px solid #ffffff30}
+.sidebar-toc-title{display:flex;align-items:center;justify-content:space-between;gap:8px;color:#fff;font-size:14px;font-weight:800;letter-spacing:.02em}
+.sidebar-toc-title span{color:#b6d8fb;font-size:10px;white-space:nowrap;font-weight:600}
+.sidebar-toc-help{font-size:11px!important;line-height:1.5;margin:7px 0 14px;color:#c5d9eb!important}
+.sidebar-toc-group{border:1px solid #ffffff22;border-radius:10px;background:#ffffff08;margin:8px 0;overflow:hidden}
+.sidebar-toc-group summary{cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px;color:#e5f1ff;font-size:12px;font-weight:700;line-height:1.45;list-style:none}
+.sidebar-toc-group summary::-webkit-details-marker{display:none}
+.sidebar-toc-group summary::before{content:'▸';font-size:12px;color:#9ec8ec;flex-shrink:0}
+.sidebar-toc-group[open] summary::before{content:'▾'}
+.sidebar-toc-group summary span{flex:1}
+.sidebar-toc-group summary small{color:#b6d8fb;font-size:10px;white-space:nowrap}
+.sidebar-toc-group[open] summary{background:#ffffff12}
+.sidebar-toc-links{display:flex;flex-direction:column;gap:2px;padding:6px}
+.sidebar-toc-link{width:100%;color:#d5e5f5;border:0;border-radius:6px;text-align:left;background:transparent;padding:9px 10px;font-size:12px;line-height:1.4;cursor:pointer}
+.sidebar-toc-link:hover,.sidebar-toc-link:focus-visible,.sidebar-toc-link.selected{background:#eaf3ff;color:#153658}
+@media(max-width:1000px){.sidebar-toc-links{max-height:280px;overflow:auto}}
+
+/* Reader mode: one complete topic per page, matching the existing colors. */
+.sidebar-toc{margin:4px 0 18px;padding-top:13px}
+.reader-slide{background:#fff;border:1px solid var(--line);border-radius:15px;overflow:hidden;margin-top:20px;min-height:560px}
+.reader-meta{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;background:#eaf2fa;color:#19456f;padding:16px 22px;font-weight:750;font-size:13px}
+.reader-intro{padding:16px 22px;background:#f7fafd;border-bottom:1px solid var(--line);color:#50677e}
+.reader-count{padding:24px 24px 0;color:#2566ae;font-weight:800;letter-spacing:.09em;font-size:11px}
+.reader-count span{color:var(--muted);font-weight:550;letter-spacing:0}
+.reader-title{font-size:clamp(23px,3vw,34px)!important;line-height:1.23;margin:8px 24px 12px!important}
+.reader-body{padding:0 24px 22px;font-size:15px;line-height:1.85}
+.reader-body h4{font-size:18px;color:#17436b;margin:26px 0 9px;border-bottom:1px solid #e5edf4;padding-bottom:8px}
+.reader-body .deep-topic{border-left:3px solid #2869aa;margin:24px 0;padding:7px 15px;background:linear-gradient(90deg,#eaf3fd,#fff);border-radius:0 10px 10px 0}
+.reader-body .deep-topic h4{border:0;margin:3px 0 7px;padding:0}
+.reader-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:19px 23px;border-top:1px solid var(--line);background:#f7fafd}
+.reader-footer span{color:#607086;font-size:13px}
+.reader-footer button:disabled{opacity:.45;cursor:not-allowed}
+#lessonsRoot{scroll-margin-top:18px}
+@media(max-width:600px){.reader-meta,.reader-intro{padding:13px 15px}.reader-body{padding:0 15px 18px}.reader-count{padding:18px 15px 0}.reader-title{margin:8px 15px 14px!important}.reader-footer{padding:14px 10px;gap:6px}.reader-footer .btn{padding:9px 10px;font-size:12px}}
+</style></head><body><div class="layout"><aside class="sidebar"><a class="site-brand" href="../index.html" aria-label="Brandon Stevenson IT Study Materials home"><img src="../assets/brandons-logo.png" alt="Brandon Stevenson logo" onerror="this.style.display='none'"><span>IT Study Materials<small>Brandon Stevenson</small></span></a><nav id="sidebarToc" class="sidebar-toc" aria-label="Security+ lesson table of contents"></nav><h1>Security+<br>Complete Masterclass</h1><p>· Expanded deep-dive lessons, applied security engineering and exam preparation</p><div class="nav" id="nav"><button data-page="overview">Overview</button><button data-page="lessons" class="active">Detailed Lessons</button><button data-page="flashcards">Flashcards</button><button data-page="quiz">Practice Exam</button><button data-page="labs">Hands-on Labs</button><button data-page="plan">Study Plan</button><button data-page="reference">Quick Reference</button></div><p><small>Progress is stored locally in this browser. No account or backend required.</small></p><button class="btn secondary" id="reset">Reset progress</button></aside><main class="content"><header class="hero"><img class="hero-brand" src="../assets/brandons-logo.png" alt="Brandon Stevenson logo" onerror="this.style.display='none'"><div class="eyebrow">Security principles · threats · architecture · operations · governance</div><h2>CompTIA Security+<br>Study Guide</h2><p>An in-depth security engineering curriculum: learn why controls work, how enterprise defenses fail, how to investigate evidence, and how to choose the best answer in real-world Security+ scenarios.</p><div class="tags"><span>Five exam domains</span><span>Interactive lessons</span><span>Flashcards & feedback</span><span>Labs & playbooks</span><span>Local progress</span></div></header><section id="overview" class="section"><div class="stats" id="stats"></div><div class="panel"><h3>Start here</h3><p>Security+ tests your ability to evaluate risk, choose appropriate controls, recognize attack techniques, design resilient environments, triage events and work within security governance. Each lesson contains a principle, applied example, common pitfall and a design or incident-response prompt.</p><div class="actions"><button class="btn" data-jump="lessons">Start detailed lessons →</button><button class="btn secondary" data-jump="quiz">Take a practice exam</button></div></div><div class="panel"><h3>SY0-701 domain breakdown</h3><div id="weights"></div><p class="muted">The domain percentages reflect the published SY0-701 weighting. This independent guide is supplementary and not affiliated with or endorsed by CompTIA.</p></div><div class="panel"><h3>How to study effectively</h3><ol><li>Read the lesson and explain the decision in your own words.</li><li>Work through the example, then answer its scenario before expanding another lesson.</li><li>Check off a lesson after you can explain it without notes.</li><li>Use flashcards for retrieval practice rather than passive reading.</li><li>Take practice questions and analyze each explanation, including wrong choices.</li><li>Complete authorized labs in isolated personal VMs or simulations, never on production assets.</li></ol></div></section><section id="lessons" class="section visible"><div class="panel"><h3>Detailed learning modules</h3><p class="muted">Now expanded to 62 lessons. Study one full-page topic at a time. Use the table of contents in the left sidebar, or Previous and Next below each lesson. Search to narrow the sequence.</p><input id="lessonSearch" class="search" type="search" placeholder="Search lessons: PKI, ransomware, RTO, SIEM, IAM..."><div class="progress"><div id="progressFill"></div></div><p id="progressText" class="muted"></p><div id="lessonsRoot"></div></div></section><section id="flashcards" class="section"><div class="panel"><h3>Interactive Security+ flashcards</h3><p class="muted">Flip cards to reveal the explanation. Filter by a word or acronym to focus your revision.</p><input id="cardSearch" class="search" placeholder="Find a card, e.g. SIEM, RPO, phishing"><div class="stats" style="grid-template-columns:repeat(2,1fr)"><div class="stat"><strong id="cardIndex">1</strong><span>Current card</span></div><div class="stat"><strong id="cardTotal">0</strong><span>Matching cards</span></div></div><div id="card" class="flashcard" tabindex="0" role="button" aria-label="Flip current flashcard"></div><p class="muted" style="text-align:center">Click or press Enter to flip.</p><div class="actions" style="justify-content:center"><button class="btn secondary" id="prevCard">← Previous</button><button class="btn" id="flipCard">Flip Card</button><button class="btn secondary" id="nextCard">Next →</button><button class="btn secondary" id="shuffleCards">Shuffle</button></div></div></section><section id="quiz" class="section"><div class="panel"><h3>Practice exam with answer explanations</h3><p class="muted">Choose a domain or all domains, then generate a randomized practice set. Questions are original, exam-style learning practice—not official exam questions.</p><div class="actions"><select id="quizDomain" class="search" style="max-width:440px"></select><button id="newQuiz" class="btn">Generate practice exam</button><button id="gradeQuiz" class="btn secondary">Grade answers</button></div><div id="quizScore" class="callout" hidden></div><div id="quizRoot"></div></div></section><section id="labs" class="section"><div class="panel"><h3>Safe hands-on security labs</h3><p>These activities focus on blue-team skills, documentation, architecture, incident response, security operations and authorized testing. Use simulations, fictional data and VMs you control.</p><div id="labsRoot"></div></div></section><section id="plan" class="section"><div class="panel"><h3>Eight-week preparation roadmap</h3><ol class="roadmap"><li><strong>Week 1:</strong> Security concepts, control types, CIA, IAM and MFA. Start 15 flashcards daily.</li><li><strong>Week 2:</strong> Cryptography, certificates, secure protocols, common attacks and social engineering. Analyze fabricated phishing messages.</li><li><strong>Week 3:</strong> Malware, application attacks, network threats, vulnerabilities and remediation priorities. Create a risk-based patch plan.</li><li><strong>Week 4:</strong> Zero trust, enterprise segmentation, cloud security, backup, RTO/RPO and data protection. Draw a resilient service design.</li><li><strong>Week 5:</strong> Security operations, telemetry, SIEM, detection, incident lifecycle, evidence and response. Build your incident playbook.</li><li><strong>Week 6:</strong> Endpoint protection, email security, automation, hunting, governance, audits and third-party risk.</li><li><strong>Week 7:</strong> Complete all labs, revisit weakest exam domains, make a one-page formula/acronym sheet, and explain case-study decisions aloud.</li><li><strong>Week 8:</strong> Take timed practice exams and PBQ-style scenarios, remediate knowledge gaps, and focus on interpreting questions rather than keyword guessing.</li></ol><div class="callout">CompTIA sets its own exam administration, question count and timing. Check the official exam page for current logistical details before booking.</div></div></section><section id="reference" class="section"><div class="panel"><h3>Security+ rapid comparison sheets</h3><h4>High-value concepts</h4><table><tr><th>Concept</th><th>Useful distinction</th></tr><tr><td>RTO vs RPO</td><td>Restore service by X time vs tolerate loss of up to Y minutes of data.</td></tr><tr><td>Encryption vs hashing</td><td>Reversible with a key vs one-way digest used for checking integrity and password verification schemes.</td></tr><tr><td>Symmetric vs asymmetric</td><td>Same secret key vs mathematically related key pair.</td></tr><tr><td>IDS vs IPS</td><td>Detection and alerts vs inline blocking ability.</td></tr><tr><td>SIEM vs SOAR</td><td>Correlation/analysis vs orchestrated response workflow.</td></tr><tr><td>RBAC vs ABAC</td><td>Roles vs dynamic attribute and policy conditions.</td></tr><tr><td>OAuth vs OIDC</td><td>Delegated access authorization vs an authentication identity layer.</td></tr><tr><td>Vulnerability vs threat vs risk</td><td>Weakness vs possible cause of harm vs likelihood and impact in a context.</td></tr><tr><td>Risk acceptance vs transfer</td><td>Documented retention of risk vs shifting some financial consequences under contract/insurance.</td></tr></table><h4>Useful port and protocol associations</h4><table><tr><th>Port(s)</th><th>Protocol</th><th>Why it matters</th></tr><tr><td>22 TCP</td><td>SSH</td><td>Encrypted remote administration</td></tr><tr><td>53 TCP/UDP</td><td>DNS</td><td>Resolution and zone transfers</td></tr><tr><td>80 / 443 TCP</td><td>HTTP / HTTPS</td><td>Plain vs TLS-secured web traffic</td></tr><tr><td>88 TCP/UDP</td><td>Kerberos</td><td>Ticket-based authentication</td></tr><tr><td>123 UDP</td><td>NTP</td><td>Accurate timestamps for incident analysis</td></tr><tr><td>161/162 UDP</td><td>SNMP</td><td>Network management polling/traps</td></tr><tr><td>389 / 636 TCP</td><td>LDAP / LDAPS</td><td>Directory communication</td></tr><tr><td>445 TCP</td><td>SMB</td><td>Windows file sharing</td></tr><tr><td>3389 TCP/UDP</td><td>RDP</td><td>Remote desktop, tightly restrict access</td></tr></table><h4>Recommended official reference</h4><p><a href="https://www.comptia.org/certifications/security" target="_blank" rel="noopener noreferrer">CompTIA Security+ certification page</a> — check the live exam objectives and test policies. NIST's <a href="https://www.nist.gov/cyberframework" target="_blank" rel="noopener noreferrer">Cybersecurity Framework</a> and <a href="https://csrc.nist.gov/pubs/sp/800/61/r3/final" target="_blank" rel="noopener noreferrer">incident response guidance</a> are useful free supplements.</p></div></section><footer class="footer">© 2026 Brandon Stevenson · Independent IT Study Materials. For authorized educational and defensive work only. CompTIA and Security+ are trademarks of their respective owner.</footer></main></div><script>const DATA={"domains":[["General Security Concepts",12],["Threats, Vulnerabilities & Mitigations",22],["Security Architecture",18],["Security Operations",28],["Security Program Management & Oversight",20]],"lessons":[{"d":0,"title":"Security controls and categories","core":"Differentiate technical, managerial, operational, and physical controls, then classify each as preventive, detective, corrective, deterrent, compensating, or directive.","example":"A firewall rule is a technical preventive control; a camera is a physical detective control; a written policy is managerial directive guidance.","warning":"Defense in depth combines independent controls so a single failure does not expose the entire system.","scenario":"A locked server room has cameras but no access logs. Which controls would you add and why?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect security controls and categories to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"CIA triad and security objectives","core":"Confidentiality prevents unauthorized disclosure; integrity detects unauthorized changes; availability keeps authorized services usable. Authentication, authorization, accountability, non-repudiation, and privacy add distinct goals.","example":"Encryption at rest protects confidentiality, file hashes can validate integrity, and failover clusters can improve availability.","warning":"A control may improve one objective while harming another: aggressive account lockouts can reduce availability.","scenario":"A hospital must keep records private and accessible during outages. What measures support all three CIA goals?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect cia triad and security objectives to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Identity, authentication and authorization","core":"Understand identification vs authentication vs authorization vs accounting (AAA); factors include something you know, have, are, do, or somewhere you are. Compare MFA, SSO, federation, SAML, OAuth 2.0 and OpenID Connect.","example":"A VPN prompts for a password and a FIDO2 hardware key, while SSO lets an employee access several apps after an identity provider sign-in.","warning":"OAuth delegates access, OIDC authenticates users on top of OAuth, and SAML commonly exchanges federation assertions.","scenario":"Which protocol would you choose for delegated API authorization rather than user identity, and why?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect identity, authentication and authorization to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Cryptography fundamentals","core":"Differentiate symmetric encryption (AES), asymmetric cryptography (RSA/ECC), hashes (SHA-256), HMAC, digital signatures, certificates, PKI, and key management. Identify key exchange and lifecycle risks.","example":"TLS commonly uses asymmetric mechanisms to authenticate and establish shared secrets, then symmetric keys for efficient application-data encryption.","warning":"Hashing is not reversible encryption; signatures prove signer possession of a private key when verified with its public key.","scenario":"A vendor says hashing customer passwords is enough. What additional defenses are necessary?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect cryptography fundamentals to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Certificates, PKI and trust","core":"Learn certificate authorities, CSRs, certificate chains, subject alternative names, revocation (CRL/OCSP), certificate pinning, and expiration. Recognize root and intermediate certificate responsibilities.","example":"A browser verifies a site's certificate name, validity, chain and trust anchor before establishing a trusted TLS session.","warning":"A certificate only binds identity to a public key; it does not make the site's application secure.","scenario":"What would users experience if an intermediate certificate expired?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect certificates, pki and trust to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Secure communication and protocols","core":"Compare TLS, HTTPS, SSH, IPsec, S/MIME, DNSSEC, secure DNS approaches, wireless WPA3 and authentication protocols. Understand which layers and traffic types they protect.","example":"SSH secures administrator shell access; IPsec can protect site-to-site IP packets; S/MIME can encrypt/sign individual email messages.","warning":"Do not assume that a secure transport protects compromised endpoints or malicious content delivered over HTTPS.","scenario":"Which technology would secure management CLI access to a Linux server?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect secure communication and protocols to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Threat actors, motives and vectors","core":"Contrast nation-state actors, organized crime, insiders, hacktivists, competitors and opportunists. Map motivations to financial gain, espionage, disruption and ideology; trace vectors such as phishing, drive-by downloads and supply-chain attacks.","example":"An attacker targets a help-desk employee with an urgent fake MFA reset request to reach cloud identity administration.","warning":"Risk analysis separates attacker capability, intent and access rather than relying on a generic scary label.","scenario":"How does the risk differ between a careless insider and a malicious administrator?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect threat actors, motives and vectors to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Social engineering and phishing","core":"Recognize phishing, spear phishing, whaling, vishing, smishing, pretexting, impersonation, tailgating, shoulder surfing, business email compromise and MFA fatigue.","example":"A CFO receives an invoice-change email imitating a vendor and a voice call pressuring immediate wire payment.","warning":"Out-of-band verification, phishing-resistant MFA and least privilege reduce damage beyond awareness training.","scenario":"What verification step would stop a fake bank-detail update even when the email looks authentic?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect social engineering and phishing to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Malware and malicious behavior","core":"Distinguish ransomware, spyware, rootkits, bots, worms, viruses, trojans, logic bombs, keyloggers and fileless malware. Track initial access, execution, persistence, exfiltration and impact.","example":"A malicious attachment runs a script that downloads ransomware and encrypts shared files.","warning":"Indicators such as new services, scheduled tasks and abnormal network connections can reveal persistence.","scenario":"Why might signature-only antivirus miss living-off-the-land attacks?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect malware and malicious behavior to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Application attacks","core":"Study SQL injection, XSS, CSRF, command injection, directory traversal, insecure deserialization, buffer overflow, privilege escalation, race conditions and request forgery.","example":"An API concatenates untrusted user input into a SQL statement; an attacker changes the query logic.","warning":"Use parameterized queries, output encoding, input validation, strong authorization and secure development controls appropriate to each class.","scenario":"Why will output encoding not by itself prevent SQL injection?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect application attacks to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Network and infrastructure attacks","core":"Contrast DoS/DDoS, on-path interception, ARP spoofing, DNS poisoning, evil twins, rogue APs, BGP hijacking, VLAN hopping and credential replay.","example":"An attacker advertises a lookalike SSID and collects users' login attempts through a fake portal.","warning":"Encrypted communications, authenticated network access, protective switch features and monitoring provide complementary layers.","scenario":"Which evidence would help distinguish a rogue AP from a legitimate new AP?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect network and infrastructure attacks to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Vulnerabilities and exposures","core":"Understand CVEs, CVSS, vulnerability scans, authenticated vs unauthenticated scans, false positives, threat intelligence, exploitability, exposure and asset importance.","example":"A critical CVSS flaw on an isolated test system may rank below a moderately scored internet-facing vulnerability with active exploitation.","warning":"Scoring aids prioritization; business context, exploit activity and compensating controls drive actual remediation order.","scenario":"How would you prioritize two vulnerabilities with different exposure and asset criticality?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect vulnerabilities and exposures to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Vulnerability mitigation","core":"Compare patching, segmentation, hardening, isolation, virtual patching, allowlisting, secure baselines, disabling unused services and compensating controls.","example":"A legacy appliance cannot be patched immediately, so administrators isolate its management interface and restrict traffic while scheduling replacement.","warning":"Temporary mitigation is not the same as permanent remediation; validate and document residual risk.","scenario":"A patch breaks a production service. What is your rollback and interim mitigation plan?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect vulnerability mitigation to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Wireless, physical and endpoint threats","core":"Analyze WPA2/WPA3 weaknesses, WPS risks, Bluetooth attacks, removable media, malicious USB devices, tampering, theft, device loss and environmental threats.","example":"A found USB drive labeled 'Payroll' is plugged into a shared workstation, triggering unwanted code execution.","warning":"Device control, staff procedure, disk encryption, port security and physical access measures each address different failure paths.","scenario":"How would you handle a lost encrypted laptop differently from a lost unencrypted one?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect wireless, physical and endpoint threats to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Security architecture principles","core":"Apply zero trust, least privilege, segmentation, separation of duties, secure defaults, defense in depth, redundancy and minimizing attack surface.","example":"An internal payroll app requires device compliance, per-user authorization and explicit policy instead of trusting office-network location.","warning":"Zero trust is an architecture and operating approach, not a single product or a requirement to distrust everything indiscriminately.","scenario":"Design access for contractors needing one internal application but no lateral access.","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect security architecture principles to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Enterprise networks and segmentation","core":"Compare VLANs, subnets, ACLs, firewalls, DMZs, proxies, network access control, microsegmentation and software-defined networking.","example":"Web servers sit in a DMZ, application servers in a controlled tier and databases in a restricted subnet.","warning":"A VLAN alone does not guarantee security; routing and access-control enforcement matter.","scenario":"Which east-west flows should be denied between user workstations and databases?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect enterprise networks and segmentation to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Cloud and virtualization security","core":"Compare shared responsibility in IaaS/PaaS/SaaS, public/private/hybrid cloud, hypervisor security, VM escape, containers, orchestration and serverless.","example":"In IaaS, the provider secures physical infrastructure while the tenant remains responsible for guest OS patches and identity configurations.","warning":"Provider responsibilities vary by service model; misconfigured IAM and publicly exposed storage remain common risks.","scenario":"Who patches the guest operating system on a self-managed cloud VM?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect cloud and virtualization security to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Resilience and high availability","core":"Distinguish redundancy, replication, clustering, load balancing, geographic diversity, hot/warm/cold sites, active-active vs active-passive, RTO and RPO.","example":"An active-passive service fails over to a standby region while asynchronous replication may lose the most recent changes.","warning":"RTO measures maximum acceptable recovery time; RPO measures maximum acceptable data loss window.","scenario":"A service requires 15-minute RPO and 2-hour RTO. What design choices meet each target?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect resilience and high availability to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Backup and recovery security","core":"Plan 3-2-1-style backup diversity, offline/immutable copies, encryption, retention, restoration drills, backup access isolation and chain-of-custody concerns.","example":"Ransomware reaches production shares, but a separate immutable backup allows a clean restore after containment.","warning":"A successful backup job does not demonstrate a restorable backup; verify regularly.","scenario":"How do you prove a backup is usable without risking production data?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect backup and recovery security to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Data protection and privacy","core":"Classify public, internal, confidential and regulated data. Select encryption, tokenization, masking, DLP, retention, destruction, data minimization and geographic controls.","example":"A support engineer sees masked payment-card numbers while a payment processor stores tokens instead of raw card data.","warning":"Encryption and tokenization reduce exposure but do not replace strong authorization or retention controls.","scenario":"Which technique reduces stored sensitive data while maintaining application references?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect data protection and privacy to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Security operations foundations","core":"Explain asset inventory, secure baselines, change control, configuration management, hardening, patch schedules and lifecycle management.","example":"A device inventory flags unsupported operating systems, unknown endpoints and unmanaged administrative accounts.","warning":"Unmanaged assets make monitoring, patching and incident response incomplete.","scenario":"What evidence would prove every endpoint is covered by your baseline?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect security operations foundations to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Logging and telemetry","core":"Compare logs, events, alerts, baselines, time synchronization, retention, normalization, correlation and the roles of SIEM and SOAR.","example":"Identity, DNS, endpoint and firewall logs are correlated around the same timestamp to investigate suspicious access.","warning":"Time drift and missing fields can make incident reconstruction unreliable.","scenario":"Which log sources would you correlate to investigate an unfamiliar remote login?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect logging and telemetry to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Incident response lifecycle","core":"Practice preparation, detection/analysis, containment, eradication, recovery and lessons learned. Distinguish playbooks from ad hoc troubleshooting.","example":"An EDR alert identifies a compromised endpoint; the team isolates it, preserves evidence, removes persistence, restores service and updates detections.","warning":"Premature wiping destroys evidence; leaving a host online may increase spread. Response choices depend on severity and playbook.","scenario":"What would you do in the first 15 minutes of suspected ransomware?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect incident response lifecycle to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Digital forensics and evidence","core":"Study order of volatility, forensic images, cryptographic integrity checks, chain of custody, legal holds, secure evidence storage and documentation.","example":"An investigator records system time, isolates the host appropriately and hashes a forensic image before analysis.","warning":"A screenshot alone rarely proves full system state; avoid changing the original artifact when possible.","scenario":"Why does preserving chain of custody matter if a case reaches court?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect digital forensics and evidence to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Identity administration and privileged access","core":"Design joiner-mover-leaver workflows, RBAC/ABAC, PAM, just-in-time access, service accounts, account reviews and break-glass access.","example":"A departing employee loses access immediately while an emergency admin account is monitored and excluded from normal use.","warning":"Dormant accounts, shared credentials and standing domain-admin privileges expand the blast radius.","scenario":"How would you implement admin access for technicians who only occasionally need elevated rights?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect identity administration and privileged access to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Network security controls and monitoring","core":"Operate IDS vs IPS, WAF, NGFW, DNS filtering, web proxy, VPN, ZTNA, NDR and packet capture. Understand tuning, blocking vs alerting and false positives.","example":"An IPS blocks exploitation signatures, while a WAF applies HTTP-aware rules to a public application.","warning":"An IDS observes; an IPS can block inline, but both require correct placement and tuning.","scenario":"Where should inspection occur for north-south and east-west traffic?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect network security controls and monitoring to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Endpoint protection and management","core":"Use EDR/XDR, anti-malware, host firewalls, disk encryption, MDM/MAM, application allowlisting, secure boot, BIOS/UEFI and configuration compliance.","example":"A managed laptop receives encryption policy, EDR protection, updates and conditional access controls.","warning":"EDR detects and responds to behavior; it does not guarantee prevention of every compromise.","scenario":"What controls reduce risk from a stolen company laptop?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect endpoint protection and management to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Email, web and automation security","core":"Study SPF, DKIM, DMARC, attachment detonation, email gateways, phishing workflows, safe PowerShell/Python automation, secret handling and API least privilege.","example":"DMARC policy helps receivers judge spoofed mail aligned with an organization's domain; a response script rotates leaked keys through an approved workflow.","warning":"SPF, DKIM and DMARC address certain sender-authentication problems, not all phishing or malicious content.","scenario":"What are safe ways to automate account disabling after a verified security event?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect email, web and automation security to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Threat hunting and operational improvement","core":"Develop hypotheses from threat intelligence and anomalies; search telemetry, validate findings, document detection gaps and tune rules.","example":"An analyst hunts for impossible travel plus unfamiliar tokens and unusual outbound connections following a phishing campaign.","warning":"A hunt is not proof of compromise; record assumptions, evidence and alternative explanations.","scenario":"How would you test whether a new alert catches a simulated suspicious PowerShell action?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect threat hunting and operational improvement to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Governance, policies and standards","core":"Distinguish policies, standards, procedures, guidelines, baselines, acceptable-use rules, data handling requirements and exception approvals.","example":"A password policy states requirements, a standard defines approved factors, and a procedure describes how staff enroll keys.","warning":"Writing a policy is not the same as implementing, monitoring and enforcing it.","scenario":"What is the difference between a mandatory standard and a recommended guideline?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect governance, policies and standards to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Risk assessment and treatment","core":"Calculate qualitative and quantitative risk; distinguish likelihood, impact, inherent/residual risk, risk appetite/tolerance and acceptance, mitigation, transfer or avoidance.","example":"A business accepts a documented low residual risk after applying mitigating controls and management approval.","warning":"Risk transfer (insurance) does not transfer accountability for security practices.","scenario":"When is risk acceptance appropriate, and who should authorize it?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect risk assessment and treatment to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Third-party and supply-chain risk","core":"Assess vendor security, shared responsibility, service contracts, SLAs, right-to-audit clauses, data-processing terms and concentration risk.","example":"A SaaS vendor handles customer PII; the organization reviews their attestation and contract response obligations.","warning":"A compliance report is evidence, not a guarantee of future protection.","scenario":"What would you require before a vendor is permitted to process sensitive employee data?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect third-party and supply-chain risk to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Compliance, audits and privacy","core":"Understand legal/regulatory obligations at a conceptual level, internal vs external audits, evidence, attestations, gap analyses, data ownership and privacy-impact assessments.","example":"An audit requests access review evidence, patching records and incident-response test results.","warning":"Passing one audit does not imply every system is secure; compliance scope differs from risk scope.","scenario":"How would you demonstrate least privilege during an audit?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect compliance, audits and privacy to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Security awareness and training","core":"Design role-based training for administrators, developers, executives and general users, including simulations and reporting culture.","example":"An engineer receives training on secret storage and code review while finance staff practice supplier payment verification.","warning":"Focus on measurable risk reduction and rapid reporting, not blame-based click-rate contests.","scenario":"What metric would show that phishing training improves response behavior?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect security awareness and training to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Business continuity and disaster recovery governance","core":"Differentiate BIA, business continuity plans, disaster recovery plans, crisis communication, tabletop exercises, dependencies and recovery priorities.","example":"A BIA maps business services to maximum tolerable downtime, dependencies and restoration priority.","warning":"A documented DR plan may fail in practice unless exercised and updated after architecture changes.","scenario":"How would you prioritize recovery for identity, DNS, payroll and a public website?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect business continuity and disaster recovery governance to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Security principles: least privilege, separation of duties and defense in depth","core":"Least privilege limits each identity, process, and service to permissions needed for current tasks. Separation of duties prevents a single actor from requesting, approving and implementing high-impact actions. Defense in depth layers preventive, detective and recovery controls across identity, endpoints, network, applications and data.","example":"A finance employee requests an account; a manager approves; an IAM workflow provisions a scoped role; a SIEM monitors unusual access. No single safeguard is expected to be infallible.","warning":"Least privilege is not the same as denying every permission. Access must remain sufficient for legitimate duties, with time-limited elevation when justified.","scenario":"Design an access review for a team of six administrators where the emergency account cannot be used unnoticed.","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect security principles: least privilege, separation of duties and defense in depth to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Zero trust fundamentals and continuous verification","core":"Zero trust is a strategy that removes implicit trust based solely on network location. Access decisions evaluate explicit authentication, device posture, resource sensitivity, context, and policy; segment resources and assume that breaches are possible.","example":"A managed laptop obtains access to an internal SaaS application only after phishing-resistant MFA, device compliance evaluation, and policy enforcement at the identity provider.","warning":"A VPN or a product labeled zero trust does not by itself establish zero-trust architecture. Monitor actual resource access and apply least privilege.","scenario":"Which signals should a conditional-access decision inspect when a privileged user signs in from an unfamiliar device?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect zero trust fundamentals and continuous verification to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Encryption modes, forward secrecy and password storage","core":"Symmetric cryptography provides efficient bulk encryption; asymmetric cryptography supports signatures, authentication and key agreement. AEAD modes, such as AES-GCM, protect confidentiality and integrity together. Ephemeral key agreement can provide forward secrecy. Password storage requires a purpose-built slow KDF with unique salts, not a fast unkeyed hash.","example":"A web service negotiates an ephemeral session secret, encrypts with an authenticated symmetric cipher, and stores user password verifiers with Argon2id or a comparably appropriate password KDF.","warning":"TLS does not encrypt data after it has been decrypted at its endpoint. Never equate password salting with encryption or hashing with a signature.","scenario":"Compare an encrypted backup compromised by stolen keys with password hashes stolen from a login database. What changes the response?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect encryption modes, forward secrecy and password storage to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Public key infrastructure lifecycle and certificate failures","core":"A CA signs certificates that bind a subject identity to a public key. Clients validate the trust chain, intended usage, hostname, valid dates and revocation information as applicable. PKI operations include CSR generation, secure private-key storage, rotation, renewal and revocation.","example":"A certificate renewal deploys a server certificate without its intermediate chain: some clients fail because they cannot build a trusted path.","warning":"Certificate expiration, an incorrect SAN, a missing intermediate and an untrusted root are distinct failures with different remediation steps.","scenario":"An application fails only on older clients after a certificate replacement. Which validation checks and logs would you inspect?","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect public key infrastructure lifecycle and certificate failures to a threat scenario, a defensive policy, and an observable verification step."},{"d":0,"title":"Enterprise authentication protocols and identity federation","core":"Kerberos uses tickets for authenticated domain access; LDAP is a directory access protocol and LDAP over TLS secures that channel. SAML transports identity assertions in many enterprise SSO deployments. OAuth 2.0 delegates access; OIDC adds user authentication. RADIUS and TACACS+ often serve network access and device administration.","example":"A company uses OIDC for a web app, Kerberos for domain file access, and TACACS+ to authenticate network-device administrators and log commands.","warning":"OAuth access tokens alone are not proof a user was authenticated for a relying party. Secure identity federation also depends on token validation and trust.","scenario":"Choose an appropriate identity approach for a Windows file share, an external SaaS app and an admin switch login.","deep":"Security decisions in practice: A security mechanism must be judged by its goal, its trust assumptions and what happens when it fails. Compare preventive controls with detection and recovery controls; ask who administers the control, where the keys or credentials live, and what evidence would confirm the system is operating as intended. In this topic, explicitly connect enterprise authentication protocols and identity federation to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Vulnerability management: CVE, CVSS, EPSS and remediation","core":"A vulnerability program identifies assets, discovers flaws, validates exposure, prioritizes risk and documents remediation or exceptions. CVE identifies a known flaw; CVSS estimates severity; EPSS estimates probability of observed exploitation within its model. Business criticality and exposure also influence priority.","example":"A medium-CVSS flaw on an Internet-facing identity gateway with known active exploitation is patched ahead of a higher-CVSS issue on an isolated training VM.","warning":"A high vulnerability score does not automatically mean the most urgent business risk. Distinguish scanning, assessment, penetration testing and actual exploitation.","scenario":"Build a patch-priority rubric including exploit evidence, network exposure, asset importance, compensating controls and rollback risk.","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect vulnerability management: cve, cvss, epss and remediation to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Web application attack paths and secure development","core":"Injection occurs when untrusted data changes command or query structure. XSS causes attacker-controlled scripts to run in a browser context. CSRF abuses authenticated browser requests when defenses fail. SSRF tricks a server into requesting resources the attacker cannot access directly.","example":"A vulnerable app concatenates a search term into SQL. Parameterized queries separate query structure from values, preventing that injection class.","warning":"Encoding output for XSS and parameterizing database queries solve different problems. WAFs may reduce exposure but do not replace secure coding.","scenario":"Which control would you choose for an HTML output context, a SQL query, and a server-side URL fetch?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect web application attack paths and secure development to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Phishing-resistant authentication and social-engineering response","core":"Attackers exploit trust, urgency, authority and routine support processes. FIDO2/WebAuthn authenticators bind sign-in to the legitimate relying party origin and can resist phishing proxies better than OTP-based MFA. Verification should use a trusted channel independent of the suspicious message.","example":"An attacker requests a help desk MFA reset, then uses a fake executive callback. The technician pauses and uses an established identity-verification procedure and a pre-registered contact method.","warning":"MFA fatigue can bypass push-based factors when a user approves an unwanted prompt. Notification counts and unusual device enrollment can provide detection signals.","scenario":"Develop a support script for a caller who claims a business-critical outage requires immediate MFA removal.","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect phishing-resistant authentication and social-engineering response to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Attack lifecycle, indicators and incident scoping","core":"Distinguish reconnaissance, initial access, execution, persistence, privilege escalation, lateral movement, collection, exfiltration and impact. An IOC is evidence associated with an event, whereas attacker behaviors and techniques offer broader detection opportunities.","example":"EDR observes a suspicious parent-child process chain, then the SIEM correlates it with an unusual remote login and outbound transfer. Analysts build a timeline before deciding scope.","warning":"An indicator is not itself proof of malicious activity; validate context, timestamps, asset ownership and false-positive conditions.","scenario":"List evidence you would preserve after an alert shows a service account accessing three unusual endpoints.","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect attack lifecycle, indicators and incident scoping to a threat scenario, a defensive policy, and an observable verification step."},{"d":1,"title":"Supply chain, third-party dependencies and software integrity","core":"Software and vendor supply-chain risk arises from packages, build systems, update channels, contractors and embedded dependencies. Reduce exposure with signed artifacts, provenance, SBOM visibility, patch discipline, restricted build credentials and third-party assurance.","example":"A software update signed using a compromised build key reaches endpoints. Teams suspend rollout, identify deployed versions and verify vendor advisories before remediation.","warning":"Digital signatures show an artifact matches a signing key; they do not prove the signer was never compromised.","scenario":"How would you respond if a trusted endpoint agent update began making unexpected network connections?","deep":"Threat modeling in practice: Identify the asset, attacker objective, entry point and required privileges before selecting a mitigation. Separate a vulnerability from an exploit and from the actual business impact. Consider opportunities to prevent the attack, detect abnormal behavior and contain movement after initial access. In this topic, explicitly connect supply chain, third-party dependencies and software integrity to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Secure network architecture: segmentation, DMZ and microsegmentation","core":"Segmentation partitions trust zones using VLANs, subnets and stateful controls; a VLAN alone is not a security boundary without policy enforcement. A DMZ exposes narrowly scoped public services while limiting access into internal systems. Microsegmentation can govern east-west workload traffic.","example":"Public web traffic terminates at a reverse proxy in a DMZ; the application uses a restricted connection to a database tier; administrative access is isolated behind bastion controls.","warning":"Network addressing is not the same as enforced isolation. Document allowed source, destination, protocol, port and reason for each flow.","scenario":"Create an access matrix for users, a web front end, an application tier, a database and administrators.","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect secure network architecture: segmentation, dmz and microsegmentation to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Cloud shared responsibility and workload identities","core":"Cloud providers and customers divide responsibilities by service model. IaaS typically leaves customers responsible for guest OS configuration, applications, identity and data; SaaS shifts more platform responsibilities but does not remove customer duties for data access and governance.","example":"An Azure VM receives OS patches from the customer, while the provider maintains underlying host systems. A SaaS administrator still needs to restrict sharing and review privileged roles.","warning":"Do not confuse a provider certification with proof that a tenant is securely configured. Evaluate IAM, logging, encryption and backup configuration.","scenario":"Who is responsible for leaked storage objects in IaaS versus a SaaS collaboration tenant?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect cloud shared responsibility and workload identities to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Resilience: RPO, RTO, backups, HA and failover","core":"RPO measures the maximum acceptable data loss interval; RTO is the target restoration time. High availability reduces some interruptions but does not replace an isolated, recoverable backup. Backup strategy should include restore tests, immutable or offline copies and dependency mapping.","example":"An organization specifies 15-minute RPO and two-hour RTO for a financial database, then verifies replication lag and rehearses restoration to prove objectives are achievable.","warning":"Replication can rapidly replicate corrupted data or ransomware encryption. Measure restore time rather than assuming a backup job proves recoverability.","scenario":"Design a recovery test for a domain controller and a dependent line-of-business application.","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect resilience: rpo, rto, backups, ha and failover to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Industrial, IoT and operational technology security","core":"OT, ICS and embedded devices often favor safety and availability because downtime can affect physical systems. Protect legacy protocols with inventory, segmentation, tightly controlled remote access, approved change windows and passive monitoring where appropriate.","example":"A plant separates industrial control devices from enterprise networks, uses a jump host for vendor maintenance and collects events without aggressive intrusive scanning.","warning":"Routine credential and patch processes used for office desktops may be unsafe on fragile industrial controllers. Follow asset/vendor safety constraints.","scenario":"Which controls would you prioritize for a controller that cannot support modern endpoint protection?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect industrial, iot and operational technology security to a threat scenario, a defensive policy, and an observable verification step."},{"d":2,"title":"Secure configuration, hardening and baseline drift","core":"Hardening reduces attack surface by removing unnecessary services, limiting listening ports, disabling default accounts, enforcing secure management, updating firmware and protecting secrets. Configuration baselines and continuous assessment reveal drift.","example":"A Windows Server baseline disables legacy SMB, limits remote administration and enables centralized logs; configuration monitoring detects when a temporary exception is left open.","warning":"A benchmark is a starting point, not a substitute for application testing and documented exceptions.","scenario":"How would you roll out a new hardening baseline to 200 servers without causing widespread outages?","deep":"Architecture trade-offs: Choose controls based on boundary placement, data flows, failure domains and operational dependencies. Trace a packet or identity request across trust zones and identify who authenticates, authorizes, encrypts, logs and restores each component. In this topic, explicitly connect secure configuration, hardening and baseline drift to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"SIEM detection engineering and alert triage","core":"A SIEM normalizes and correlates event logs; detection rules combine event semantics, reliable fields, time windows and thresholds. Triage checks data quality, identity context, asset value and supporting telemetry. Tune rules to reduce false positives while retaining relevant threats.","example":"An analyst correlates repeated failed sign-ins, one successful remote login, a privileged role assignment and an unusual download across identity and SaaS logs.","warning":"A dashboard chart alone does not establish compromise. Confirm event source timestamps, account ownership and expected admin activity.","scenario":"Write a detection hypothesis for impossible travel and list legitimate causes that must be excluded.","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect siem detection engineering and alert triage to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Endpoint protection: EDR, allowlisting and response","core":"Antivirus emphasizes known malicious files, whereas EDR records endpoint telemetry and supports behavioral detections and investigations. Application allowlisting limits code execution. Response actions may include host isolation, process termination or targeted remediation with business approval.","example":"A suspicious script launched by an office application triggers endpoint isolation while analysts capture process ancestry and execution evidence.","warning":"Blindly isolating a production server can interrupt critical services. Incident playbooks should weigh containment speed against operational impact.","scenario":"An EDR tool flags PowerShell on a management host. Which evidence distinguishes legitimate automation from malicious execution?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect endpoint protection: edr, allowlisting and response to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Identity protection: PAM, JIT, conditional access and provisioning","core":"Privileged access management (PAM) secures sensitive accounts; just-in-time (JIT) elevation limits how long permissions exist; just-enough administration (JEA) narrows allowed tasks. Lifecycle automation removes access promptly on transfers and terminations.","example":"A help-desk technician receives a two-hour scoped elevation to reset passwords, while an approval record and logs show all actions during the window.","warning":"MFA does not compensate for unlimited standing privilege. Service principals and automation identities need scope and credential hygiene too.","scenario":"Outline controls for emergency break-glass accounts and how you would test them.","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect identity protection: pam, jit, conditional access and provisioning to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Digital forensics: evidence, timelines and chain of custody","core":"Preserve evidence with recorded collection procedures, timestamps, hashes, access records and a clear chain of custody. Analyze volatile memory and running process evidence when justified, followed by persistent artifacts and log timelines.","example":"After a suspected intrusion, an investigator records system time and timezone, captures volatile process state, images a disk using approved procedures and verifies acquisition hashes.","warning":"A chain-of-custody log supports evidence integrity; it does not itself prove the interpretation of the evidence is correct.","scenario":"Describe what evidence to capture before rebooting a potentially compromised server.","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect digital forensics: evidence, timelines and chain of custody to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Incident response lifecycle and containment choices","core":"A mature workflow covers preparation, detection/analysis, containment, eradication, recovery and lessons learned. Short-term containment stops immediate damage while long-term containment addresses persistence and root causes. Communication and decision authority must be predefined.","example":"A ransomware alert prompts endpoint isolation, affected account suspension, investigation of initial access, clean restores and post-incident reporting.","warning":"Reimaging systems before preserving relevant evidence may destroy indicators needed for scoping. Conversely, delaying containment can worsen active harm.","scenario":"Explain which decisions change if the affected host is a domain controller rather than a desktop.","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect incident response lifecycle and containment choices to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Network telemetry: DNS, proxy, NetFlow and packet captures","core":"Network telemetry reveals traffic patterns at different levels: DNS logs map hostname queries, proxy logs capture web requests, NetFlow/IPFIX summarizes flows, and packet captures offer packet-level observations subject to encryption. Correlate with endpoint and identity context.","example":"An analyst uses DNS queries plus unusual outbound flow volume to investigate potential command-and-control communications, then validates destination reputation and device ownership.","warning":"Encrypted TLS traffic may conceal application payloads even when metadata is visible. Avoid treating a suspicious domain lookup as confirmed exfiltration.","scenario":"How would you distinguish a legitimate software updater from a beaconing endpoint with limited packet visibility?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect network telemetry: dns, proxy, netflow and packet captures to a threat scenario, a defensive policy, and an observable verification step."},{"d":3,"title":"Secure administrative operations and network-device hygiene","core":"Protect management planes with dedicated subnets, centralized AAA, least privilege, SSH rather than Telnet, role-separated credentials, secure firmware updates, backup config protection and audit records. Remove sensitive data before hardware disposition.","example":"A switch uses TACACS+ for administrative authentication and audit trails, SSH on a restricted management VLAN and a controlled configuration backup location.","warning":"Factory reset alone may not satisfy every media sanitization requirement. Validate device-specific storage and key-clearing procedures.","scenario":"You receive a used enterprise switch for redeployment. What security checks precede bringing it onto a production network?","deep":"Operational validation: Successful configuration does not prove effective security. Establish a measurable signal, its collection point, a detection or control decision, an escalation owner and a recovery path. Test the full workflow with authorized simulations and record observed outcomes. In this topic, explicitly connect secure administrative operations and network-device hygiene to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Risk analysis: likelihood, impact and quantitative metrics","core":"Risk considers probability and consequence for an asset and threat scenario. Qualitative matrices label severity; quantitative methods use asset value, exposure factor, single loss expectancy (SLE) and annualized rate of occurrence (ARO) to estimate ALE = SLE × ARO. These estimates are decision aids, not precise forecasts.","example":"For an asset worth $100,000, 20% exposure implies $20,000 SLE; at 0.25 events/year, estimated ALE is $5,000/year. Controls are evaluated against reduction in loss and other obligations.","warning":"A qualitative score of high cannot be treated as a precise dollar amount. State assumptions and uncertainty for estimates.","scenario":"Compare investing $3,000 in preventive controls with accepting an annual loss estimate of $5,000; what additional factors matter?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect risk analysis: likelihood, impact and quantitative metrics to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Security policies, standards, procedures and guidelines","core":"Policies state management intent and mandatory principles; standards define requirements; procedures explain repeatable steps; guidelines offer recommended practices. Exceptions need owners, documented risk acceptance, expiry dates and review.","example":"A remote-access policy requires MFA, the standard specifies phishing-resistant factors for admins, and a procedure details approved enrollment and recovery steps.","warning":"A procedure that contradicts policy should be reconciled, not silently followed. Different document levels have different authority.","scenario":"Draft one sentence each for a policy, standard and procedure governing privileged accounts.","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect security policies, standards, procedures and guidelines to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Data classification, retention and privacy controls","core":"Data governance starts with identifying owners and classifying sensitivity. Apply controls based on data type, residency, minimization, retention and disposal rules. DLP can monitor or block defined transfers, while tokenization and masking reduce unnecessary exposure.","example":"A support team redacts customer identifiers in screenshots and automatically removes tickets after the approved retention period, except where a legal hold applies.","warning":"Encryption and access control reduce exposure but do not automatically make a collection practice lawful or proportionate.","scenario":"Design a retention and disposal rule for user-support logs that sometimes contain personal information.","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect data classification, retention and privacy controls to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Third-party risk, SLAs, assessments and right to audit","core":"Review critical vendors for security posture, continuity, subprocessors, data handling, incident notification obligations and exit strategies. A service-level agreement defines measurable service obligations; contracts may assign audit rights and breach-reporting timelines.","example":"Before onboarding a managed service provider, the organization reviews its scope of access, relevant reports, disaster recovery evidence and subcontractor dependencies.","warning":"A certification and a good SLA do not guarantee that the specific purchased service meets every internal control requirement.","scenario":"What evidence would you request before granting a new vendor remote administrative access?","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect third-party risk, slas, assessments and right to audit to a threat scenario, a defensive policy, and an observable verification step."},{"d":4,"title":"Control assurance: audit evidence, testing and metrics","core":"Governance requires more than written policy: controls must be implemented and periodically tested. Audit evidence can include access reviews, configuration snapshots, ticket approvals, logs and restore records. Metrics should distinguish implementation from outcomes.","example":"A monthly review confirms privileged accounts are authorized, expired exceptions are removed, and a sampled change has approval plus rollback evidence.","warning":"A checklist marked complete is weak evidence when no technical validation exists. Metrics can be misleading when they measure volume instead of efficacy.","scenario":"Define a meaningful metric for patch effectiveness and explain how you would independently verify it.","deep":"Governance and assurance: A written requirement must map to owners, implementation evidence, testing cadence and exception handling. Evaluate likelihood and impact in business context and ensure the selected control can be reviewed, measured and improved. In this topic, explicitly connect control assurance: audit evidence, testing and metrics to a threat scenario, a defensive policy, and an observable verification step."}],"cards":[{"q":"CIA","a":"Confidentiality, integrity, availability."},{"q":"AAA","a":"Authentication, authorization, accounting; sometimes preceded by identification."},{"q":"Least privilege","a":"Grant only permissions necessary for required tasks."},{"q":"Zero trust","a":"Continuously evaluate explicit access rather than trusting network location."},{"q":"Defense in depth","a":"Multiple independent layers reduce single-control failure."},{"q":"Preventive control","a":"A control intended to stop an incident before it happens."},{"q":"Detective control","a":"A control intended to identify unwanted activity."},{"q":"Corrective control","a":"A control intended to restore security after an event."},{"q":"Compensating control","a":"An alternative control when a primary control is impractical."},{"q":"RBAC","a":"Roles drive access rights."},{"q":"ABAC","a":"Attributes and conditions inform access decisions."},{"q":"MFA","a":"Use two or more distinct authentication factor categories."},{"q":"SSO","a":"One authentication flow grants access to multiple integrated systems."},{"q":"SAML","a":"XML-based protocol for exchanging federated authentication assertions."},{"q":"OAuth 2.0","a":"Framework for delegated authorization to resources."},{"q":"OpenID Connect","a":"Identity layer built on OAuth 2.0 for authentication."},{"q":"AES","a":"Widely used symmetric encryption algorithm."},{"q":"SHA-256","a":"Cryptographic hash function, not encryption."},{"q":"HMAC","a":"Message authentication using a secret key and hash construction."},{"q":"PKI","a":"Certificate authorities, certificates, keys and trust infrastructure."},{"q":"CSR","a":"Certificate signing request containing a public key and identity data."},{"q":"OCSP","a":"Protocol for checking certificate revocation status."},{"q":"TLS","a":"Protocol for protecting data in transit with authenticated cryptography."},{"q":"SSH","a":"Encrypted remote shell and secure administration protocol."},{"q":"IPsec","a":"Suite of protocols that secures IP traffic."},{"q":"Ransomware","a":"Malware that denies access, commonly through encryption, to extort victims."},{"q":"Worm","a":"Malware capable of propagating without user-driven copying."},{"q":"Rootkit","a":"Toolset designed to conceal attacker activity or persistence."},{"q":"Fileless malware","a":"Attack using legitimate memory-resident tools or scripts instead of conventional files."},{"q":"Phishing","a":"Fraudulent messaging intended to induce unsafe action or disclosure."},{"q":"Spear phishing","a":"Targeted phishing tailored to a recipient or organization."},{"q":"Whaling","a":"Phishing targeting high-value senior personnel."},{"q":"Vishing","a":"Voice-based phishing."},{"q":"Smishing","a":"Text/SMS-based phishing."},{"q":"BEC","a":"Business email compromise involving impersonated or hijacked business communications."},{"q":"SQL injection","a":"Abuse of unsafe SQL query construction through untrusted input."},{"q":"XSS","a":"Injection of attacker-controlled script into a trusted web context."},{"q":"CSRF","a":"Tricking an authenticated browser into submitting unintended actions."},{"q":"DDoS","a":"Traffic or requests from distributed systems exhaust a target."},{"q":"On-path attack","a":"Interception or alteration of traffic between endpoints."},{"q":"ARP spoofing","a":"Forged local ARP associations redirect or intercept LAN traffic."},{"q":"CVE","a":"Identifier for publicly known vulnerabilities."},{"q":"CVSS","a":"Framework for measuring vulnerability severity, not entire business risk."},{"q":"False positive","a":"Tool flags an issue that is not actually present."},{"q":"DMZ","a":"Network segment separating exposed services from protected internal resources."},{"q":"NAC","a":"Network access control assessing identity or posture before permitting access."},{"q":"Microsegmentation","a":"Fine-grained control between workloads or individual applications."},{"q":"Shared responsibility","a":"Cloud customer/provider security duties vary by service model."},{"q":"RTO","a":"Target maximum acceptable time to restore a service."},{"q":"RPO","a":"Target maximum acceptable amount of data loss measured in time."},{"q":"Immutable backup","a":"Backup copy not alterable for a defined retention period."},{"q":"DLP","a":"Controls intended to prevent unauthorized leakage of sensitive data."},{"q":"SIEM","a":"Centralizes and correlates security events and telemetry."},{"q":"SOAR","a":"Orchestrates and automates predefined security response workflows."},{"q":"IDS","a":"Detects suspect activity, usually alerts rather than blocking."},{"q":"IPS","a":"Inline system that can block suspicious traffic."},{"q":"WAF","a":"Application-layer protection focused on HTTP/web traffic."},{"q":"EDR","a":"Endpoint detection and response tooling."},{"q":"PAM","a":"Privileged access management."},{"q":"Chain of custody","a":"Documented possession and handling of evidence."},{"q":"BIA","a":"Business impact analysis: essential services, impacts, and recovery needs."},{"q":"Risk appetite","a":"Amount and type of risk an organization is willing to pursue or retain."},{"q":"Residual risk","a":"Risk that remains after controls are applied."},{"q":"DMARC","a":"Email authentication policy/reporting that builds on SPF/DKIM alignment."},{"q":"3-2-1 backups","a":"Common resilience heuristic: three copies, two media/types, one offsite."}],"questions":[{"d":0,"q":"Which CIA element is primarily supported by cryptographic file hashes?","opts":["Integrity","Availability","Confidentiality","Non-repudiation"],"explain":"Hashes let investigators detect changed content when a trusted reference hash exists.","answer":0},{"d":0,"q":"A security camera records entry to the server room. What type of control is it?","opts":["Detective","Preventive","Corrective","Compensating"],"explain":"Its principal function is to observe and record events.","answer":0},{"d":0,"q":"A user signs in with a password and a hardware security key. This is best described as:","opts":["Multifactor authentication","Single sign-on","Federation alone","Authorization"],"explain":"Two different factor types are used.","answer":0},{"d":0,"q":"Which standard is primarily for delegated authorization to an API?","opts":["OAuth 2.0","OpenID Connect","SAML","LDAP"],"explain":"OAuth 2.0 grants delegated API/resource access; OIDC provides identity.","answer":0},{"d":0,"q":"Which algorithm is symmetric encryption?","opts":["AES","RSA","SHA-256","ECDSA"],"explain":"AES uses shared symmetric keys; RSA/ECDSA are asymmetric constructions and SHA-256 is hashing.","answer":0},{"d":0,"q":"What does a digital signature primarily help verify?","opts":["Integrity and signer authenticity","Network availability","Disk confidentiality","Data minimization"],"explain":"A valid signature links message integrity to a private-key holder.","answer":0},{"d":0,"q":"A certificate chain is trusted because it ultimately reaches a:","opts":["Trusted root CA","DNS A record","Shared password","Proxy log"],"explain":"Clients maintain trust stores of accepted root certificate authorities.","answer":0},{"d":0,"q":"What is the safest administrative replacement for Telnet?","opts":["SSH","FTP","TFTP","HTTP"],"explain":"SSH encrypts the remote shell session.","answer":0},{"d":1,"q":"A CFO receives a tailored fraudulent invoice request. Which attack is most precise?","opts":["Whaling","Worm propagation","DNS tunneling","Buffer overflow"],"explain":"Whaling is targeted phishing focused on senior leadership.","answer":0},{"d":1,"q":"A fake MFA push notification repeatedly asks a user to approve login. This is:","opts":["MFA fatigue","Tokenization","Hash collision","DNSSEC failure"],"explain":"Attackers pressure victims to approve repeated authentication prompts.","answer":0},{"d":1,"q":"Which malware typically propagates across systems on its own?","opts":["Worm","Trojan","Logic bomb","Keylogger"],"explain":"A worm can replicate and spread independently.","answer":0},{"d":1,"q":"Which development practice most directly mitigates SQL injection?","opts":["Parameterized queries","Output compression","Longer passwords","DNS filtering"],"explain":"Parameterized queries separate untrusted data from SQL instructions.","answer":0},{"d":1,"q":"A website embeds attacker-supplied script in visitors' pages. This is:","opts":["Cross-site scripting","ARP spoofing","VLAN hopping","Password spraying"],"explain":"XSS executes script in a trusted web context.","answer":0},{"d":1,"q":"A critical scanner finding is on an air-gapped test VM, while a lower-scored flaw is internet-facing and exploited. First prioritize:","opts":["The exploited internet-facing flaw","Only the highest CVSS number","Whichever system is newest","Random selection"],"explain":"Exploit activity and exposure are essential context in remediation priorities.","answer":0},{"d":1,"q":"Which is a temporary mitigation when an appliance cannot be patched?","opts":["Network isolation and restrictive ACLs","Publish passwords","Disable logging","Grant broad internet access"],"explain":"Segmentation and least-access controls lower exposure during the repair window.","answer":0},{"d":1,"q":"An attacker creates a lookalike wireless access point. This is an:","opts":["Evil twin","Immutable backup","Cold site","Logical bomb"],"explain":"An evil twin imitates trusted wireless infrastructure.","answer":0},{"d":2,"q":"Which statement best reflects zero-trust design?","opts":["Verify access explicitly regardless of network location","Trust every device on the LAN","Eliminate authentication","Use only perimeter firewalls"],"explain":"Zero trust minimizes implicit trust, enforcing identity and context checks.","answer":0},{"d":2,"q":"A VLAN by itself provides what?","opts":["Logical separation, but not complete security enforcement","Guaranteed encryption","Guaranteed malware removal","Application-level authorization"],"explain":"Inter-VLAN routing and access policy still require enforcement.","answer":0},{"d":2,"q":"Who typically patches the guest OS of a self-managed IaaS VM?","opts":["The cloud customer","The DNS root operator","Every SaaS customer","The physical building owner"],"explain":"Guest administration is usually a customer duty under IaaS.","answer":0},{"d":2,"q":"RPO most directly measures:","opts":["Acceptable time window of data loss","Time to replace a router","Encryption key length","Number of backup copies"],"explain":"RPO concerns maximum tolerated loss measured in time.","answer":0},{"d":2,"q":"RTO most directly measures:","opts":["Acceptable service recovery duration","Packet loss percentage","Number of firewall rules","Backup file size"],"explain":"RTO is the target time to restore operations.","answer":0},{"d":2,"q":"What proves an organization can restore backups?","opts":["A documented successful restoration test","An email from backup software","A single completion log","A vendor brochure"],"explain":"Regular restoration tests verify actual recoverability.","answer":0},{"d":2,"q":"Tokenization primarily does which of the following?","opts":["Replaces sensitive values with substitute references","Increases MTU","Stops all phishing","Enables routing between VLANs"],"explain":"Tokens reduce sensitive-data exposure when mappings are protected.","answer":0},{"d":2,"q":"An internet-facing web server should commonly be separated in a:","opts":["DMZ","Domain controller OU only","Backup tape set","User home directory"],"explain":"A DMZ controls exposure between external and internal networks.","answer":0},{"d":3,"q":"What is a SIEM used for?","opts":["Log aggregation and security correlation","Filesystem defragmentation","Power conditioning","Printer calibration"],"explain":"SIEM combines and correlates security telemetry.","answer":0},{"d":3,"q":"Which technology can block suspicious packets inline?","opts":["IPS","Passive IDS","Offline log archive","Asset tag"],"explain":"An inline intrusion prevention system can take blocking action.","answer":0},{"d":3,"q":"A WAF primarily inspects which traffic context?","opts":["HTTP application requests","Hard drive SATA frames","Power supply sensors","Printer toner levels"],"explain":"WAFs are designed around web application traffic.","answer":0},{"d":3,"q":"After ransomware is discovered, what is generally an early priority?","opts":["Contain affected systems while preserving evidence","Immediately erase every host","Publish passwords","Disable all audit logs"],"explain":"Containment limits spread and preserves response options.","answer":0},{"d":3,"q":"Why hash a forensic image?","opts":["Verify evidence integrity","Reduce incident severity score","Encrypt all packets","Provide user authentication"],"explain":"Cryptographic hashes can demonstrate the image remains unchanged.","answer":0},{"d":3,"q":"What does just-in-time privileged access reduce?","opts":["Duration of elevated access","DNS TTL","CPU temperature","Backup retention"],"explain":"JIT eliminates persistent privilege where possible.","answer":0},{"d":3,"q":"What is a common strength of EDR?","opts":["Detecting and responding to suspicious endpoint behavior","Replacing the organization’s entire backup strategy","Managing physical building keys","Issuing website certificates automatically"],"explain":"EDR focuses on endpoint telemetry and response actions.","answer":0},{"d":3,"q":"Which protocol family helps authenticate sending domains through policy alignment?","opts":["DMARC with SPF/DKIM","SMB with NFS","SNMP with NTP","RDP with VNC"],"explain":"DMARC uses aligned SPF/DKIM results to guide recipient handling.","answer":0},{"d":3,"q":"Which item is essential in log correlation?","opts":["Reliable synchronized timestamps","Identical passwords","No retention policy","Unencrypted backups"],"explain":"Synchronized time lets analysts align events across devices.","answer":0},{"d":3,"q":"A suspicious login comes from an unrecognized location. Best initial action?","opts":["Validate sign-in context and investigate correlated signals","Assume compromise with no evidence","Ignore all sign-in anomalies","Delete audit logs"],"explain":"Anomalous logins require triage using multiple sources and contextual evidence.","answer":0},{"d":3,"q":"What is a SOAR platform best associated with?","opts":["Repeatable response workflow orchestration","Building cabling","Manual switch patch panels","Disk motor control"],"explain":"SOAR can combine tools and automate approved tasks.","answer":0},{"d":3,"q":"Which control best protects data on a stolen powered-off laptop?","opts":["Full-disk encryption with secure key protection","A desktop wallpaper","A network printer","Only a screen saver"],"explain":"At-rest encryption helps protect device data from physical theft.","answer":0},{"d":4,"q":"Which document defines mandatory requirements in greater detail than high-level policy?","opts":["Standard","Guideline","Press release","Marketing brochure"],"explain":"Standards specify mandatory implementation requirements.","answer":0},{"d":4,"q":"Risk after controls are installed is called:","opts":["Residual risk","Inherent risk only","Availability","Mean time to repair"],"explain":"Residual risk remains after current treatments.","answer":0},{"d":4,"q":"Buying insurance is most commonly what risk response?","opts":["Transfer","Eliminate all risk","Avoid every service","Ignore"],"explain":"Insurance can transfer some financial impact while retaining responsibility.","answer":0},{"d":4,"q":"What should precede disaster recovery priority setting?","opts":["Business impact analysis","Random server reboot","New logo selection","Clearing all logs"],"explain":"A BIA identifies critical activities and downtime consequences.","answer":0},{"d":4,"q":"A third-party vendor handles regulated data. Which should be assessed first?","opts":["Data protection requirements and vendor control evidence","Social media follower count","Brand font choices","Marketing slogans"],"explain":"Vendor review should map data obligations, access, controls and contracts.","answer":0},{"d":4,"q":"What best demonstrates least privilege to an auditor?","opts":["Access review evidence tied to approved roles","A verbal claim of good intentions","An empty compliance folder","Router model numbers"],"explain":"Documented entitlements and periodic reviews provide auditable evidence.","answer":0},{"d":4,"q":"Who should approve a material exception to accepted organizational risk?","opts":["Authorized risk owner or designated management","Any anonymous end user","External attacker","Uninvolved intern"],"explain":"Defined governance processes require accountable acceptance.","answer":0},{"d":4,"q":"Which security training measure is most meaningful?","opts":["Faster correct reporting and lower risky behavior","Only attendance counts","Number of posters","Length of a slideshow"],"explain":"Behavior-based outcomes measure real improvement.","answer":0}],"labs":[["Build an identity access matrix","Create five employee roles, map least-privilege access, privileged approvals and a joiner/mover/leaver checklist.","Deliver an RBAC table, two risky access examples, and audit review evidence."],["Secure workstation baseline","Using a personal VM only, inspect local firewall, patch state, disk encryption availability, anti-malware and administrator groups.","Capture before/after findings, remediation plan and rollback notes."],["Analyze phishing safely","Use a fabricated email sample. Inspect sender spoofing cues, request urgency, proposed business verification, and header concepts.","Deliver a phishing triage checklist and a verification script."],["Configure segmented Packet Tracer lab","Model user, server, guest and management VLANs; apply inter-VLAN ACL rules and test permitted and denied flows.","Submit topology, access policy matrix and validation results."],["Read sample authentication logs","Use sanitized sample logs and correlate sign-in successes, failures, locations, IPs and MFA prompts.","Write an incident timeline with facts separated from hypotheses."],["Write an incident response playbook","Build a ransomware playbook covering triggers, severity, containment, communications, evidence and recovery.","Create a one-page decision tree plus rollback and recovery criteria."],["Plan a recoverable service","Pick a small app and set RTO/RPO, backup schedules, immutable/offline copy strategy and restoration testing.","Provide the architecture diagram and a simulated restore checklist."],["Perform a benign vulnerability review","In an isolated lab or using sample reports, inventory assets, review CVSS alongside exposure and prioritize findings.","Produce a risk-based remediation backlog with owners and deadlines."],["Run a security tabletop","Simulate lost laptop, credential compromise and third-party breach. Assign responders, escalation and communications.","Write an after-action report with lessons learned and gaps."],["Build risk register and vendor review","Define five risks, likelihood/impact, current controls, residual risk, owner and treatment; add one vendor assessment.","Submit risk register, acceptance criteria and vendor questions."]]};
+const el=id=>document.getElementById(id);let done=new Set(JSON.parse(localStorage.getItem('sec701-lessons')||'[]'));let completedLabs=new Set(JSON.parse(localStorage.getItem('sec701-labs')||'[]'));function store(){localStorage.setItem('sec701-lessons',JSON.stringify([...done]));localStorage.setItem('sec701-labs',JSON.stringify([...completedLabs]));updateStats()}
+function page(id){document.querySelectorAll('.section').forEach(s=>s.classList.toggle('visible',s.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));window.scrollTo({top:0,behavior:'smooth'})}document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>page(b.dataset.page));document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>page(b.dataset.jump));el('reset').onclick=()=>{if(confirm('Reset saved lesson and lab progress on this browser?')){done.clear();completedLabs.clear();store();renderLessons();renderLabs()}};
+const esc=x=>String(x).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch]));function updateStats(){el('stats').innerHTML=`<div class="stat"><strong>${DATA.lessons.length}</strong><span>Detailed lessons</span></div><div class="stat"><strong>${DATA.cards.length}</strong><span>Flashcards</span></div><div class="stat"><strong>${DATA.questions.length}</strong><span>Practice questions</span></div><div class="stat"><strong>${DATA.labs.length}</strong><span>Guided labs</span></div>`;el('progressText').textContent=`${done.size} / ${DATA.lessons.length} lessons completed · ${completedLabs.size} / ${DATA.labs.length} labs completed`;el('progressFill').style.width=(100*done.size/DATA.lessons.length)+'%'}el('weights').innerHTML=DATA.domains.map(([name,p],i)=>`<p><strong>${i+1}. ${esc(name)}</strong> — ${p}%</p><div class="progress"><div style="width:${p/28*100}%"></div></div>`).join('');
+const DOMAIN_INTROS=[
+'Build the foundation: security objectives, controls, identity, cryptography, trust and secure communications. Understand not just definitions but why and when each control is applied.',
+'Learn how attackers gain access, exploit weaknesses and move through environments. Pair each threat with prevention, detection and remediation decisions.',
+'Design resilient systems around trust boundaries, segmentation, cloud responsibility, data protection and recovery requirements.',
+'Operate and verify security controls day to day: inventory, monitoring, incident response, investigations, administration and continuous improvement.',
+'Connect technical security practices with organizational policies, risk ownership, compliance, vendors, training and business continuity.'
+];
+let activeLesson=0;
+let visibleLessonIds=DATA.lessons.map((_,i)=>i);
+function buildToc(){
+ const html=`<div class="sidebar-toc-title">Table of contents <span>${DATA.lessons.length} topics</span></div><p class="sidebar-toc-help">Pick a topic or use Previous / Next to study one lesson at a time.</p>${DATA.domains.map(([name,weight],d)=>`<details class="sidebar-toc-group" data-toc-domain="${d}"><summary><span>${d+1}. ${esc(name)}</span><small>${weight}%</small></summary><div class="sidebar-toc-links">${DATA.lessons.map((l,i)=>({...l,i})).filter(l=>l.d===d).map(l=>`<button type="button" class="sidebar-toc-link" data-lesson-jump="${l.i}">${esc(l.title)}</button>`).join('')}</div></details>`).join('')}`;
+ el('sidebarToc').innerHTML=html;
+ document.querySelectorAll('#sidebarToc [data-lesson-jump]').forEach(btn=>btn.addEventListener('click',()=>{
+  el('lessonSearch').value='';
+  navigateLesson(Number(btn.dataset.lessonJump));
+ }));
+ markActiveToc();
+}
+function markActiveToc(){
+ document.querySelectorAll('#sidebarToc [data-lesson-jump]').forEach(b=>{
+  const active=Number(b.dataset.lessonJump)===activeLesson;
+  b.classList.toggle('selected',active);
+  if(active)b.setAttribute('aria-current','true');else b.removeAttribute('aria-current');
+ });
+ const d=DATA.lessons[activeLesson]?.d;
+ const group=document.querySelector(`[data-toc-domain="${d}"]`);
+ if(group)group.open=true;
+}
+function showLesson(index){
+ if(index<0||index>=DATA.lessons.length)return;
+ activeLesson=index;
+ const query=el('lessonSearch').value.trim().toLowerCase();
+ visibleLessonIds=DATA.lessons.map((l,i)=>({...l,i})).filter(l=>!query||[l.title,l.core,l.example,l.warning,l.scenario,l.deep].join(' ').toLowerCase().includes(query)).map(l=>l.i);
+ if(!visibleLessonIds.length){el('lessonsRoot').innerHTML='<p class="muted">No lessons match this search. Try another keyword.</p>';return;}
+ if(!visibleLessonIds.includes(activeLesson))activeLesson=visibleLessonIds[0];
+ const l=DATA.lessons[activeLesson],d=l.d,[name,weight]=DATA.domains[d],pos=visibleLessonIds.indexOf(activeLesson);
+ const previous=pos>0?visibleLessonIds[pos-1]:null,next=pos<visibleLessonIds.length-1?visibleLessonIds[pos+1]:null;
+ el('lessonsRoot').innerHTML=`<article class="reader-slide" aria-label="Lesson ${activeLesson+1}: ${esc(l.title)}">
+ <div class="reader-meta"><span>DOMAIN ${d+1} · ${esc(name)}</span><span>${weight}% of exam</span></div>
+ <div class="reader-intro">${esc(DOMAIN_INTROS[d])}</div>
+ <div class="reader-count">LESSON ${String(activeLesson+1).padStart(2,'0')} OF ${DATA.lessons.length} <span>· ${pos+1} of ${visibleLessonIds.length} ${query?'matches':'in sequence'}</span></div>
+ <h3 class="reader-title">${esc(l.title)}</h3>
+ <div class="reader-body"><h4>01 · Core theory</h4><p>${esc(l.core)}</p>
+ <div class="deep-topic"><h4>02 · Deep-dive analysis</h4><p>${esc(l.deep||'')}</p></div>
+ <h4>03 · Applied example</h4><div class="callout">${esc(l.example)}</div>
+ <h4>04 · Common pitfall / exam nuance</h4><div class="callout caution">${esc(l.warning)}</div>
+ <h4>05 · Think like a security analyst</h4><p>${esc(l.scenario)}</p>
+ <label class="check"><input type="checkbox" data-lesson="${activeLesson}" ${done.has(activeLesson)?'checked':''}> I can explain this topic without notes</label></div>
+ <div class="reader-footer"><button class="btn secondary" id="readerPrev" ${previous===null?'disabled':''}>← Previous lesson</button><span>${pos+1} / ${visibleLessonIds.length}</span><button class="btn" id="readerNext" ${next===null?'disabled':''}>Next lesson →</button></div>
+ </article>`;
+ el('readerPrev').onclick=()=>{if(previous!==null)navigateLesson(previous)};
+ el('readerNext').onclick=()=>{if(next!==null)navigateLesson(next)};
+ const check=el('lessonsRoot').querySelector('[data-lesson]');
+ check.onchange=()=>{check.checked?done.add(activeLesson):done.delete(activeLesson);store()};
+ markActiveToc();
+}
+function navigateLesson(i){showLesson(i);page('lessons');requestAnimationFrame(()=>{const root=el('lessonsRoot');root.scrollIntoView({behavior:'smooth',block:'start'})})}
+function renderLessons(){showLesson(activeLesson)}
+el('lessonSearch').oninput=()=>showLesson(activeLesson);
+let filtered=DATA.cards.map((_,i)=>i),cidx=0,flipped=false;function drawCard(){el('cardTotal').textContent=filtered.length;el('cardIndex').textContent=filtered.length?cidx+1:0;let item=DATA.cards[filtered[cidx]];el('card').textContent=item?(flipped?item.a:item.q):'No matching flashcards';el('card').classList.toggle('answer',flipped)}function flip(){if(filtered.length){flipped=!flipped;drawCard()}}function move(n){if(filtered.length){cidx=(cidx+n+filtered.length)%filtered.length;flipped=false;drawCard()}}el('card').onclick=flip;el('card').onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}};el('flipCard').onclick=flip;el('prevCard').onclick=()=>move(-1);el('nextCard').onclick=()=>move(1);el('shuffleCards').onclick=()=>{filtered.sort(()=>Math.random()-.5);cidx=0;flipped=false;drawCard()};el('cardSearch').oninput=e=>{let q=e.target.value.toLowerCase();filtered=DATA.cards.map((c,i)=>({...c,i})).filter(c=>(c.q+' '+c.a).toLowerCase().includes(q)).map(c=>c.i);cidx=0;flipped=false;drawCard()};
+DATA.domains.forEach(([name],i)=>el('quizDomain').insertAdjacentHTML('beforeend',`<option value="${i}">${esc(name)}</option>`));el('quizDomain').insertAdjacentHTML('afterbegin','<option value="all" selected>All five domains</option>');let activeQ=[],selected={};function newQuiz(){let v=el('quizDomain').value;activeQ=DATA.questions.map((q,i)=>({...q,i})).filter(q=>v==='all'||q.d===Number(v)).sort(()=>Math.random()-.5).slice(0,v==='all'?20:12).map(q=>({...q,order:[0,1,2,3].sort(()=>Math.random()-.5)}));selected={};el('quizScore').hidden=true;el('quizRoot').innerHTML=activeQ.map((q,j)=>`<div class="question" id="qbox${j}"><strong>${j+1}. ${esc(q.q)}</strong>${q.order.map((ix,k)=>`<button class="choice" data-q="${j}" data-option="${ix}">${String.fromCharCode(65+k)}. ${esc(q.opts[ix])}</button>`).join('')}<div class="explain" id="ex${j}" hidden></div></div>`).join('');document.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>{let j=Number(b.dataset.q),opt=Number(b.dataset.option);selected[j]=opt;document.querySelectorAll(`[data-q="${j}"]`).forEach(z=>z.classList.toggle('chosen',Number(z.dataset.option)===opt))})}el('newQuiz').onclick=newQuiz;el('gradeQuiz').onclick=()=>{let correct=0;activeQ.forEach((q,j)=>{if(selected[j]===q.answer)correct++;let box=el('qbox'+j),xp=el('ex'+j);box.querySelectorAll('[data-option]').forEach(b=>{let n=Number(b.dataset.option);b.classList.remove('chosen');b.classList.toggle('good',n===q.answer);b.classList.toggle('bad',n===selected[j]&&n!==q.answer)});xp.hidden=false;xp.innerHTML=`<strong>${selected[j]===undefined?'Not answered':selected[j]===q.answer?'Correct':'Incorrect'}</strong> — ${esc(q.explain)}`});let score=Math.round(correct/activeQ.length*100);el('quizScore').hidden=false;el('quizScore').innerHTML=`<strong>Score: ${correct}/${activeQ.length} (${score}%)</strong><br>Review each explanation and revisit missed domains.`;el('quizScore').scrollIntoView({behavior:'smooth',block:'center'})};
+function renderLabs(){el('labsRoot').innerHTML=DATA.labs.map(([title,step,output],i)=>`<article class="lab"><span class="pill">LAB ${String(i+1).padStart(2,'0')}</span><h4>${esc(title)}</h4><p><strong>Exercise:</strong> ${esc(step)}</p><p><strong>Evidence / deliverable:</strong> ${esc(output)}</p><label class="check"><input type="checkbox" data-lab="${i}" ${completedLabs.has(i)?'checked':''}> Completed and documented</label></article>`).join('');document.querySelectorAll('[data-lab]').forEach(c=>c.onchange=()=>{let i=Number(c.dataset.lab);c.checked?completedLabs.add(i):completedLabs.delete(i);store()})}updateStats();buildToc();renderLessons();renderLabs();drawCard();newQuiz();</script></body></html>
