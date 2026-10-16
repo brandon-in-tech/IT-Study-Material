@@ -1306,6 +1306,326 @@ svg {
         </div>
       </div>
     </section>
+    
+<!-- ============================================================
+     FEATURED CERTIFICATION GUIDES — SCROLLING CAROUSEL
+     Insert immediately below the homepage hero section.
+     ============================================================ -->
+
+<section class="cert-ribbon" aria-label="Featured certification study guides">
+  <div class="cert-ribbon-header">
+    <div>
+      <span class="cert-ribbon-eyebrow">EXPLORE OUR MASTERCLASSES</span>
+      <h2>Featured Certification Guides</h2>
+      <p>Select a study guide to start learning.</p>
+    </div>
+
+    <span class="cert-ribbon-count">5 COMPLETE STUDY GUIDES</span>
+  </div>
+
+  <div class="cert-ribbon-viewport">
+    <div class="cert-ribbon-track">
+
+      <!-- First set -->
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-1.html">
+        <img src="assets/aplus-core-1-hero.png"
+             alt="A+ Core 1 robot studying in an autumn park"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 1</strong>
+          <span>220-1201 · Hardware & Networking</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-2.html">
+        <img src="assets/core2-hero.png"
+             alt="A+ Core 2 robot breakdancing in a neon roller rink"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 2</strong>
+          <span>220-1202 · Operating Systems & Security</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/net+-study.html">
+        <img src="assets/net+-hero.png"
+             alt="Network+ astronaut overlooking connected Earth"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Network+</strong>
+          <span>N10-009 · Networking & Infrastructure</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/security+-study.html">
+        <img src="assets/security-hero.png"
+             alt="Security+ cybersecurity professional at a workstation"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Security+</strong>
+          <span>SY0-701 · Cybersecurity & Defense</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/linux+-study.html">
+        <img src="assets/linux-hero.png"
+             alt="Linux+ robotic penguin in Antarctica"
+             loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Linux+</strong>
+          <span>XK0-006 · Linux Administration</span>
+        </div>
+      </a>
+
+      <!-- Duplicate set creates a seamless infinite loop -->
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-1.html"
+         aria-label="CompTIA A+ Core 1 study guide">
+        <img src="assets/aplus-core-1-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 1</strong>
+          <span>220-1201 · Hardware & Networking</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/A+-core-2.html"
+         aria-label="CompTIA A+ Core 2 study guide">
+        <img src="assets/core2-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA A+ Core 2</strong>
+          <span>220-1202 · Operating Systems & Security</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/net+-study.html"
+         aria-label="CompTIA Network+ study guide">
+        <img src="assets/net+-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Network+</strong>
+          <span>N10-009 · Networking & Infrastructure</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="networking/security+-study.html"
+         aria-label="CompTIA Security+ study guide">
+        <img src="assets/security-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Security+</strong>
+          <span>SY0-701 · Cybersecurity & Defense</span>
+        </div>
+      </a>
+
+      <a class="cert-ribbon-card"
+         href="it-administration/linux+-study.html"
+         aria-label="CompTIA Linux+ study guide">
+        <img src="assets/linux-hero.png" alt="" loading="lazy">
+        <div class="cert-ribbon-caption">
+          <strong>CompTIA Linux+</strong>
+          <span>XK0-006 · Linux Administration</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<style>
+/* ============================================================
+   FEATURED CERTIFICATION RIBBON
+   Scoped styling — won't affect the existing hero or cards.
+   ============================================================ */
+
+.cert-ribbon {
+  padding: 35px 0 38px;
+  background: #ffffff;
+  border-bottom: 1px solid #dce6f1;
+  overflow: hidden;
+}
+
+.cert-ribbon-header {
+  max-width: 1270px;
+  margin: 0 auto 23px;
+  padding: 0 28px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cert-ribbon-eyebrow {
+  font-size: 10px;
+  letter-spacing: .16em;
+  font-weight: 850;
+  color: #2566ae;
+}
+
+.cert-ribbon-header h2 {
+  margin: 5px 0 4px;
+  font-size: clamp(21px, 2.5vw, 28px);
+  letter-spacing: -.04em;
+  color: #0a2345;
+}
+
+.cert-ribbon-header p {
+  margin: 0;
+  font-size: 13px;
+  color: #607086;
+}
+
+.cert-ribbon-count {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .09em;
+  color: #53677e;
+  white-space: nowrap;
+}
+
+.cert-ribbon-viewport {
+  width: 100%;
+  overflow: hidden;
+  padding: 5px 0 10px;
+}
+
+.cert-ribbon-track {
+  display: flex;
+  gap: 15px;
+  width: max-content;
+  animation: certRibbonScroll 38s linear infinite;
+  will-change: transform;
+}
+
+/* Each image and caption move together as one card */
+
+.cert-ribbon-card {
+  display: block;
+  flex: 0 0 285px;
+  width: 285px;
+  overflow: hidden;
+  border-radius: 13px;
+  background: #f9fbff;
+  border: 1px solid #dce6f1;
+  text-decoration: none;
+  color: #172d48;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.cert-ribbon-card:hover {
+  border-color: #8bb6e5;
+  box-shadow: 0 8px 22px #123b6b20;
+}
+
+.cert-ribbon-card img {
+  display: block;
+  width: 100%;
+  height: 145px;
+  object-fit: cover;
+  object-position: center;
+}
+
+.cert-ribbon-caption {
+  padding: 12px 14px 13px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cert-ribbon-caption strong {
+  font-size: 13px;
+  font-weight: 800;
+  color: #102b4d;
+}
+
+.cert-ribbon-caption span {
+  font-size: 11px;
+  color: #607086;
+  line-height: 1.45;
+}
+
+/* 5 cards + their gaps = exactly half the duplicated track */
+@keyframes certRibbonScroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 7.5px));
+  }
+}
+
+/* Pause while interacting */
+
+.cert-ribbon-viewport:hover .cert-ribbon-track,
+.cert-ribbon-viewport:focus-within .cert-ribbon-track {
+  animation-play-state: paused;
+}
+
+/* Tablet and mobile */
+
+@media (max-width: 680px) {
+  .cert-ribbon {
+    padding: 25px 0 28px;
+  }
+
+  .cert-ribbon-header {
+    padding: 0 17px;
+    margin-bottom: 17px;
+  }
+
+  .cert-ribbon-header h2 {
+    font-size: 22px;
+  }
+
+  .cert-ribbon-count {
+    display: none;
+  }
+
+  .cert-ribbon-track {
+    gap: 12px;
+    animation-duration: 32s;
+  }
+
+  .cert-ribbon-card {
+    flex-basis: 235px;
+    width: 235px;
+  }
+
+  .cert-ribbon-card img {
+    height: 125px;
+  }
+
+  .cert-ribbon-caption {
+    padding: 11px 12px;
+  }
+}
+
+/* Accessibility: no automatic animation when reduced motion is enabled */
+
+@media (prefers-reduced-motion: reduce) {
+  .cert-ribbon-track {
+    animation: none;
+  }
+
+  .cert-ribbon-viewport {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .cert-ribbon-card {
+    scroll-snap-align: start;
+  }
+}
+</style>
+
   <section class="shell workspace" id="library"><div class="workspace-head"><div><div class="eyebrow">Curated learning library</div><h2>Browse study materials</h2><p>Choose a topic from the menu, or search across the entire collection.</p></div><span class="count-pill" id="resultsCount">13 resources</span></div>
     <div class="workspace-grid"><aside class="side" aria-label="Table of contents"><h3>TABLE OF CONTENTS</h3><div id="desktopFilters"></div><div class="aside-note">Every resource opens independently. No account or subscription required for the study materials.</div></aside>
     <div><label for="studySearch" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">Search study materials</label><div class="searchline"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="studySearch" type="search" autocomplete="off" placeholder="Search CCNA, Azure, Linux+, Intune, Security+..."></div><div class="mobile-category-picker" id="mobileCategoryPicker" aria-label="Choose a study category"><div class="picker-kicker">Explore your learning path</div><h3>What would you like to study?</h3><p>Tap a category below to reveal its study guides, labs, and practice resources.</p><div class="mobile-category-options" id="mobileCategoryOptions"></div><div class="mobile-category-note" id="mobileCategoryNote" aria-live="polite">Choose a category to view resources ↓</div></div><select id="mobileFilter" class="mobile-filter" aria-label="Filter study category" hidden></select><div id="sections"></div><div id="empty" class="empty hidden" role="status"><h3>No matching materials</h3><p>Try a different technology, exam name, or topic.</p></div></div></div>
