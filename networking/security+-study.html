@@ -6202,7 +6202,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
                 const d = DATA.lessons[activeLesson]?.d;
                 const group = document.querySelector(`[data-toc-domain="${d}"]`);
-                if (group) group.open = true;
+                
             }
             function showLesson(index) {
                 if (index < 0 || index >= DATA.lessons.length) return;
