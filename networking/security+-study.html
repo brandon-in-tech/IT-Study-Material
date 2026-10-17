@@ -1117,6 +1117,35 @@
                     padding: 13px;
                 }
             }
+
+            /* Terminology cards within each lesson — matches the A+ reader. */
+            .lesson-glossary {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 12px;
+                margin: 15px 0 30px;
+            }
+            .glossary-item {
+                border: 1px solid #dce7f2;
+                border-radius: 10px;
+                background: #f9fbff;
+                padding: 14px;
+                min-width: 0;
+            }
+            .glossary-item dt {
+                color: #153d66;
+                font-size: 14px;
+                font-weight: 800;
+            }
+            .glossary-item dd {
+                color: #435c76;
+                font-size: 13px;
+                line-height: 1.65;
+                margin: 7px 0 0;
+            }
+            @media (max-width: 680px) {
+                .lesson-glossary { grid-template-columns: 1fr; }
+            }
         </style>
     </head>
     <body>
@@ -6269,205 +6298,381 @@ document.addEventListener("DOMContentLoaded", () => {
                 const group = document.querySelector(`[data-toc-domain="${d}"]`);
                 
             }
-            function showLesson(index) {
-                if (index < 0 || index >= DATA.lessons.length) return;
-                activeLesson = index;
-                const query = el("lessonSearch").value.trim().toLowerCase();
-                visibleLessonIds = DATA.lessons
-                    .map((l, i) => ({ ...l, i }))
-                    .filter(
-                        (l) =>
-                            !query ||
-                            [l.title, l.core, l.example, l.warning, l.scenario, l.deep]
-                                .join(" ")
-                                .toLowerCase()
-                                .includes(query)
-                    )
-                    .map((l) => l.i);
-                if (!visibleLessonIds.length) {
-                    el("lessonsRoot").innerHTML =
-                        '<p class="muted">No lessons match this search. Try another keyword.</p>';
-                    return;
-                }
-                if (!visibleLessonIds.includes(activeLesson)) activeLesson = visibleLessonIds[0];
-                const l = DATA.lessons[activeLesson],
-                    d = l.d,
-                    [name, weight] = DATA.domains[d],
-                    pos = visibleLessonIds.indexOf(activeLesson);
-                const previous = pos > 0 ? visibleLessonIds[pos - 1] : null,
-                    next = pos < visibleLessonIds.length - 1 ? visibleLessonIds[pos + 1] : null;
-                el("lessonsRoot").innerHTML =
-                    `<article class="reader-slide" aria-label="Lesson ${activeLesson + 1}: ${esc(l.title)}">
- <div class="reader-meta"><span>DOMAIN ${d + 1} · ${esc(name)}</span><span>${weight}% of exam</span></div>
- <div class="reader-intro">${esc(DOMAIN_INTROS[d])}</div>
- <div class="reader-count">LESSON ${String(activeLesson + 1).padStart(2, "0")} OF ${DATA.lessons.length} <span>· ${pos + 1} of ${visibleLessonIds.length} ${query ? "matches" : "in sequence"}</span></div>
- <h3 class="reader-title">${esc(l.title)}</h3>
- <div class="reader-body">
- <div class="foundation-block"><h4>01 · What it is — start with the definition</h4><p>${esc(l.definition)}</p>
- <h4>02 · Why it exists</h4><p>${esc(l.purpose)}</p>
- <h4>03 · How it works, step by step</h4><p>${esc(l.mechanics)}</p></div>
- <h4>04 · Exam objective and foundational theory</h4><p>${esc(l.core)}</p>
- <div class="deep-topic"><h4>05 · Deeper technical explanation</h4><p>${esc(l.deep || "")}</p></div><h4>06 · Practical implementation workflow</h4><p>${esc(l.workflow || "")}</p><h4>07 · Validate your understanding in a real environment</h4><p>${esc(l.verification || "")}</p>
- <h4>08 · Applied example</h4><div class="callout">${esc(l.example)}</div>
- <h4>09 · Common pitfall / exam nuance</h4><div class="callout caution">${esc(l.warning)}</div>
- <h4>10 · Think like a security analyst</h4><p>${esc(l.scenario)}</p>
- <h4>11 · Knowledge check — explain without notes</h4><ol class="knowledge-outcomes">${l.objectives.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>
- <label class="check"><input type="checkbox" data-lesson="${activeLesson}" ${done.has(activeLesson) ? "checked" : ""}> I can explain this topic without notes</label></div>
- <div class="reader-footer"><button class="btn secondary" id="readerPrev" ${previous === null ? "disabled" : ""}>← Previous lesson</button><span>${pos + 1} / ${visibleLessonIds.length}</span><button class="btn" id="readerNext" ${next === null ? "disabled" : ""}>Next lesson →</button></div>
- </article>`;
-                el("readerPrev").onclick = () => {
-                    if (previous !== null) navigateLesson(previous);
-                };
-                el("readerNext").onclick = () => {
-                    if (next !== null) navigateLesson(next);
-                };
-                const check = el("lessonsRoot").querySelector("[data-lesson]");
-                check.onchange = () => {
-                    check.checked ? done.add(activeLesson) : done.delete(activeLesson);
-                    store();
-                };
-                markActiveToc();
-            }
-            function navigateLesson(i) {
-                showLesson(i);
-                page("lessons");
-                requestAnimationFrame(() => {
-                    const root = el("lessonsRoot");
-                    root.scrollIntoView({ behavior: "smooth", block: "start" });
-                });
-            }
-            function renderLessons() {
-                showLesson(activeLesson);
-            }
-            el("lessonSearch").oninput = () => showLesson(activeLesson);
-            let filtered = DATA.cards.map((_, i) => i),
-                cidx = 0,
-                flipped = false;
-            function drawCard() {
-                el("cardTotal").textContent = filtered.length;
-                el("cardIndex").textContent = filtered.length ? cidx + 1 : 0;
-                let item = DATA.cards[filtered[cidx]];
-                el("card").textContent = item ? (flipped ? item.a : item.q) : "No matching flashcards";
-                el("card").classList.toggle("answer", flipped);
-            }
-            function flip() {
-                if (filtered.length) {
-                    flipped = !flipped;
-                    drawCard();
-                }
-            }
-            function move(n) {
-                if (filtered.length) {
-                    cidx = (cidx + n + filtered.length) % filtered.length;
-                    flipped = false;
-                    drawCard();
-                }
-            }
-            el("card").onclick = flip;
-            el("card").onkeydown = (e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    flip();
-                }
-            };
-            el("flipCard").onclick = flip;
-            el("prevCard").onclick = () => move(-1);
-            el("nextCard").onclick = () => move(1);
-            el("shuffleCards").onclick = () => {
-                filtered.sort(() => Math.random() - 0.5);
-                cidx = 0;
-                flipped = false;
-                drawCard();
-            };
-            el("cardSearch").oninput = (e) => {
-                let q = e.target.value.toLowerCase();
-                filtered = DATA.cards
-                    .map((c, i) => ({ ...c, i }))
-                    .filter((c) => (c.q + " " + c.a).toLowerCase().includes(q))
-                    .map((c) => c.i);
-                cidx = 0;
-                flipped = false;
-                drawCard();
-            };
-            DATA.domains.forEach(([name], i) =>
-                el("quizDomain").insertAdjacentHTML("beforeend", `<option value="${i}">${esc(name)}</option>`)
-            );
-            el("quizDomain").insertAdjacentHTML("afterbegin", '<option value="all" selected>All five domains</option>');
-            let activeQ = [],
-                selected = {};
-            function newQuiz() {
-                let v = el("quizDomain").value;
-                activeQ = DATA.questions
-                    .map((q, i) => ({ ...q, i }))
-                    .filter((q) => v === "all" || q.d === Number(v))
-                    .sort(() => Math.random() - 0.5)
-                    .slice(0, v === "all" ? 20 : 12)
-                    .map((q) => ({ ...q, order: [0, 1, 2, 3].sort(() => Math.random() - 0.5) }));
-                selected = {};
-                el("quizScore").hidden = true;
-                el("quizRoot").innerHTML = activeQ
-                    .map(
-                        (q, j) =>
-                            `<div class="question" id="qbox${j}"><strong>${j + 1}. ${esc(q.q)}</strong>${q.order.map((ix, k) => `<button class="choice" data-q="${j}" data-option="${ix}">${String.fromCharCode(65 + k)}. ${esc(q.opts[ix])}</button>`).join("")}<div class="explain" id="ex${j}" hidden></div></div>`
-                    )
-                    .join("");
-                document.querySelectorAll("[data-q]").forEach(
-                    (b) =>
-                        (b.onclick = () => {
-                            let j = Number(b.dataset.q),
-                                opt = Number(b.dataset.option);
-                            selected[j] = opt;
-                            document
-                                .querySelectorAll(`[data-q="${j}"]`)
-                                .forEach((z) => z.classList.toggle("chosen", Number(z.dataset.option) === opt));
-                        })
-                );
-            }
-            el("newQuiz").onclick = newQuiz;
-            el("gradeQuiz").onclick = () => {
-                let correct = 0;
-                activeQ.forEach((q, j) => {
-                    if (selected[j] === q.answer) correct++;
-                    let box = el("qbox" + j),
-                        xp = el("ex" + j);
-                    box.querySelectorAll("[data-option]").forEach((b) => {
-                        let n = Number(b.dataset.option);
-                        b.classList.remove("chosen");
-                        b.classList.toggle("good", n === q.answer);
-                        b.classList.toggle("bad", n === selected[j] && n !== q.answer);
-                    });
-                    xp.hidden = false;
-                    xp.innerHTML = `<strong>${selected[j] === undefined ? "Not answered" : selected[j] === q.answer ? "Correct" : "Incorrect"}</strong> — ${esc(q.explain)}`;
-                });
-                let score = Math.round((correct / activeQ.length) * 100);
-                el("quizScore").hidden = false;
-                el("quizScore").innerHTML =
-                    `<strong>Score: ${correct}/${activeQ.length} (${score}%)</strong><br>Review each explanation and revisit missed domains.`;
-                el("quizScore").scrollIntoView({ behavior: "smooth", block: "center" });
-            };
-            function renderLabs() {
-                el("labsRoot").innerHTML = DATA.labs
-                    .map(
-                        ([title, step, output], i) =>
-                            `<article class="lab"><span class="pill">LAB ${String(i + 1).padStart(2, "0")}</span><h4>${esc(title)}</h4><p><strong>Exercise:</strong> ${esc(step)}</p><p><strong>Evidence / deliverable:</strong> ${esc(output)}</p><label class="check"><input type="checkbox" data-lab="${i}" ${completedLabs.has(i) ? "checked" : ""}> Completed and documented</label></article>`
-                    )
-                    .join("");
-                document.querySelectorAll("[data-lab]").forEach(
-                    (c) =>
-                        (c.onchange = () => {
-                            let i = Number(c.dataset.lab);
-                            c.checked ? completedLabs.add(i) : completedLabs.delete(i);
-                            store();
-                        })
-                );
-            }
-            updateStats();
-            buildToc();
-            renderLessons();
-            renderLabs();
-            drawCard();
-            newQuiz();
-            // Independent terminology encyclopedia: does not alter reader, lessons, or quiz state.
+            // Added substantive topic-specific study depth; original course data and UI remain intact.
+            const SECURITY_DEEP_DIVES = [
+  {
+    "title": "Security controls and categories",
+    "technical": "A control has two independent classifications: its implementation category and its function. A physical badge reader can be preventive, while the access logs it produces serve a detective function. Technical controls include access rules, encryption and endpoint isolation; managerial controls include policy decisions and risk oversight; operational controls include staffed reviews and procedures.",
+    "practice": "When presented with a control, first identify who or what implements it; then ask whether it stops an event, reveals it, restores service, discourages behavior, substitutes for another control, or tells people what to do. Defense in depth is strongest when the controls fail independently rather than all relying on a single identity system.",
+    "exam": "Do not call every monitoring technology preventive: a camera or IDS typically detects, while an inline IPS or access-deny rule can actively prevent."
+  },
+  {
+    "title": "CIA triad and security objectives",
+    "technical": "Confidentiality is about who can learn information, integrity is about whether information stays correct and authorized, and availability is about whether legitimate users can access a service on time. Encryption primarily addresses confidentiality; digital signatures and protected audit trails contribute to integrity; redundancy and recovery planning contribute to availability.",
+    "practice": "Imagine a medical system during an outage. A replica can preserve availability but may expose information if its permissions are broader than production. A backup may restore availability but cannot be trusted without testing integrity and controlling administrative access. Evaluate confidentiality, integrity and availability independently for every proposed solution.",
+    "exam": "A hash can detect a changed file but cannot prove who changed it unless a trusted signature, keyed authentication or protected chain of custody accompanies the hash."
+  },
+  {
+    "title": "Identity, authentication and authorization",
+    "technical": "Identity is a claim about an entity. Authentication tests evidence supporting the claim, authorization evaluates permitted operations, and accounting supplies a record of activities. Password plus PIN is generally still one factor type; a password plus a hardware security key combines knowledge with possession. Authorization checks belong at the resource, not only at login.",
+    "practice": "Compare federation mechanisms by purpose: SAML exchanges identity assertions for many enterprise SSO workflows; OAuth 2.0 delegates authorization to a client; OpenID Connect adds an authentication identity layer. Token audiences, expiry, signing keys and scopes matter because a valid token intended for the wrong service must not grant access.",
+    "exam": "A user who authenticates successfully is not automatically authorized: use least privilege and deny-by-default policies to decide which resources and actions they may access."
+  },
+  {
+    "title": "Cryptography fundamentals",
+    "technical": "Symmetric algorithms such as AES are efficient for large data volumes and require secure shared-key distribution. Asymmetric systems use public/private key pairs for signatures and key-establishment methods; modern TLS commonly negotiates ephemeral shared secrets and then encrypts application data symmetrically. Cryptographic strength also depends on modes, random nonces and key lifecycle.",
+    "practice": "Hash functions produce fixed-size digests and are not reversible encryption. HMAC uses a shared secret for message authentication; a digital signature is verified with a public key and provides different trust properties. Passwords should be stored with purpose-built, salted and deliberately expensive password hashing such as Argon2id, scrypt or bcrypt rather than ordinary SHA-256 alone.",
+    "exam": "If a question asks to conceal data, look for encryption; if it asks to detect accidental change, consider a hash; if it asks to authenticate the origin, consider HMAC or a digital signature."
+  },
+  {
+    "title": "Certificates, PKI and trust",
+    "technical": "A public certificate binds a public key to an identity as asserted by an issuer. Validation typically involves the requested hostname or subject alternative name, certificate validity interval, signing chain, relevant usages and the trusted root. Intermediate CAs let organizations separate online issuance from highly protected root keys.",
+    "practice": "Certificate issuance begins with a key pair and CSR; the CA verifies policy requirements, signs a certificate, and the server installs both its leaf certificate and appropriate chain. Operational responsibilities include private-key protections, renewal inventories, revocation response, rotation and monitoring services that may keep serving old certificates after deployment.",
+    "exam": "A browser padlock indicates a validated encrypted connection to a particular identity; it does not prove that the application is free of vulnerabilities or that its business is trustworthy."
+  },
+  {
+    "title": "Secure communication and protocols",
+    "technical": "TLS protects transport connections, HTTPS is HTTP over TLS, SSH protects interactive management and tunnels, and IPsec protects IP-layer communications. Protocol choice depends on where encryption must terminate: on the endpoint application, a gateway, or the network path. Mutual TLS can authenticate both client and server in services that manage certificates.",
+    "practice": "For email, transport encryption protects hops but not necessarily message content after delivery; S/MIME can sign or encrypt messages themselves. DNSSEC authenticates DNS records but does not provide DNS-query confidentiality; encrypted DNS transports protect a different security property. Wireless WPA3 protects access at the radio layer, not compromised applications.",
+    "exam": "Choose the protocol based on the exact threat boundary. An encrypted tunnel cannot prevent malware running on an endpoint or a user trusting a phishing site."
+  },
+  {
+    "title": "Threat actors, motives and vectors",
+    "technical": "Threat actors differ in capabilities, motivation, access and persistence. State-sponsored operators may emphasize long-term intelligence collection; financially motivated criminals often prioritize credentials and data monetization; insiders may already have authorized access. An initial access vector can be phishing, an exposed service, vendor remote access, stolen tokens or physical media.",
+    "practice": "Map a credible intrusion path from initial exposure through execution, privilege gain, lateral movement and objective. Then identify where an organization can prevent, detect or limit each step. Threat intelligence increases value when mapped to assets, procedures and observables rather than simply listing attacker names.",
+    "exam": "The actor label alone does not set priority. A basic internet-facing weakness with active exploitation may deserve more attention than a sophisticated but irrelevant attack technique."
+  },
+  {
+    "title": "Social engineering and phishing",
+    "technical": "Phishing is a delivery channel, while the attack often targets a business decision: surrender credentials, approve MFA, change a payment destination, open a malicious document or disclose sensitive data. Spear phishing targets a particular victim; whaling targets influential people; vishing and smishing use voice and SMS; BEC commonly manipulates invoices and bank changes.",
+    "practice": "Train procedures, not just recognition. A payment change should be verified using an independently known contact method; an unusual password-reset request should use a validated identity workflow; a suspicious attachment should be reported without being executed. SPF, DKIM and DMARC help evaluate mail authentication but do not eliminate every brand impersonation or account takeover.",
+    "exam": "A convincing sender display name is not proof of identity, and an MFA push approval requested by an attacker is not a trustworthy authentication event."
+  },
+  {
+    "title": "Malware and malicious behavior",
+    "technical": "Malware families describe different behaviors: worms self-spread, viruses attach to host code, trojans misrepresent their purpose, ransomware extorts through encryption or theft, and spyware collects information. Modern intrusions often chain ordinary administration utilities, scripts, scheduled tasks and credential access rather than relying on a single recognizable executable.",
+    "practice": "Investigate the sequence of processes, logon events, persistence changes, network calls and impacted files. Establish whether the compromise remains active before deleting evidence. Isolation restricts spread while retaining telemetry; eradication removes the mechanism; recovery restores trustworthy operation and verifies persistence is gone.",
+    "exam": "An antivirus signature miss does not establish that a device is clean; behavior, persistence and correlated evidence matter."
+  },
+  {
+    "title": "Application attacks",
+    "technical": "SQL injection manipulates server-side query structure; parameterized statements keep data separate from SQL syntax. XSS injects browser-executed code and calls for contextual output encoding and safe DOM handling. CSRF abuses a logged-in browser's automatic credentials and calls for anti-CSRF tokens, SameSite cookie controls and appropriate authorization checks.",
+    "practice": "Command injection crosses a boundary into shell execution; path traversal escapes a designated file path; insecure deserialization can reconstitute dangerous objects; SSRF induces a server to fetch attacker-selected resources. These are separate bug classes, so a generic input filter is not a universal fix. Use strong server-side authorization and focused tests for each boundary.",
+    "exam": "Choose the mitigation matching the execution context: parameterize SQL, encode browser output, validate access to resolved filesystem paths and avoid invoking shells with untrusted strings."
+  },
+  {
+    "title": "Network and infrastructure attacks",
+    "technical": "ARP poisoning changes how local hosts map IP addresses to link-layer destinations, while DNS poisoning changes name-resolution results. Rogue and evil-twin APs attack wireless trust. On-path interception depends on where the attacker can observe or modify packets; encrypted protocols limit exposure but certificate errors and user actions remain important.",
+    "practice": "DDoS overwhelms service or upstream capacity and may require edge scrubbing or content-delivery protections. Routing hijacks affect reachability at larger scales. VLAN hopping depends on switch misconfiguration; prevent it with explicit trunk configuration, unused-port hardening and access policy enforcement.",
+    "exam": "When diagnosing suspicious traffic, check the layer involved before choosing a fix: local switching tables, DNS resolver logs, wireless controller inventories or upstream flow telemetry."
+  },
+  {
+    "title": "Vulnerabilities and exposures",
+    "technical": "A vulnerability is a weakness, not necessarily an exploitable business risk. CVE identifies publicly disclosed weaknesses; CVSS expresses technical severity; exploitability and environmental context determine actual response priority. Asset exposure, required privileges, exploitation evidence, business criticality and availability of compensating controls change remediation order.",
+    "practice": "Authenticated scanning reveals configurations and packages that network-only probing can miss; unauthenticated scans better approximate an outside observer but have blind spots. Verify detected versions and configuration before declaring a finding remediated. Track false positives and unsupported systems separately from real risk.",
+    "exam": "CVSS 9.8 does not automatically outrank every CVSS 7.5 issue; an internet-facing, actively exploited flaw may create more urgent exposure."
+  },
+  {
+    "title": "Vulnerability mitigation",
+    "technical": "Remediation removes the weakness where possible; mitigation reduces exploitability or impact when full repair is delayed. Patch deployment needs testing, maintenance approval, rollback readiness and validation. Segmentation, disabled services, allowlisting, tighter access control and virtual patching can buy time on legacy systems.",
+    "practice": "Record the asset owner, vulnerability evidence, urgency, proposed fix, change ticket, validation method and residual risk. A firewall exception that appears temporary can become a long-term gap, so temporary protections should have expiration and review dates. Rescanning alone is insufficient if the path remains reachable through another interface.",
+    "exam": "A compensating control does not magically fix vulnerable code: report residual risk and a realistic permanent remediation plan."
+  },
+  {
+    "title": "Wireless, physical and endpoint threats",
+    "technical": "An access point impersonation may lure devices toward attacker-controlled infrastructure; authentication policy, certificate validation and managed wireless profiles mitigate trust failures. WPA3 improves Wi-Fi security but does not fix compromised endpoints. A found USB device may deliver unwanted code or firmware behaviors even if its files appear harmless.",
+    "practice": "Physical security includes controlled rooms, visitor logging, disposal procedures, cameras, locks and protections against theft or environmental damage. Full-disk encryption is especially valuable for lost portable endpoints when keys are protected and devices are powered off. Device control and MDM policies address unmanaged removable media and configuration drift.",
+    "exam": "A stolen encrypted laptop presents a different disclosure risk from an unencrypted one; verify encryption and key escrow before choosing notification and recovery actions."
+  },
+  {
+    "title": "Security architecture principles",
+    "technical": "Start architecture with assets, trust boundaries, data flows and realistic threat assumptions. Zero trust does not mean 'no network'; it means continuously evaluating identities, devices, context and least-privilege access rather than automatically trusting an internal location. Defense in depth separates controls across identity, endpoint, network, application and recovery layers.",
+    "practice": "Draw data ingress, egress, management paths and privileged administrative access. A service exposed through a reverse proxy may still depend on an overly privileged database account or flat management network. Availability and operational simplicity also matter: a highly complex design with one fragile identity provider can introduce new failure modes.",
+    "exam": "Security architecture is a system of independently validated controls, not a collection of security products on a diagram."
+  },
+  {
+    "title": "Enterprise networks and segmentation",
+    "technical": "Segmentation limits reachable paths between assets and environments. VLANs separate broadcast domains but inter-VLAN routing still needs ACLs or firewall policy to enforce security intent. DMZs isolate externally reachable services from internal resources, and microsegmentation expresses fine-grained workload policies closer to each service.",
+    "practice": "Build an allowed-flow matrix listing source, destination, protocol, ports, owner and business reason. Apply least privilege to east-west as well as north-south traffic, then test permitted and denied paths. Management networks and backup systems deserve special protection from ordinary user endpoints.",
+    "exam": "A VLAN identifier is not a firewall. The security outcome depends on routing and enforcement between segments."
+  },
+  {
+    "title": "Cloud and virtualization security",
+    "technical": "Cloud providers and customers share security responsibility, but the boundary depends on whether a service is IaaS, PaaS or SaaS. Customers generally still own data governance, user access and configuration choices. Workload identities, roles, secrets handling, logging and public exposure are frequent failure points.",
+    "practice": "Secure deployments with private networking where feasible, narrowly scoped service identities, encryption and key policies, infrastructure-as-code reviews and continuous configuration assessment. Hypervisor and guest isolation matter in virtualized environments; protect management planes separately from workloads.",
+    "exam": "A resource being 'in the cloud' does not make its identity permissions, storage policies or networking automatically secure."
+  },
+  {
+    "title": "Resilience and high availability",
+    "technical": "Availability designs distinguish redundancy from true recoverability. A second server helps only if load balancing, data consistency, dependencies and failure detection behave correctly. Active-active and active-passive topologies differ in complexity, cost and failover behavior; geographic separation helps reduce shared-site risk.",
+    "practice": "Create a dependency map for DNS, identity, network links, storage, monitoring and backup. Define measurable SLOs and simulate component failure to verify service behavior. Capacity planning must account for surviving nodes during a failure, not only normal operation.",
+    "exam": "High availability is not a backup: a replicated corruption event may spread to both copies almost immediately."
+  },
+  {
+    "title": "Backup and recovery security",
+    "technical": "A useful backup preserves recoverable data across deletion, corruption, ransomware and site loss. Use independently protected copies, immutability where appropriate, encryption, access separation and routine restore tests. Recovery point objective (RPO) measures acceptable data loss; recovery time objective (RTO) measures required restoration speed.",
+    "practice": "Design backup frequency from RPO, restoration architecture from RTO, and retention from legal and business requirements. Recovery needs known-good system configurations, dependencies, credentials and an agreed rebuild order, not only archived data blocks.",
+    "exam": "A backup job marked successful is not proof that the business application can be restored with correct permissions and intact data."
+  },
+  {
+    "title": "Data protection and privacy",
+    "technical": "Classify data by sensitivity and business use, then map classification to access, handling, encryption, sharing, retention and disposal controls. Tokenization replaces sensitive values with controlled references; masking conceals information in a display; encryption protects plaintext with keys. Each addresses a different use case.",
+    "practice": "Follow data across collection, storage, processing, transfer, backup and deletion. Key rotation and segregation of duties matter because encrypted data may still be exposed through a compromised application identity. Minimize collection where possible and enforce retention rules across replicas and logs.",
+    "exam": "Compliance labels do not themselves secure data; controls must follow information across systems, users and third-party integrations."
+  },
+  {
+    "title": "Security operations foundations",
+    "technical": "Security operations turns policy into repeatable monitoring, triage, response and recovery. Define the assets and telemetry needed to detect meaningful deviations, assign alert ownership, and maintain escalation criteria based on business impact. A SOC should distinguish a noisy indicator from a confirmed incident.",
+    "practice": "An event becomes useful when analysts establish context: affected identity, asset value, process activity, network destination and whether a control blocked the action. Use playbooks to standardize investigation and document evidence, timestamps, decisions and closure criteria.",
+    "exam": "Alert volume is not the same as detection quality. Track true positives, false positives, time to investigate and gaps in telemetry."
+  },
+  {
+    "title": "Logging and telemetry",
+    "technical": "Useful logging requires adequate coverage, accurate clocks, clear identities and enough context to reconstruct activity. Sources include authentication events, DNS, proxy, endpoint processes, firewall denies, cloud control-plane changes and application audit logs. Time synchronization is critical when reconstructing event ordering.",
+    "practice": "Centralize logs with retention and access controls, normalize fields, and account for ingestion lag or missing events. A good detection correlates multiple events rather than treating every single failure as an attack; tune based on a known baseline and environmental exceptions.",
+    "exam": "A log that exists on a compromised host may not remain trustworthy; protected centralized retention improves evidentiary value."
+  },
+  {
+    "title": "Incident response lifecycle",
+    "technical": "Preparation defines authorities, communications and tools. Detection and analysis determine scope and severity. Containment limits further harm, eradication removes the cause, recovery restores services safely, and post-incident review improves defenses. These phases often overlap and can repeat as new facts appear.",
+    "practice": "Choose containment based on what the incident is doing: isolating a host may stop spread, revoking sessions may stop token abuse, and blocking an endpoint might also disrupt critical business service. Preserve volatile evidence where feasible before destructive actions and document each decision and time.",
+    "exam": "Recovery is not complete when a machine boots; verify clean persistence, trusted credentials, monitoring and business function."
+  },
+  {
+    "title": "Digital forensics and evidence",
+    "technical": "Forensic work reconstructs activity using volatile memory, file-system artifacts, logs, network records and contextual evidence. A forensic image captures a defined source; hashes help confirm copies remain unchanged. Evidence handling must record who collected, accessed, transferred and stored artifacts.",
+    "practice": "Create a timeline from independently sourced events and document clock offset assumptions. Avoid casual changes to evidence systems; live-response collection itself can alter the system. Retention and legal requirements affect when to collect and whom to involve.",
+    "exam": "Chain of custody does not prove an artifact is true; it supports integrity and accountability for handling that artifact."
+  },
+  {
+    "title": "Identity administration and privileged access",
+    "technical": "Account lifecycle controls include joiner, mover and leaver processes, role assignments, periodic review and fast deprovisioning. Privileged access management controls elevation and may record sessions; just-in-time elevation limits duration, while just-enough administration limits capability.",
+    "practice": "Conditional access evaluates properties such as device compliance, authentication strength, location risk and session context. Break-glass identities need strong protection and monitored exceptions. Service accounts and app identities should have owners, narrow permissions and rotation procedures.",
+    "exam": "Disabling a user account may not immediately revoke every issued token or persistent application session; confirm effective revocation."
+  },
+  {
+    "title": "Network security controls and monitoring",
+    "technical": "Firewalls enforce traffic policy, IDSs detect suspicious flows and IPSs can block inline. Network access control evaluates endpoint access; proxies mediate application requests; DNS and traffic metadata expose patterns that endpoint agents might miss. Each source has visibility limitations.",
+    "practice": "Document permitted flows and measure changes against a baseline. For suspicious connections correlate destination reputation, DNS lookups, initiating process, device identity and packet evidence where available. Encryption can obscure payloads but useful metadata remains.",
+    "exam": "A monitoring sensor connected to the wrong switch mirror port may miss an entire path; validate telemetry coverage before trusting clean dashboards."
+  },
+  {
+    "title": "Endpoint protection and management",
+    "technical": "Endpoint controls combine hardening, patch compliance, application control, disk encryption, identity protection and endpoint detection/response (EDR). Traditional signatures match known artifacts; behavioral detection considers processes, command lines and suspicious chains. Central policies require rollout and exception management.",
+    "practice": "During an alert, examine ancestry, user context, file reputation and network actions before deciding to isolate. False positives can disrupt operations, so maintain approved exception procedures and recovery paths. Validate agent health and tamper resistance periodically.",
+    "exam": "An installed EDR agent is not the same as an operating detection capability; test ingestion, isolation permissions and response playbooks."
+  },
+  {
+    "title": "Email, web and automation security",
+    "technical": "Email defenses combine authentication standards, attachment scanning, URL protections, business-process verification and training. Web gateways and DNS filters can restrict known malicious destinations, but encrypted traffic and sanctioned platforms complicate detection. Automation can enrich events and execute repeatable response actions.",
+    "practice": "Security orchestration tools should require scoped credentials, approval for destructive actions and audit logging. Before automatically disabling an account, check incident confidence, criticality and rollback options. Rate limiting and safe failure modes prevent one flawed rule from causing mass outages.",
+    "exam": "SOAR automates workflows; it does not replace the judgment needed to decide whether the underlying alert is genuine."
+  },
+  {
+    "title": "Threat hunting and operational improvement",
+    "technical": "Threat hunting begins with a falsifiable hypothesis based on known attacker behavior or an identified defensive gap. Hunt across endpoint telemetry, authentication, DNS, proxy and cloud logs, then document what evidence would support or refute the idea. Baselines matter for judging anomalous activity.",
+    "practice": "Translate confirmed observations into detections, new logging requirements or containment guidance. Measure detection engineering by coverage and validation rather than the raw count of rules. Purple-team exercises can safely test assumptions in authorized environments.",
+    "exam": "A hunt returning no hits may mean absence of activity or insufficient visibility; document data sources and coverage limits."
+  },
+  {
+    "title": "Governance, policies and standards",
+    "technical": "Governance establishes who accepts risk, sets security direction and is accountable for controls. Policies state organizational intent and obligations; standards specify mandatory technical baselines; procedures describe repeatable steps; guidelines suggest practices that allow discretion.",
+    "practice": "Write documents that identify owner, scope, review period, exceptions, enforcement and evidence. Standards should connect to technical implementations and audit tests, such as minimum MFA strength or log retention. Governance only works when business leaders accept responsibility and fund operations.",
+    "exam": "A policy saying 'encrypt sensitive data' is not proof that every database, backup and export actually uses encryption."
+  },
+  {
+    "title": "Risk assessment and treatment",
+    "technical": "Risk combines uncertainty, impact and exposure around a specific business objective. Identify assets and threats, evaluate existing controls, estimate likelihood and consequence, then choose a response: reduce, avoid, share/transfer some impact, or accept with accountable approval.",
+    "practice": "Risk registers should record scenario, asset, risk owner, current controls, residual risk, treatment actions and review date. Quantitative analysis may estimate single-loss expectancy and annualized loss expectancy, but all numbers depend on explicit assumptions and input quality.",
+    "exam": "Risk transfer usually moves only some financial consequences; operational, legal and reputational responsibilities may remain."
+  },
+  {
+    "title": "Third-party and supply-chain risk",
+    "technical": "A supplier can introduce exposures through credentials, hosted services, software dependencies and data processing. Assessment depth should reflect the vendor's access, service criticality, data sensitivity and ability to disrupt operations, not only its size.",
+    "practice": "Before onboarding, define access boundaries, encryption, incident notification, audit rights, subcontractor expectations and exit provisions. Maintain an inventory of dependencies and software components where feasible, monitor major changes and test vendor-offboarding steps.",
+    "exam": "A SOC report or questionnaire is evidence about a scoped control period, not a guarantee that the supplier cannot be compromised."
+  },
+  {
+    "title": "Compliance, audits and privacy",
+    "technical": "Compliance concerns applicable obligations; security concerns effective protection, and the two overlap without being identical. An audit tests controls against specific criteria and scope using evidence, sampling, observations and interviews. Findings should have owners, remediation deadlines and retesting evidence.",
+    "practice": "Privacy work considers lawful collection, purpose limitation, minimization, access, sharing and deletion. Evidence such as approved change records, access reviews and restore-test results is stronger than unsupported verbal claims. Maintain clear distinctions between audit observations and operational incident handling.",
+    "exam": "Passing one scoped assessment does not prove that every asset and business process is secure."
+  },
+  {
+    "title": "Security awareness and training",
+    "technical": "Effective training targets behaviors people can perform: verifying sensitive requests, reporting suspected phishing, handling data, recognizing MFA prompts and escalating lost devices. Role-based training should differ for developers, financial approvers, administrators and general employees.",
+    "practice": "Measure outcomes through safe simulations, reporting timeliness and improved decision making rather than solely course completion. A blameless reporting culture supports earlier detection, while repeated generic quizzes often fail to change day-to-day workflows.",
+    "exam": "Training is one layer; pair it with technical controls and financial approvals so a single human error does not become catastrophic."
+  },
+  {
+    "title": "Business continuity and disaster recovery governance",
+    "technical": "Business continuity plans how critical operations keep functioning during disruption. Disaster recovery focuses on restoring technology and data. Business impact analysis identifies dependencies, maximum tolerable downtime, process owners and the consequences of losing a capability.",
+    "practice": "Turn business priorities into service RTO/RPO targets, recovery runbooks, communication trees and exercise schedules. Test realistic dependencies such as identity, DNS, external vendors and remote staff access; document actual results and update assumptions after exercises.",
+    "exam": "A document filed away is not a validated recovery plan: exercises, ownership and revision history matter."
+  },
+  {
+    "title": "Security principles: least privilege, separation of duties and defense in depth",
+    "technical": "Least privilege restricts permissions to the minimum needed, for the minimum duration feasible. Separation of duties prevents one actor from performing conflicting steps, such as creating and approving a payment change. Defense in depth stacks different types of protections to limit single-point failure.",
+    "practice": "Implement role-based permission reviews, privileged elevation workflows, dual approvals for high-risk changes and monitoring of exceptions. Examine nested group memberships and inherited cloud roles, since apparently limited accounts may receive broad effective permissions.",
+    "exam": "Two controls implemented by the same shared administrator account are less independent than controls with different enforcement and oversight paths."
+  },
+  {
+    "title": "Zero trust fundamentals and continuous verification",
+    "technical": "Zero trust treats access as a continuously evaluated decision rather than a permanent reward for being on an internal network. Policy engines may consider authenticated identity, device posture, application, requested operation, contextual signals and risk before granting a bounded session.",
+    "practice": "Build per-resource access rules and restrict lateral movement using network and identity segmentation. Support phishing-resistant MFA, device compliance, application authorization and rich telemetry. Plan failure behavior when a policy service is unavailable so security does not cause uncontrolled outages.",
+    "exam": "A VPN connection is not equivalent to zero trust; it may give broad network reach even after a single successful login."
+  },
+  {
+    "title": "Encryption modes, forward secrecy and password storage",
+    "technical": "AES is a block cipher, but correct implementation also requires a secure mode and nonce/IV handling. Authenticated encryption modes such as AES-GCM provide confidentiality and integrity; nonce reuse can catastrophically weaken security. Ephemeral key agreement in TLS supports forward secrecy so later long-term key compromise need not expose captured past sessions.",
+    "practice": "Password hashes must resist inexpensive guessing: use unique salts and memory-hard or intentionally expensive password-hashing algorithms with tuned parameters. A server should not be able to 'decrypt' stored passwords, and rehash/upgrade strategies should follow algorithm changes.",
+    "exam": "Encryption at rest, hashing passwords, TLS transport encryption and signed software each solve different problems; do not substitute one for another."
+  },
+  {
+    "title": "Public key infrastructure lifecycle and certificate failures",
+    "technical": "An enterprise PKI needs secure root key operations, issuance policy, intermediate authorities, registration workflows, reliable renewal, revocation processes and inventory. Certificate failures arise from incorrect SANs, incomplete chains, expired intermediates, wrong key usage and clock skew.",
+    "practice": "During TLS troubleshooting inspect the certificate presented by the live endpoint, not only the file stored on disk. Check hostname match, chain trust, validity, client policy and service reloads. Certificate pinning increases control but complicates emergency rotation when handled poorly.",
+    "exam": "An expired intermediate CA can break many unrelated services simultaneously, making PKI a dependency that requires monitoring and contingency planning."
+  },
+  {
+    "title": "Enterprise authentication protocols and identity federation",
+    "technical": "Kerberos uses tickets issued by a trusted key distribution center and depends on synchronized clocks and service principals. LDAP provides directory querying and modification; it is not itself a full SSO protocol. SAML exchanges signed identity assertions, OAuth delegates authorization, and OIDC carries standardized user authentication information.",
+    "practice": "In hybrid identity designs, map each token, issuer, intended audience, app role and trust boundary. Test revocation and session lifetime for compromised identities. Certificate signing, token validation and safe redirects are essential to federation security.",
+    "exam": "When the scenario is delegated API access, OAuth is the primary concept; when it is user sign-in layered onto OAuth, think OpenID Connect."
+  },
+  {
+    "title": "Vulnerability management: CVE, CVSS, EPSS and remediation",
+    "technical": "CVE names disclosed weaknesses; CVSS quantifies technical severity; EPSS estimates a vulnerability's probability of exploitation under its model. These are not interchangeable and should be combined with exposure, business value and known exploited activity.",
+    "practice": "Maintain an inventory, scan with appropriate credentials, validate detections, prioritize remediation, schedule changes, verify deployment and record exceptions. Risk-based prioritization explains why the same CVE may have different urgency on an isolated lab VM and an exposed identity service.",
+    "exam": "Do not treat a vulnerability scan as a penetration test or a successful patch deployment as proof that all exploitable paths disappeared."
+  },
+  {
+    "title": "Web application attack paths and secure development",
+    "technical": "Web attacks commonly cross trust boundaries between an untrusted request, application logic, databases and back-end services. SQL injection, XSS, CSRF, SSRF, traversal and broken access control exploit different assumptions and need different mitigations.",
+    "practice": "Integrate code review, threat modeling, software composition analysis, SAST/DAST and targeted tests. Enforce authorization server-side on every object or operation; do not trust user-controlled IDs, browser UI restrictions or JSON field visibility.",
+    "exam": "A WAF is a useful protective layer, but it cannot replace correct query parameterization, access control and secure session handling."
+  },
+  {
+    "title": "Phishing-resistant authentication and social-engineering response",
+    "technical": "Phishing-resistant methods such as FIDO2/WebAuthn bind authentication to the intended relying party and are harder to relay to lookalike sites than ordinary one-time codes. Authentication methods differ in how they handle proxy attacks, prompt fatigue, device loss and recovery.",
+    "practice": "When a suspicious request arrives, verify the person and intent through an independent channel, record the attempt and reset compromised credentials or revoke sessions if warranted. Protect help-desk enrollment and recovery flows as carefully as initial login.",
+    "exam": "A user with hardware-key MFA can still be deceived into an unrelated financial transfer; identity and business-workflow controls remain separate."
+  },
+  {
+    "title": "Attack lifecycle, indicators and incident scoping",
+    "technical": "Attackers may move from reconnaissance and initial access to execution, persistence, credential access, discovery, lateral movement and data impact. These stages are analytical models, not mandatory steps in every incident. An indicator is a specific observation, while a behavior-based detection describes a class of activity.",
+    "practice": "Scope an incident by reviewing related users, hosts, cloud resources, time periods and communication paths. Collect both confirming and disconfirming evidence; preserve relevant logs before their retention period expires.",
+    "exam": "Blocking a single malicious IP is not sufficient if the attacker already holds valid credentials or established persistence."
+  },
+  {
+    "title": "Supply chain, third-party dependencies and software integrity",
+    "technical": "Software supply chains include package registries, build workers, source repositories, signing keys, CI/CD secrets and update distribution. A compromise upstream can reach downstream customers through a trusted installer or dependency update.",
+    "practice": "Protect build identity, require peer-reviewed changes, pin or evaluate dependencies, verify provenance where supported, and maintain a software bill of materials for important systems. Vendor risk includes operational access as well as code integrity.",
+    "exam": "A signed binary proves a signing key approved the artifact; it does not prove the signed artifact was benign or the key was uncompromised."
+  },
+  {
+    "title": "Secure network architecture: segmentation, DMZ and microsegmentation",
+    "technical": "Security zones define distinct trust and exposure levels. A DMZ hosts services that need external reachability while minimizing paths to private systems. Internal segmentation prevents a user workstation from reaching backup, directory administration and sensitive databases without authorization.",
+    "practice": "Create a network-policy matrix and distinguish management, production, guest, development and recovery zones. Use firewalls and workload identity to enforce flows, including east-west traffic, then test reachability and document any exception.",
+    "exam": "Microsegmentation is fine-grained workload policy; simply adding more VLANs without enforcement does not achieve it."
+  },
+  {
+    "title": "Cloud shared responsibility and workload identities",
+    "technical": "Responsibility changes with service model: IaaS customers maintain guest systems and more network configuration; PaaS customers focus on applications, data, access and service settings; SaaS users still control accounts, permissions and information governance.",
+    "practice": "Prefer workload identities or managed identities to long-lived embedded credentials. Enforce least-privilege roles, scoped tokens, logging, key ownership, storage access policy and regular review of public exposure. Use policy-as-code to detect drift.",
+    "exam": "A provider's certification does not automatically satisfy customer-specific configuration, data-handling or access-control requirements."
+  },
+  {
+    "title": "Resilience: RPO, RTO, backups, HA and failover",
+    "technical": "RPO is how much data loss is tolerable, while RTO is how long service can remain unavailable. Replication may improve recovery speed but can replicate mistakes; independently protected backups support recovery from corruption and ransomware.",
+    "practice": "For a target RTO, include dependency restoration, authentication, network cutover and validation—not only VM boot time. For a target RPO, verify actual snapshot/replication intervals and consistency. Run failover and restore exercises rather than relying on vendor claims.",
+    "exam": "A zero-data-loss design may carry substantial cost and complexity; align targets with documented business impact."
+  },
+  {
+    "title": "Industrial, IoT and operational technology security",
+    "technical": "OT networks prioritize safe, reliable physical processes and often contain equipment that cannot be patched or rebooted on ordinary enterprise schedules. Protocols, controllers, safety systems and vendor access create different risk and maintenance constraints than typical IT desktops.",
+    "practice": "Segment industrial control traffic, inventory assets passively where possible, restrict remote administration, monitor protocol-aware telemetry and coordinate changes with operations engineers. IoT devices require firmware lifecycle planning and removal of default credentials.",
+    "exam": "An aggressive vulnerability scan or unplanned patch can disrupt an industrial process; choose assessment techniques appropriate to operational safety."
+  },
+  {
+    "title": "Secure configuration, hardening and baseline drift",
+    "technical": "Hardening establishes a secure starting state: disable unnecessary services, reduce local privileges, restrict management exposure, configure logging and apply supported updates. A baseline allows comparison against known expectations; drift occurs as ad hoc changes accumulate.",
+    "practice": "Use version-controlled configuration templates, change approvals, periodic comparisons and automated compliance tests. Different assets need tailored baselines so security does not break required functions; document justified exceptions and expiration dates.",
+    "exam": "Passing a one-time hardening checklist is not enough. Recheck after upgrades, emergency changes, provisioning and restoration."
+  },
+  {
+    "title": "SIEM detection engineering and alert triage",
+    "technical": "A SIEM collects, normalizes, correlates and searches security events. Detection engineering turns a plausible attacker behavior into a query or rule that has required fields, time windows, suppression conditions and a documented response. Correlating identity, endpoint and network evidence reduces ambiguity.",
+    "practice": "Triage by validating event time, entity identity, event context, affected systems, prevalence and whether blocking occurred. Test detections with authorized simulations; tune false positives without suppressing genuinely dangerous behaviors. Maintain change history and owner.",
+    "exam": "A low alert count may reflect good prevention or broken data ingestion; regularly validate source health and detection coverage."
+  },
+  {
+    "title": "Endpoint protection: EDR, allowlisting and response",
+    "technical": "EDR offers endpoint telemetry and response capabilities such as process investigation, containment and artifact collection. Application allowlisting limits execution by approved identity, signature or policy. Endpoint configuration and lifecycle management support both preventive and detective protection.",
+    "practice": "Review suspicious parent-child processes, new persistence artifacts, privilege changes and outbound communications. During isolation, protect business continuity and forensic evidence. Test exceptions and recovery workflows before broadly deploying blocking rules.",
+    "exam": "Security products need valid configuration, healthy agents and response permissions to deliver the controls advertised."
+  },
+  {
+    "title": "Identity protection: PAM, JIT, conditional access and provisioning",
+    "technical": "PAM manages high-risk privileges; JIT grants them only when needed and for limited durations; conditional access evaluates authentication strength, device posture and risk context; provisioning ensures identities get correct entitlements across systems.",
+    "practice": "Trace an onboarding or offboarding event through directory identities, cloud roles, service tokens, group memberships, sessions and application access. Ensure account-disable actions and token revocations propagate to the resources that matter.",
+    "exam": "A user removed from one directory group may still retain access through direct assignments, cached tokens or a separate local account."
+  },
+  {
+    "title": "Digital forensics: evidence, timelines and chain of custody",
+    "technical": "Forensic timelines need precise timestamps, source provenance and an understanding of clock offsets or ingestion delay. Hashes can establish integrity of acquired copies but do not establish the truth of each logged event. Volatile evidence includes memory and active connections that may vanish on shutdown.",
+    "practice": "Document authorization, acquisition method, original location, collector, transfer and storage. Analyze on verified copies when possible, correlate multiple evidence sources and distinguish observed facts from working hypotheses.",
+    "exam": "Resetting or reinstalling a suspect host too early can destroy the evidence needed to scope a wider compromise."
+  },
+  {
+    "title": "Incident response lifecycle and containment choices",
+    "technical": "Containment should balance rapid threat interruption with evidence preservation and service availability. Network isolation, account suspension, token revocation, blocking malicious infrastructure and temporary application shutdown have different consequences and effectiveness.",
+    "practice": "Use a severity matrix and explicit authority to decide. Investigate whether lateral movement or exfiltration already occurred, remove persistence, restore trusted states and monitor for recurrence. Close the incident with documented root cause, lessons learned and control owners.",
+    "exam": "No single containment action solves every intrusion; blocking traffic will not invalidate credentials already used elsewhere."
+  },
+  {
+    "title": "Network telemetry: DNS, proxy, NetFlow and packet captures",
+    "technical": "DNS logs connect hostnames to queries, proxies may record URLs and user identities, and flow records summarize endpoints, volumes and timing without full payloads. Packet captures provide granular network evidence but need storage, lawful access and thoughtful filters.",
+    "practice": "Choose the source that answers the question: identify a suspicious domain via DNS, a requested path via proxy data, large outbound transfer via flow telemetry, or handshake anomalies via capture. Correlate across time and recognize NAT or DHCP effects.",
+    "exam": "Encrypted traffic limits payload visibility, and a missing log can indicate a visibility gap rather than absence of activity."
+  },
+  {
+    "title": "Secure administrative operations and network-device hygiene",
+    "technical": "Network administration requires protected management planes, role-based access, encrypted protocols, patch and firmware tracking, secure backups and complete change records. Disable legacy management services where feasible, restrict who can reach management interfaces and maintain out-of-band recovery options.",
+    "practice": "For switch or firewall changes, capture a baseline, obtain approval, apply minimal commands, verify configuration and traffic impact, then securely store a sanitized backup. Monitor administrative sign-ins and configuration changes; never publish production secrets or identifying device data in public examples.",
+    "exam": "A hardened data plane does not compensate for a publicly reachable management interface with weak authentication."
+  },
+  {
+    "title": "Risk analysis: likelihood, impact and quantitative metrics",
+    "technical": "Qualitative assessments use descriptive likelihood and impact ratings; quantitative methods estimate monetary consequences. Single-loss expectancy (SLE) is asset value multiplied by exposure factor, and annualized loss expectancy (ALE) is SLE multiplied by annual rate of occurrence. Assumptions and uncertainty must be recorded.",
+    "practice": "Model a specific scenario rather than an abstract 'cyber risk'. Compare expected loss against control cost and residual risk while recognizing indirect reputational and legal effects. Sensitivity analysis is valuable when estimates are unreliable.",
+    "exam": "ALE is an estimate for prioritization, not a guarantee that losses will occur at a predictable annual interval."
+  },
+  {
+    "title": "Security policies, standards, procedures and guidelines",
+    "technical": "Policies establish required outcomes and accountability; standards specify mandatory technical choices, procedures give ordered execution steps, and guidelines recommend optional approaches. Mixing them creates ambiguity during change approval and auditing.",
+    "practice": "For identity security, a policy may mandate strong authentication; a standard can require phishing-resistant MFA for administrators; a procedure details enrollment and recovery; a guideline offers safe device-handling suggestions. Establish review frequency and exception ownership.",
+    "exam": "An audit finding may reveal a missing documented procedure even when staff informally follow a sensible practice; documentation and evidence both matter."
+  },
+  {
+    "title": "Data classification, retention and privacy controls",
+    "technical": "Classification should align information sensitivity with business harm, legal obligations and access needs. Labels can trigger technical controls such as encryption, DLP, sharing restrictions and retention rules, but labels must be correctly applied and enforced across storage locations.",
+    "practice": "Map creation, transmission, cloud processing, backup, archival and deletion. Retention schedules must consider legal holds and restore copies. Tokenization, pseudonymization and anonymization offer different degrees of reversibility and re-identification risk.",
+    "exam": "Deleting a record from the primary database does not necessarily remove it from backups, export files and third-party processors."
+  },
+  {
+    "title": "Third-party risk, SLAs, assessments and right to audit",
+    "technical": "Service-level agreements define measurable provider commitments and remedies, while security addenda define controls, access, notification obligations and responsibilities. Assessment artifacts should be checked for scope, testing period, exceptions and subservice providers.",
+    "practice": "Prioritize vendors by data access, operational criticality and privilege. Plan both periodic reassessment and offboarding: revoke integrations, retrieve or delete data, rotate shared secrets and validate continued service.",
+    "exam": "A vendor reporting 99.9% uptime does not mean its incident disclosure, encryption, privacy or recovery obligations meet your requirements."
+  },
+  {
+    "title": "Control assurance: audit evidence, testing and metrics",
+    "technical": "Control assurance asks whether a safeguard is designed correctly, implemented, and operating consistently. Evidence may include configuration exports, access review approvals, alert tests, restore results, change records and retained audit logs.",
+    "practice": "Define a control owner, test method, population, sampling approach and exception-handling process. Metrics should measure real protection such as mean time to detect, privileged-access review coverage and restore success rates rather than only counts of completed checklists.",
+    "exam": "A dashboard showing all checks green may only prove the controls were measured; confirm the measures actually address the intended risk."
+  }
+];
             const SECURITY_GLOSSARY = [
                 {
                     term: "AAA",
@@ -6771,11 +6976,1341 @@ document.addEventListener("DOMContentLoaded", () => {
                         "Zero Trust Network Access; policy-controlled access to applications without broad network trust.",
                 },
             ];
+            // Lesson-specific term selection: same visual pattern as A+ Core 1.
+            
+            // Objective-based terminology extensions: original glossary definitions remain unchanged.
+            const SECURITY_OBJECTIVE_TERMS = [
+  {
+    "term": "2FA",
+    "meaning": "Two-factor authentication; requires two different factor categories to establish identity."
+  },
+  {
+    "term": "3DES",
+    "meaning": "Triple Data Encryption Standard; legacy symmetric block encryption that should be retired."
+  },
+  {
+    "term": "ABAC",
+    "meaning": "Attribute-Based Access Control; decisions use subject, resource, action and environment attributes."
+  },
+  {
+    "term": "AES-256",
+    "meaning": "AES using a 256-bit encryption key; key size does not replace correct implementation."
+  },
+  {
+    "term": "AH",
+    "meaning": "Authentication Header; IPsec protocol providing integrity and authentication without encryption."
+  },
+  {
+    "term": "AI",
+    "meaning": "Artificial Intelligence; systems performing tasks such as classification, prediction or generation."
+  },
+  {
+    "term": "AIS",
+    "meaning": "Automated Indicator Sharing; machine exchange of threat indicators among authorized parties."
+  },
+  {
+    "term": "AP",
+    "meaning": "Access Point; device that connects wireless clients to a network."
+  },
+  {
+    "term": "APT",
+    "meaning": "Advanced Persistent Threat; well-resourced adversary pursuing sustained access and objectives."
+  },
+  {
+    "term": "ASLR",
+    "meaning": "Address Space Layout Randomization; makes memory exploitation harder by randomizing addresses."
+  },
+  {
+    "term": "AUP",
+    "meaning": "Acceptable Use Policy; rules for permitted use of organizational technology."
+  },
+  {
+    "term": "AV",
+    "meaning": "Antivirus; software detecting, blocking or removing malicious programs."
+  },
+  {
+    "term": "BCP",
+    "meaning": "Business Continuity Plan; procedures to sustain critical functions during disruption."
+  },
+  {
+    "term": "BGP",
+    "meaning": "Border Gateway Protocol; exchanges internet routing information between autonomous systems."
+  },
+  {
+    "term": "BIOS",
+    "meaning": "Basic Input/Output System; legacy firmware for device initialization and boot."
+  },
+  {
+    "term": "BPA",
+    "meaning": "Business Partners Agreement; defines obligations between collaborating organizations."
+  },
+  {
+    "term": "BPDU",
+    "meaning": "Bridge Protocol Data Unit; switching messages used by Spanning Tree Protocol."
+  },
+  {
+    "term": "CA",
+    "meaning": "Certificate Authority; trusted organization or service issuing signed certificates."
+  },
+  {
+    "term": "CAPTCHA",
+    "meaning": "Challenge-response mechanism intended to distinguish humans from automation."
+  },
+  {
+    "term": "CAR",
+    "meaning": "Corrective Action Report; records identified nonconformities and actions taken to fix them."
+  },
+  {
+    "term": "CBC",
+    "meaning": "Cipher Block Chaining; encryption mode requiring unpredictable IVs and separate integrity protection."
+  },
+  {
+    "term": "CCMP",
+    "meaning": "Counter Mode with CBC-MAC Protocol; AES-based confidentiality and integrity in Wi-Fi security."
+  },
+  {
+    "term": "CCTV",
+    "meaning": "Closed-Circuit Television; camera systems used for physical observation and evidence."
+  },
+  {
+    "term": "CERT",
+    "meaning": "Computer Emergency Response Team; group coordinating response to security incidents."
+  },
+  {
+    "term": "CFB",
+    "meaning": "Cipher Feedback; block-cipher mode operating on stream-like segments."
+  },
+  {
+    "term": "CHAP",
+    "meaning": "Challenge-Handshake Authentication Protocol; challenge-response authentication in PPP."
+  },
+  {
+    "term": "CIO",
+    "meaning": "Chief Information Officer; executive overseeing technology strategy and delivery."
+  },
+  {
+    "term": "CIRT",
+    "meaning": "Computer Incident Response Team; team assigned to detect, coordinate and handle incidents."
+  },
+  {
+    "term": "CMS",
+    "meaning": "Content Management System; application for publishing and maintaining content."
+  },
+  {
+    "term": "COBO",
+    "meaning": "Corporate-Owned, Business-Only; company device restricted to work use."
+  },
+  {
+    "term": "COPE",
+    "meaning": "Corporate-Owned, Personally Enabled; employer-owned device allowing controlled personal use."
+  },
+  {
+    "term": "CSIRT",
+    "meaning": "Computer Security Incident Response Team; group tasked with incident preparation and response."
+  },
+  {
+    "term": "CSR",
+    "meaning": "Certificate Signing Request; signed request for a certificate associated with a public key."
+  },
+  {
+    "term": "CTM",
+    "meaning": "Counter Mode; block cipher mode turning a cipher into a stream-like encryption scheme."
+  },
+  {
+    "term": "DAC",
+    "meaning": "Discretionary Access Control; resource owners control access permissions."
+  },
+  {
+    "term": "DBA",
+    "meaning": "Database Administrator; role managing database operations, access and maintenance."
+  },
+  {
+    "term": "DES",
+    "meaning": "Data Encryption Standard; obsolete 56-bit-key symmetric encryption."
+  },
+  {
+    "term": "DHCP",
+    "meaning": "Dynamic Host Configuration Protocol; assigns IP configuration to client devices."
+  },
+  {
+    "term": "DMZ",
+    "meaning": "Demilitarized Zone; segmented zone exposing selected services while isolating internal assets."
+  },
+  {
+    "term": "DNS",
+    "meaning": "Domain Name System; translates names to resource records including IP addresses."
+  },
+  {
+    "term": "DoS",
+    "meaning": "Denial of Service; disruption of legitimate availability by exhausting or blocking a resource."
+  },
+  {
+    "term": "DPO",
+    "meaning": "Data Protection Officer; role overseeing privacy and data-protection obligations where required."
+  },
+  {
+    "term": "DRP",
+    "meaning": "Disaster Recovery Plan; instructions to restore systems and data after major disruption."
+  },
+  {
+    "term": "DSA",
+    "meaning": "Digital Signature Algorithm; asymmetric signature scheme, not an encryption algorithm."
+  },
+  {
+    "term": "DSL",
+    "meaning": "Digital Subscriber Line; broadband technology over telephone wiring."
+  },
+  {
+    "term": "EAP",
+    "meaning": "Extensible Authentication Protocol; framework for network authentication methods."
+  },
+  {
+    "term": "ECB",
+    "meaning": "Electronic Codebook; block-cipher mode that reveals repeated plaintext patterns."
+  },
+  {
+    "term": "ECDHE",
+    "meaning": "Elliptic Curve Diffie-Hellman Ephemeral; ephemeral exchange supporting forward secrecy."
+  },
+  {
+    "term": "ECDSA",
+    "meaning": "Elliptic Curve Digital Signature Algorithm; digital signatures based on elliptic curves."
+  },
+  {
+    "term": "EFS",
+    "meaning": "Encrypting File System; Windows file-level encryption linked to certificates."
+  },
+  {
+    "term": "ERP",
+    "meaning": "Enterprise Resource Planning; software for integrated business functions and data."
+  },
+  {
+    "term": "ESN",
+    "meaning": "Electronic Serial Number; identifier used with some cellular equipment."
+  },
+  {
+    "term": "ESP",
+    "meaning": "Encapsulating Security Payload; IPsec component providing confidentiality and optionally integrity."
+  },
+  {
+    "term": "EULA",
+    "meaning": "End-User License Agreement; contract specifying conditions for software use."
+  },
+  {
+    "term": "FACL",
+    "meaning": "File Access Control List; permissions governing files and directories."
+  },
+  {
+    "term": "FDE",
+    "meaning": "Full-Disk Encryption; protects stored data across an entire disk or volume."
+  },
+  {
+    "term": "FIM",
+    "meaning": "File Integrity Monitoring; alerts on unauthorized changes to protected files."
+  },
+  {
+    "term": "FPGA",
+    "meaning": "Field-Programmable Gate Array; reconfigurable integrated circuit."
+  },
+  {
+    "term": "FRR",
+    "meaning": "False Rejection Rate; proportion of valid biometric attempts wrongly rejected."
+  },
+  {
+    "term": "FAR",
+    "meaning": "False Acceptance Rate; proportion of unauthorized biometric attempts wrongly accepted."
+  },
+  {
+    "term": "FTP",
+    "meaning": "File Transfer Protocol; legacy cleartext file transfer service."
+  },
+  {
+    "term": "FTPS",
+    "meaning": "FTP over TLS; protects compatible file-transfer sessions."
+  },
+  {
+    "term": "GCM",
+    "meaning": "Galois/Counter Mode; authenticated encryption mode commonly used with AES."
+  },
+  {
+    "term": "GDPR",
+    "meaning": "General Data Protection Regulation; European Union data-protection law."
+  },
+  {
+    "term": "GPG",
+    "meaning": "GNU Privacy Guard; OpenPGP tool for encryption and digital signatures."
+  },
+  {
+    "term": "GPO",
+    "meaning": "Group Policy Object; Windows domain policy configuration container."
+  },
+  {
+    "term": "GRE",
+    "meaning": "Generic Routing Encapsulation; tunneling protocol without native encryption."
+  },
+  {
+    "term": "HA",
+    "meaning": "High Availability; redundancy reducing service interruption due to failure."
+  },
+  {
+    "term": "HDD",
+    "meaning": "Hard Disk Drive; magnetic storage device with moving parts."
+  },
+  {
+    "term": "HIDS",
+    "meaning": "Host-Based Intrusion Detection System; detects suspicious behavior on an endpoint."
+  },
+  {
+    "term": "HIPS",
+    "meaning": "Host-Based Intrusion Prevention System; endpoint controls that block malicious behavior."
+  },
+  {
+    "term": "HOTP",
+    "meaning": "HMAC-Based One-Time Password; event/counter-based authentication code."
+  },
+  {
+    "term": "HSM",
+    "meaning": "Hardware Security Module; hardened hardware for cryptographic keys and operations."
+  },
+  {
+    "term": "HTTP",
+    "meaning": "Hypertext Transfer Protocol; application protocol for web transactions, normally unencrypted."
+  },
+  {
+    "term": "HTTPS",
+    "meaning": "Hypertext Transfer Protocol Secure; HTTP protected by TLS."
+  },
+  {
+    "term": "HVAC",
+    "meaning": "Heating, Ventilation and Air Conditioning; environmental services supporting equipment health."
+  },
+  {
+    "term": "IaC",
+    "meaning": "Infrastructure as Code; infrastructure managed through reviewed, repeatable definitions."
+  },
+  {
+    "term": "ICMP",
+    "meaning": "Internet Control Message Protocol; reports diagnostics and network-control information."
+  },
+  {
+    "term": "ICS",
+    "meaning": "Industrial Control Systems; technology monitoring or controlling physical processes."
+  },
+  {
+    "term": "IDF",
+    "meaning": "Intermediate Distribution Frame; local network cabling/equipment distribution point."
+  },
+  {
+    "term": "IdP",
+    "meaning": "Identity Provider; authenticates identities and supplies federation assertions or tokens."
+  },
+  {
+    "term": "IDS",
+    "meaning": "Intrusion Detection System; observes traffic or events and alerts on suspected attacks."
+  },
+  {
+    "term": "IKE",
+    "meaning": "Internet Key Exchange; negotiates IPsec security associations and keys."
+  },
+  {
+    "term": "IMAP",
+    "meaning": "Internet Message Access Protocol; protocol for reading and synchronizing mail."
+  },
+  {
+    "term": "IoC",
+    "meaning": "Indicator of Compromise; observable sign potentially linked to malicious activity."
+  },
+  {
+    "term": "IoA",
+    "meaning": "Indicator of Attack; behavioral signal of an attempted or ongoing attack."
+  },
+  {
+    "term": "IoT",
+    "meaning": "Internet of Things; network-connected embedded devices and sensors."
+  },
+  {
+    "term": "IP",
+    "meaning": "Internet Protocol; network layer addressing and routing of datagrams."
+  },
+  {
+    "term": "IPS",
+    "meaning": "Intrusion Prevention System; inline system capable of blocking malicious traffic."
+  },
+  {
+    "term": "IPsec",
+    "meaning": "Internet Protocol Security; suite protecting IP traffic with cryptographic security associations."
+  },
+  {
+    "term": "IR",
+    "meaning": "Incident Response; structured investigation, containment, recovery and lessons learned."
+  },
+  {
+    "term": "IRC",
+    "meaning": "Internet Relay Chat; messaging protocol that has also been abused for bot control."
+  },
+  {
+    "term": "IRP",
+    "meaning": "Incident Response Plan; documented responsibilities, communication and handling procedures."
+  },
+  {
+    "term": "ISSO",
+    "meaning": "Information Systems Security Officer; role responsible for security program activities."
+  },
+  {
+    "term": "IV",
+    "meaning": "Initialization Vector; per-operation value used with encryption modes, often requiring uniqueness."
+  },
+  {
+    "term": "KDC",
+    "meaning": "Key Distribution Center; Kerberos authority for authentication and service tickets."
+  },
+  {
+    "term": "KEK",
+    "meaning": "Key Encryption Key; key used to wrap or protect other cryptographic keys."
+  },
+  {
+    "term": "L2TP",
+    "meaning": "Layer 2 Tunneling Protocol; tunneling protocol typically combined with IPsec for encryption."
+  },
+  {
+    "term": "LAN",
+    "meaning": "Local Area Network; network within a building or small site."
+  },
+  {
+    "term": "LDAP",
+    "meaning": "Lightweight Directory Access Protocol; queries and updates directory information."
+  },
+  {
+    "term": "LEAP",
+    "meaning": "Lightweight Extensible Authentication Protocol; obsolete Cisco wireless authentication method."
+  },
+  {
+    "term": "MAC (access)",
+    "meaning": "Mandatory Access Control; centrally enforced labeling and security policy."
+  },
+  {
+    "term": "MAC (network)",
+    "meaning": "Media Access Control address; identifier on a local network interface."
+  },
+  {
+    "term": "MAC (crypto)",
+    "meaning": "Message Authentication Code; integrity and authenticity tag generated with a secret key."
+  },
+  {
+    "term": "MAN",
+    "meaning": "Metropolitan Area Network; network spanning a city-scale area."
+  },
+  {
+    "term": "MBR",
+    "meaning": "Master Boot Record; legacy disk partitioning and boot record format."
+  },
+  {
+    "term": "MD5",
+    "meaning": "Message Digest 5; obsolete hash not suitable for collision-resistant integrity uses."
+  },
+  {
+    "term": "MDF",
+    "meaning": "Main Distribution Frame; central facility distributing telecommunications connections."
+  },
+  {
+    "term": "MFD",
+    "meaning": "Multifunction Device; hardware combining printer, scanner or other functions."
+  },
+  {
+    "term": "MFP",
+    "meaning": "Multifunction Printer; printer with additional scanning/copying functions."
+  },
+  {
+    "term": "ML",
+    "meaning": "Machine Learning; models learning patterns from data, including anomaly detection."
+  },
+  {
+    "term": "MOA",
+    "meaning": "Memorandum of Agreement; document setting commitments between parties."
+  },
+  {
+    "term": "MOU",
+    "meaning": "Memorandum of Understanding; outlines agreed intentions and responsibilities."
+  },
+  {
+    "term": "MPLS",
+    "meaning": "Multiprotocol Label Switching; forwards traffic through label-switched paths."
+  },
+  {
+    "term": "MSA",
+    "meaning": "Master Service Agreement; umbrella contract governing recurring service relationships."
+  },
+  {
+    "term": "MSCHAP",
+    "meaning": "Microsoft Challenge-Handshake Authentication Protocol; legacy authentication family."
+  },
+  {
+    "term": "MTBF",
+    "meaning": "Mean Time Between Failures; average operating period separating failures."
+  },
+  {
+    "term": "MTTF",
+    "meaning": "Mean Time to Failure; expected operating life for a nonrepairable component."
+  },
+  {
+    "term": "NAC",
+    "meaning": "Network Access Control; checks device/user posture before granting network access."
+  },
+  {
+    "term": "NAT",
+    "meaning": "Network Address Translation; rewrites IP addresses across routing boundaries."
+  },
+  {
+    "term": "NDA",
+    "meaning": "Non-Disclosure Agreement; contract requiring confidential information protection."
+  },
+  {
+    "term": "NDR",
+    "meaning": "Network Detection and Response; analysis and response using network telemetry."
+  },
+  {
+    "term": "NIDS",
+    "meaning": "Network-Based Intrusion Detection System; monitors traffic for intrusion signals."
+  },
+  {
+    "term": "NIPS",
+    "meaning": "Network-Based Intrusion Prevention System; inline network attack blocking."
+  },
+  {
+    "term": "NIST",
+    "meaning": "National Institute of Standards and Technology; publishes cybersecurity guidance and standards."
+  },
+  {
+    "term": "NTP",
+    "meaning": "Network Time Protocol; synchronizes clocks needed for event ordering and logs."
+  },
+  {
+    "term": "OAuth 2.0",
+    "meaning": "Delegated authorization framework granting scoped access without sharing passwords."
+  },
+  {
+    "term": "OCSP",
+    "meaning": "Online Certificate Status Protocol; queries revocation status for a certificate."
+  },
+  {
+    "term": "OIDC",
+    "meaning": "OpenID Connect; identity/authentication protocol layer built on OAuth 2.0."
+  },
+  {
+    "term": "OSINT",
+    "meaning": "Open-Source Intelligence; intelligence collected from legally accessible public information."
+  },
+  {
+    "term": "OT",
+    "meaning": "Operational Technology; systems controlling physical equipment and industrial processes."
+  },
+  {
+    "term": "OWASP",
+    "meaning": "Open Worldwide Application Security Project; publishes web-application risk and testing guidance."
+  },
+  {
+    "term": "PaaS",
+    "meaning": "Platform as a Service; hosted application runtime/platform with shared security responsibilities."
+  },
+  {
+    "term": "PAM",
+    "meaning": "Privileged Access Management; controls elevation, approvals, secrets and admin sessions."
+  },
+  {
+    "term": "PAP",
+    "meaning": "Password Authentication Protocol; insecure legacy protocol sending passwords without protection."
+  },
+  {
+    "term": "PBKDF2",
+    "meaning": "Password-Based Key Derivation Function 2; deliberately costly key derivation for secrets."
+  },
+  {
+    "term": "PBQ",
+    "meaning": "Performance-Based Question; exam task requiring applied steps instead of answer selection."
+  },
+  {
+    "term": "PCI DSS",
+    "meaning": "Payment Card Industry Data Security Standard; requirements for payment-card environments."
+  },
+  {
+    "term": "PEAP",
+    "meaning": "Protected Extensible Authentication Protocol; encapsulates an inner EAP method using TLS."
+  },
+  {
+    "term": "PFS",
+    "meaning": "Perfect Forward Secrecy; limits past session exposure after a long-term key compromise."
+  },
+  {
+    "term": "PHI",
+    "meaning": "Protected Health Information; identifiable health data governed by applicable rules."
+  },
+  {
+    "term": "PII",
+    "meaning": "Personally Identifiable Information; data capable of identifying an individual."
+  },
+  {
+    "term": "PKI",
+    "meaning": "Public Key Infrastructure; certificate/key systems, policies and trust relationships."
+  },
+  {
+    "term": "PoLP",
+    "meaning": "Principle of Least Privilege; users and systems receive only necessary rights."
+  },
+  {
+    "term": "PSK",
+    "meaning": "Pre-Shared Key; secret shared beforehand for authentication or encryption."
+  },
+  {
+    "term": "RADIUS",
+    "meaning": "Remote Authentication Dial-In User Service; central network access authentication and accounting."
+  },
+  {
+    "term": "RAID",
+    "meaning": "Redundant Array of Independent Disks; storage arrangement for redundancy or performance, not backups."
+  },
+  {
+    "term": "RBAC (rules)",
+    "meaning": "Rule-Based Access Control; access decisions follow centralized if/then rules."
+  },
+  {
+    "term": "RC4",
+    "meaning": "Rivest Cipher 4; obsolete stream cipher with known weaknesses."
+  },
+  {
+    "term": "RDP",
+    "meaning": "Remote Desktop Protocol; Microsoft remote graphical access protocol."
+  },
+  {
+    "term": "RFID",
+    "meaning": "Radio-Frequency Identification; wireless identification tags/readers for physical security."
+  },
+  {
+    "term": "RIPEMD",
+    "meaning": "RACE Integrity Primitives Evaluation Message Digest; family of cryptographic hash functions."
+  },
+  {
+    "term": "ROI",
+    "meaning": "Return on Investment; benefit relative to cost of a security investment."
+  },
+  {
+    "term": "RTBH",
+    "meaning": "Remotely Triggered Black Hole; route technique discarding identified attack traffic."
+  },
+  {
+    "term": "RTOS",
+    "meaning": "Real-Time Operating System; time-constrained operating system for embedded tasks."
+  },
+  {
+    "term": "RTP",
+    "meaning": "Real-time Transport Protocol; media delivery protocol without built-in encryption."
+  },
+  {
+    "term": "S/MIME",
+    "meaning": "Secure/Multipurpose Internet Mail Extensions; digitally signs and encrypts email content."
+  },
+  {
+    "term": "SAE",
+    "meaning": "Simultaneous Authentication of Equals; password-authenticated key agreement for WPA3-Personal."
+  },
+  {
+    "term": "SASE",
+    "meaning": "Secure Access Service Edge; converged networking and cloud-delivered security architecture."
+  },
+  {
+    "term": "SCADA",
+    "meaning": "Supervisory Control and Data Acquisition; monitoring/control systems for industrial environments."
+  },
+  {
+    "term": "SCAP",
+    "meaning": "Security Content Automation Protocol; machine-readable security configuration and assessment specifications."
+  },
+  {
+    "term": "SCEP",
+    "meaning": "Simple Certificate Enrollment Protocol; protocol automating certificate enrollment."
+  },
+  {
+    "term": "SD-WAN",
+    "meaning": "Software-Defined Wide Area Network; software-guided routing and WAN policy."
+  },
+  {
+    "term": "SDK",
+    "meaning": "Software Development Kit; tools/libraries used to build applications."
+  },
+  {
+    "term": "SDLC",
+    "meaning": "Software Development Life Cycle; phases to plan, build, test and maintain software."
+  },
+  {
+    "term": "SDLM",
+    "meaning": "Software Development Lifecycle Methodology; formal method for managing software delivery phases."
+  },
+  {
+    "term": "SED",
+    "meaning": "Self-Encrypting Drive; storage hardware implementing encryption internally."
+  },
+  {
+    "term": "SFTP",
+    "meaning": "SSH File Transfer Protocol; encrypted file transfer over SSH."
+  },
+  {
+    "term": "SHA",
+    "meaning": "Secure Hash Algorithm; family of hash functions for digests and integrity."
+  },
+  {
+    "term": "SLA",
+    "meaning": "Service-Level Agreement; contractual commitment to measurable service performance."
+  },
+  {
+    "term": "SLE",
+    "meaning": "Single Loss Expectancy; forecast loss from one incident."
+  },
+  {
+    "term": "SMB",
+    "meaning": "Server Message Block; network protocol for file/printer sharing."
+  },
+  {
+    "term": "SMTP",
+    "meaning": "Simple Mail Transfer Protocol; protocol for transferring email messages."
+  },
+  {
+    "term": "SMTPS",
+    "meaning": "SMTP secured with TLS; protects mail submission or transfer when configured."
+  },
+  {
+    "term": "SNMP",
+    "meaning": "Simple Network Management Protocol; network equipment monitoring and management."
+  },
+  {
+    "term": "SOAP",
+    "meaning": "Simple Object Access Protocol; structured messaging protocol often using XML."
+  },
+  {
+    "term": "SOC",
+    "meaning": "Security Operations Center; people, processes and technology for continuous defense."
+  },
+  {
+    "term": "SOW",
+    "meaning": "Statement of Work; defined project services, deliverables and acceptance criteria."
+  },
+  {
+    "term": "SPIM",
+    "meaning": "Spam over Instant Messaging; unsolicited messages delivered through messaging services."
+  },
+  {
+    "term": "SQL",
+    "meaning": "Structured Query Language; language for relational database queries and updates."
+  },
+  {
+    "term": "SQLi",
+    "meaning": "SQL Injection; untrusted input alters a database query's intended behavior."
+  },
+  {
+    "term": "SRTP",
+    "meaning": "Secure Real-time Transport Protocol; encrypts/authenticates realtime media."
+  },
+  {
+    "term": "SSD",
+    "meaning": "Solid-State Drive; flash-based data storage."
+  },
+  {
+    "term": "SSO",
+    "meaning": "Single Sign-On; federation or central login reused across authorized services."
+  },
+  {
+    "term": "STIX",
+    "meaning": "Structured Threat Information Expression; standardized threat intelligence data model."
+  },
+  {
+    "term": "SWG",
+    "meaning": "Secure Web Gateway; inspects/filters outbound web access and content."
+  },
+  {
+    "term": "TACACS+",
+    "meaning": "Terminal Access Controller Access-Control System Plus; centralized administrator AAA protocol."
+  },
+  {
+    "term": "TAXII",
+    "meaning": "Trusted Automated Exchange of Indicator Information; transports machine-readable threat intelligence."
+  },
+  {
+    "term": "TCP/IP",
+    "meaning": "Transmission Control Protocol/Internet Protocol; widely used network protocol suite."
+  },
+  {
+    "term": "TGT",
+    "meaning": "Ticket-Granting Ticket; Kerberos ticket used to obtain service tickets."
+  },
+  {
+    "term": "TKIP",
+    "meaning": "Temporal Key Integrity Protocol; legacy Wi-Fi encryption with known weaknesses."
+  },
+  {
+    "term": "TOC",
+    "meaning": "Time-of-Check; moment a condition is verified, relevant to race conditions."
+  },
+  {
+    "term": "TOTP",
+    "meaning": "Time-Based One-Time Password; code derived from a secret and current time slice."
+  },
+  {
+    "term": "TPM",
+    "meaning": "Trusted Platform Module; hardware-backed storage for keys and platform measurements."
+  },
+  {
+    "term": "UEFI",
+    "meaning": "Unified Extensible Firmware Interface; modern platform firmware and secure boot interfaces."
+  },
+  {
+    "term": "USB",
+    "meaning": "Universal Serial Bus; peripheral connection and communication standard."
+  },
+  {
+    "term": "USB OTG",
+    "meaning": "USB On-The-Go; permits certain USB devices to act as host or peripheral."
+  },
+  {
+    "term": "UTM",
+    "meaning": "Unified Threat Management; appliance combining multiple network security controls."
+  },
+  {
+    "term": "UTP",
+    "meaning": "Unshielded Twisted Pair; common copper Ethernet cabling."
+  },
+  {
+    "term": "VBA",
+    "meaning": "Visual Basic for Applications; scripting technology used in Office and sometimes abused."
+  },
+  {
+    "term": "VDE",
+    "meaning": "Virtual Desktop Environment; hosted or virtualized desktop configuration."
+  },
+  {
+    "term": "VDI",
+    "meaning": "Virtual Desktop Infrastructure; centrally hosted end-user desktop instances."
+  },
+  {
+    "term": "VLAN",
+    "meaning": "Virtual Local Area Network; logical layer-2 broadcast segmentation."
+  },
+  {
+    "term": "VLSM",
+    "meaning": "Variable Length Subnet Masking; uses different subnet sizes in the same allocation."
+  },
+  {
+    "term": "VM",
+    "meaning": "Virtual Machine; software-defined isolated computing environment."
+  },
+  {
+    "term": "VoIP",
+    "meaning": "Voice over Internet Protocol; telephone services carried over IP networks."
+  },
+  {
+    "term": "VPC",
+    "meaning": "Virtual Private Cloud; logically isolated virtual network within a cloud provider."
+  },
+  {
+    "term": "VPN",
+    "meaning": "Virtual Private Network; protected tunnel connecting systems/networks through other networks."
+  },
+  {
+    "term": "VTC",
+    "meaning": "Video Teleconferencing; interactive remote audio/video collaboration."
+  },
+  {
+    "term": "WAF",
+    "meaning": "Web Application Firewall; filters HTTP requests for web-application attack patterns."
+  },
+  {
+    "term": "WAP",
+    "meaning": "Wireless Access Point; provides Wi-Fi network connectivity."
+  },
+  {
+    "term": "WEP",
+    "meaning": "Wired Equivalent Privacy; obsolete Wi-Fi security protocol."
+  },
+  {
+    "term": "WIDS",
+    "meaning": "Wireless Intrusion Detection System; identifies rogue access points and suspicious wireless events."
+  },
+  {
+    "term": "WIPS",
+    "meaning": "Wireless Intrusion Prevention System; detects and can disrupt wireless attack activity."
+  },
+  {
+    "term": "WPA",
+    "meaning": "Wi-Fi Protected Access; family of wireless security protocols."
+  },
+  {
+    "term": "WPS",
+    "meaning": "Wi-Fi Protected Setup; convenience association mechanism with security risks."
+  },
+  {
+    "term": "WTLS",
+    "meaning": "Wireless Transport Layer Security; legacy wireless application transport security."
+  },
+  {
+    "term": "XDR",
+    "meaning": "Extended Detection and Response; correlates security evidence across multiple telemetry sources."
+  },
+  {
+    "term": "XML",
+    "meaning": "Extensible Markup Language; structured hierarchical data format."
+  },
+  {
+    "term": "XOR",
+    "meaning": "Exclusive OR; binary logic operation used in cryptography and computation."
+  },
+  {
+    "term": "XSRF",
+    "meaning": "Cross-Site Request Forgery; an attack inducing an authenticated browser to send unintended requests."
+  },
+  {
+    "term": "XSS",
+    "meaning": "Cross-Site Scripting; script injection that executes in a victim's browser."
+  },
+  {
+    "term": "Zero trust",
+    "meaning": "Security model that verifies every request using identity, device, context and least privilege."
+  },
+  {
+    "term": "Secure boot",
+    "meaning": "Firmware verification of boot components before control is transferred."
+  },
+  {
+    "term": "Threat modeling",
+    "meaning": "Structured analysis of assets, trust boundaries, potential attacker actions and controls."
+  },
+  {
+    "term": "Risk appetite",
+    "meaning": "Amount and type of risk an organization is willing to pursue or retain."
+  },
+  {
+    "term": "Risk tolerance",
+    "meaning": "Acceptable variation from risk objectives under defined conditions."
+  },
+  {
+    "term": "Residual risk",
+    "meaning": "Risk remaining after safeguards and mitigation."
+  },
+  {
+    "term": "Inherent risk",
+    "meaning": "Risk level prior to mitigating controls."
+  },
+  {
+    "term": "Non-repudiation",
+    "meaning": "Ability to verify a signer/action so a party cannot credibly deny it."
+  },
+  {
+    "term": "Data sovereignty",
+    "meaning": "Legal/regulatory rules about jurisdiction of stored or processed data."
+  },
+  {
+    "term": "Data classification",
+    "meaning": "Categorization of information by sensitivity and handling requirements."
+  },
+  {
+    "term": "Tokenization",
+    "meaning": "Substitution of sensitive data with controlled surrogate tokens."
+  },
+  {
+    "term": "Data masking",
+    "meaning": "Obfuscation of values to limit disclosure while preserving usability."
+  },
+  {
+    "term": "Salting",
+    "meaning": "Adding a unique random value to password material before hashing."
+  },
+  {
+    "term": "Peppering",
+    "meaning": "Adding a separate protected secret to password hashing or validation."
+  },
+  {
+    "term": "Argon2id",
+    "meaning": "Memory-hard password hashing algorithm designed to deter cracking."
+  },
+  {
+    "term": "Least functionality",
+    "meaning": "Removing unnecessary services, components and features to reduce attack surface."
+  },
+  {
+    "term": "Attack surface",
+    "meaning": "Set of reachable interfaces, services, identities and paths an attacker could target."
+  },
+  {
+    "term": "Exploit",
+    "meaning": "Method or code abusing a vulnerability to obtain unintended behavior."
+  },
+  {
+    "term": "False positive",
+    "meaning": "Detection indicating a threat when no qualifying threat occurred."
+  },
+  {
+    "term": "False negative",
+    "meaning": "Failure to detect malicious activity that actually occurred."
+  },
+  {
+    "term": "Data retention",
+    "meaning": "Rules specifying how long information must be kept and when deleted."
+  },
+  {
+    "term": "Legal hold",
+    "meaning": "Preservation requirement suspending normal deletion for litigation or investigation."
+  },
+  {
+    "term": "Chain of custody",
+    "meaning": "Documented record of who collected, transferred and handled evidence."
+  },
+  {
+    "term": "Order of volatility",
+    "meaning": "Priority sequence for preserving evidence likely to disappear first."
+  },
+  {
+    "term": "RACI",
+    "meaning": "Responsible, Accountable, Consulted, Informed matrix defining decision ownership."
+  },
+  {
+    "term": "SAST",
+    "meaning": "Static Application Security Testing; analyzes code/artifacts without executing them."
+  },
+  {
+    "term": "DAST",
+    "meaning": "Dynamic Application Security Testing; tests running software from its external interfaces."
+  },
+  {
+    "term": "SCA",
+    "meaning": "Software Composition Analysis; finds third-party component risks and licenses."
+  },
+  {
+    "term": "SBOM",
+    "meaning": "Software Bill of Materials; list of application libraries and dependencies."
+  },
+  {
+    "term": "CVE",
+    "meaning": "Common Vulnerabilities and Exposures; identifiers for known disclosed vulnerabilities."
+  },
+  {
+    "term": "CVSS",
+    "meaning": "Common Vulnerability Scoring System; severity framework not a standalone risk decision."
+  },
+  {
+    "term": "EPSS",
+    "meaning": "Exploit Prediction Scoring System; estimates near-term exploitation probability."
+  },
+  {
+    "term": "CVSS base score",
+    "meaning": "Standardized severity estimate independent of individual business exposure."
+  },
+  {
+    "term": "BIA",
+    "meaning": "Business Impact Analysis; prioritizes critical business services and disruption effects."
+  },
+  {
+    "term": "RTO",
+    "meaning": "Recovery Time Objective; maximum intended time to restore a service."
+  },
+  {
+    "term": "RPO",
+    "meaning": "Recovery Point Objective; maximum acceptable data-loss interval."
+  },
+  {
+    "term": "MTTR",
+    "meaning": "Mean Time to Repair/Recover; average duration to restore normal operation."
+  },
+  {
+    "term": "ALE",
+    "meaning": "Annualized Loss Expectancy; single loss expectancy multiplied by annualized occurrence rate."
+  },
+  {
+    "term": "ARO",
+    "meaning": "Annualized Rate of Occurrence; estimated number of events per year."
+  },
+  {
+    "term": "SIEM",
+    "meaning": "Security Information and Event Management; centralized telemetry and correlations."
+  },
+  {
+    "term": "SOAR",
+    "meaning": "Security Orchestration, Automation and Response; coordinated response workflows."
+  },
+  {
+    "term": "EDR",
+    "meaning": "Endpoint Detection and Response; monitors and responds to suspicious endpoint activity."
+  },
+  {
+    "term": "CASB",
+    "meaning": "Cloud Access Security Broker; enforces visibility and policies over cloud use."
+  },
+  {
+    "term": "DLP",
+    "meaning": "Data Loss Prevention; controls accidental or unauthorized sensitive-data movement."
+  },
+  {
+    "term": "IAM",
+    "meaning": "Identity and Access Management; provisioning, authentication and access governance."
+  },
+  {
+    "term": "MFA",
+    "meaning": "Multifactor Authentication; authentication using independent factor categories."
+  },
+  {
+    "term": "CIA",
+    "meaning": "Confidentiality, Integrity and Availability; primary security protection objectives."
+  },
+  {
+    "term": "AAA",
+    "meaning": "Authentication, Authorization and Accounting; identity proof, permission and traceability."
+  }
+];
+            const SECURITY_TERMS_BY_NAME = new Map([...SECURITY_GLOSSARY, ...SECURITY_OBJECTIVE_TERMS].map(item => [item.term, item]));
+const SECURITY_LESSON_TERMS = [["CIA", "AAA", "ACL", "RBAC", "ABAC"], ["CIA", "AES", "SHA-256", "DDoS", "RTO"], ["AAA", "IAM", "MFA", "SSO", "RBAC", "ABAC"], ["AES", "AEAD", "HMAC", "ECC", "SHA-256", "PFS"], ["PKI", "CA", "CSR", "CRL", "OCSP", "SAN"], ["TLS", "SSH", "IPsec", "DNSSEC", "VPN"], ["ATT&CK", "BEC", "CVE", "CVSS"], ["BEC", "DMARC", "SPF", "DKIM", "MFA"], ["EDR", "XDR", "SIEM", "ATT&CK"], ["API", "WAF", "OAuth", "OIDC"], ["ARP", "DDoS", "DNSSEC", "NAC", "NGFW"], ["CVE", "CVSS", "EPSS", "SIEM"], ["CVE", "CVSS", "EPSS", "WAF"], ["BYOD", "MDM", "MAM", "NAC", "TPM"], ["CIA", "ZTNA", "ACL", "IAM"], ["ACL", "NAC", "NGFW", "IDS", "IPS"], ["IaaS", "PaaS", "SaaS", "CASB", "KMS"], ["RTO", "RPO", "MTTR", "BIA"], ["RPO", "RTO", "DR", "BIA"], ["DLP", "KMS", "AES", "CASB"], ["SIEM", "SOAR", "EDR", "XDR"], ["SIEM", "NDR", "EDR", "DNSSEC"], ["SIEM", "SOAR", "MTTR", "BIA"], ["SIEM", "ATT&CK", "EDR", "TPM"], ["IAM", "PAM", "JIT", "RBAC", "ABAC"], ["NGFW", "IDS", "IPS", "NDR", "NAC"], ["EDR", "MDM", "MAM", "XDR"], ["SPF", "DKIM", "DMARC", "WAF", "SOAR"], ["ATT&CK", "SIEM", "NDR", "XDR"], ["CIS", "CIA", "IAM", "RBAC"], ["ALE", "ARO", "SLE", "BIA"], ["SBOM", "CASB", "BIA"], ["CIA", "DLP", "BIA", "KMS"], ["BEC", "MFA", "IAM", "SSO"], ["BIA", "DR", "RPO", "RTO"], ["CIA", "RBAC", "ACL", "IAM"], ["ZTNA", "IAM", "MFA", "ABAC"], ["AES", "AEAD", "PFS", "HMAC", "SHA-256"], ["PKI", "CA", "CSR", "CRL", "OCSP"], ["RADIUS", "LDAP", "SAML", "OIDC", "OAuth"], ["CVE", "CVSS", "EPSS", "CIS"], ["WAF", "API", "OAuth", "OIDC"], ["FIDO2", "MFA", "BEC", "SSO"], ["ATT&CK", "SIEM", "EDR", "XDR"], ["SBOM", "SHA-256", "TPM", "UEFI"], ["ACL", "NAC", "ZTNA", "NGFW"], ["IaaS", "PaaS", "SaaS", "CASB"], ["RPO", "RTO", "BIA", "MTTR"], ["OT", "NAC", "MDM", "IDS"], ["CIS", "UEFI", "TPM", "MDM"], ["SIEM", "SOAR", "ATT&CK", "NDR"], ["EDR", "XDR", "MDM", "TPM"], ["PAM", "JIT", "IAM", "ABAC", "RBAC"], ["SIEM", "EDR", "ATT&CK"], ["SOAR", "SIEM", "MTTR", "EDR"], ["NDR", "DNSSEC", "NGFW", "IDS"], ["SSH", "RADIUS", "ACL", "PAM"], ["SLE", "ARO", "ALE", "BIA"], ["CIS", "RBAC", "IAM", "CIA"], ["DLP", "CASB", "KMS", "AES"], ["SBOM", "BIA", "IAM"], ["SIEM", "CIS", "BIA", "MTTR"]];
+            // Exam-domain and individual lesson coverage: relevant terms rather than the same generic cards everywhere.
+            const SECURITY_DOMAIN_CORE_TERMS = [
+              ["2FA","AAA","ABAC","DAC","MAC (access)","PoLP","NIST","PFS","HSM","FAR","FRR"],
+              ["APT","ASLR","CVE","CVSS","EPSS","IoC","IoA","OSINT","SQLi","XSS","XSRF","WIDS","WIPS"],
+              ["DMZ","SASE","SD-WAN","GRE","VPC","HA","DRP","BCP","FDE","SED","OT","ICS","SCADA"],
+              ["SOC","CSIRT","CIRT","IRP","NDR","NIDS","NIPS","TAXII","STIX","FIM","SCAP","SFTP","S/MIME","TGT","TOTP","HOTP"],
+              ["AUP","BPA","MSA","MOU","MOA","NDA","SLA","SOW","GDPR","PCI DSS","DPO","CAR","ROI","RACI","Risk appetite","Residual risk"]
+            ];
+            const SECURITY_TOPIC_TERM_GROUPS = [
+              [/crypt|hash|cipher|encrypt|signatur|key|certificate|pki|tls|protocol/i,["AES-256","3DES","DES","RC4","CBC","ECB","CFB","GCM","IV","KEK","ECDHE","ECDSA","DSA","GPG","HSM","PBKDF2","Argon2id","Salting","Peppering","Non-repudiation","SCEP","CTM"]],
+              [/identity|authentication|authorization|access|password|federat|privileg/i,["IdP","KDC","TGT","LDAP","RADIUS","TACACS+","EAP","PEAP","CHAP","PAP","MSCHAP","TOTP","HOTP","FAR","FRR","RBAC (rules)","DAC","MAC (access)","PoLP"]],
+              [/network|wireless|segmentation|zero trust|firewall|infrastructure/i,["LAN","VLAN","NAT","BGP","BPDU","MPLS","SD-WAN","SASE","UTM","SWG","NIDS","NIPS","IPsec","IKE","AH","ESP","GRE","WPA","WEP","WPS","SAE","CCMP","TKIP","WIDS","WIPS","RTBH"]],
+              [/cloud|virtual|container|devops|application|api|software|web/i,["IaaS","PaaS","SaaS","VPC","IaC","SDLC","SDLM","SDK","SAST","DAST","SCA","SBOM","OWASP","SQLi","XSS","XSRF","SOAP","SFTP","SLA"]],
+              [/incident|forensic|investigat|evidence|detect|telemetry|hunt|monitor|security operations/i,["SOC","CSIRT","CIRT","IRP","IoC","IoA","FIM","STIX","TAXII","OSINT","Chain of custody","Order of volatility","False positive","False negative","NDR","NIDS","NIPS"]],
+              [/risk|business|backup|recover|continuity|resilien|disaster|vendor|governance|audit|compliance|policy/i,["BIA","BCP","DRP","RTO","RPO","MTTR","MTBF","MTTF","ALE","ARO","SLE","GDPR","PCI DSS","DPO","BPA","MSA","MOU","SLA","SOW","ROI","Inherent risk","Residual risk","Risk appetite","Risk tolerance","Data retention","Legal hold"]],
+              [/endpoint|mobile|device|hardening|firmware|boot/i,["FDE","EFS","SED","TPM","UEFI","BIOS","GPO","MDM","COPE","COBO","FIM","ASLR","Secure boot","Least functionality"]],
+              [/data|privacy|information|classification/i,["PII","PHI","DLP","Data sovereignty","Data classification","Data masking","Tokenization","Data retention","GDPR","PCI DSS"]],
+              [/social|phish|email|malware/i,["SPIM","S/MIME","SMTP","SMTPS","IMAP","SPF","DKIM","DMARC","APT","AV","XDR"]]
+            ];
+            function lessonTerminology(index) {
+                const lesson = DATA.lessons[index];
+                const desired = SECURITY_LESSON_TERMS[index] || [];
+                const title = lesson?.title || "";
+                let candidates = [...desired, ...(SECURITY_DOMAIN_CORE_TERMS[lesson?.d] || [])];
+                for (const [pattern, terms] of SECURITY_TOPIC_TERM_GROUPS) {
+                    if (pattern.test(title)) candidates.push(...terms);
+                }
+                // All terms remain discoverable through their most relevant domain's lessons.
+                // Rotate domain vocabulary so every lesson has distinct, exam-useful terminology.
+                const domainPool = SECURITY_OBJECTIVE_TERMS.filter((item, i) => i % 5 === (lesson?.d || 0)).map(item => item.term);
+                const offset = ((index * 7) % Math.max(1,domainPool.length));
+                candidates.push(...domainPool.slice(offset,offset+6));
+                const entries = [...new Set(candidates)]
+                  .map(term => SECURITY_TERMS_BY_NAME.get(term)).filter(Boolean)
+                  .slice(0,22);
+                return `<h4>12 · Technical terminology — explained</h4>
+                <p class="muted">${entries.length} relevant definitions and acronyms for this lesson. Review each term in context, not just its expansion.</p>
+                <dl class="lesson-glossary">${entries.map(item => `<div class="glossary-item"><dt>${esc(item.term)}</dt><dd>${esc(item.meaning)}</dd></div>`).join("")}</dl>`;
+            }
+            function showLesson(index) {
+                if (index < 0 || index >= DATA.lessons.length) return;
+                activeLesson = index;
+                const query = el("lessonSearch").value.trim().toLowerCase();
+                visibleLessonIds = DATA.lessons
+                    .map((l, i) => ({ ...l, i }))
+                    .filter(
+                        (l) =>
+                            !query ||
+                            [l.title, l.core, l.example, l.warning, l.scenario, l.deep, SECURITY_DEEP_DIVES[l.i]?.technical || "", SECURITY_DEEP_DIVES[l.i]?.practice || ""]
+                                .join(" ")
+                                .toLowerCase()
+                                .includes(query)
+                    )
+                    .map((l) => l.i);
+                if (!visibleLessonIds.length) {
+                    el("lessonsRoot").innerHTML =
+                        '<p class="muted">No lessons match this search. Try another keyword.</p>';
+                    return;
+                }
+                if (!visibleLessonIds.includes(activeLesson)) activeLesson = visibleLessonIds[0];
+                const l = DATA.lessons[activeLesson],
+                    d = l.d,
+                    [name, weight] = DATA.domains[d],
+                    pos = visibleLessonIds.indexOf(activeLesson);
+                const previous = pos > 0 ? visibleLessonIds[pos - 1] : null,
+                    next = pos < visibleLessonIds.length - 1 ? visibleLessonIds[pos + 1] : null;
+                el("lessonsRoot").innerHTML =
+                    `<article class="reader-slide" aria-label="Lesson ${activeLesson + 1}: ${esc(l.title)}">
+ <div class="reader-meta"><span>DOMAIN ${d + 1} · ${esc(name)}</span><span>${weight}% of exam</span></div>
+ <div class="reader-intro">${esc(DOMAIN_INTROS[d])}</div>
+ <div class="reader-count">LESSON ${String(activeLesson + 1).padStart(2, "0")} OF ${DATA.lessons.length} <span>· ${pos + 1} of ${visibleLessonIds.length} ${query ? "matches" : "in sequence"}</span></div>
+ <h3 class="reader-title">${esc(l.title)}</h3>
+ <div class="reader-body">
+ <div class="foundation-block"><h4>01 · What it is — start with the definition</h4><p>${esc(l.definition)}</p>
+ <h4>02 · Why it exists</h4><p>${esc(l.purpose)}</p>
+ <h4>03 · How it works, step by step</h4><p>${esc(l.mechanics)}</p></div>
+ <h4>04 · Exam objective and foundational theory</h4><p>${esc(l.core)}</p>
+ <div class="deep-topic"><h4>05 · Deeper technical explanation</h4><p>${esc(l.deep || "")}</p></div>
+ <div class="deep-topic"><h4>Technical deep dive · concepts, mechanisms and distinctions</h4><p>${esc(SECURITY_DEEP_DIVES[activeLesson].technical)}</p></div>
+ <h4>How to apply and troubleshoot this topic</h4><p>${esc(SECURITY_DEEP_DIVES[activeLesson].practice)}</p>
+ <div class="callout"><strong>Exam decision rule:</strong> ${esc(SECURITY_DEEP_DIVES[activeLesson].exam)}</div><h4>06 · Practical implementation workflow</h4><p>${esc(l.workflow || "")}</p><h4>07 · Validate your understanding in a real environment</h4><p>${esc(l.verification || "")}</p>
+ <h4>08 · Applied example</h4><div class="callout">${esc(l.example)}</div>
+ <h4>09 · Common pitfall / exam nuance</h4><div class="callout caution">${esc(l.warning)}</div>
+ <h4>10 · Think like a security analyst</h4><p>${esc(l.scenario)}</p>
+ <h4>11 · Knowledge check — explain without notes</h4><ol class="knowledge-outcomes">${l.objectives.map((t) => `<li>${esc(t)}</li>`).join("")}</ol>
+ ${lessonTerminology(activeLesson)}
+ <label class="check"><input type="checkbox" data-lesson="${activeLesson}" ${done.has(activeLesson) ? "checked" : ""}> I can explain this topic without notes</label></div>
+ <div class="reader-footer"><button class="btn secondary" id="readerPrev" ${previous === null ? "disabled" : ""}>← Previous lesson</button><span>${pos + 1} / ${visibleLessonIds.length}</span><button class="btn" id="readerNext" ${next === null ? "disabled" : ""}>Next lesson →</button></div>
+ </article>`;
+                el("readerPrev").onclick = () => {
+                    if (previous !== null) navigateLesson(previous);
+                };
+                el("readerNext").onclick = () => {
+                    if (next !== null) navigateLesson(next);
+                };
+                const check = el("lessonsRoot").querySelector("[data-lesson]");
+                check.onchange = () => {
+                    check.checked ? done.add(activeLesson) : done.delete(activeLesson);
+                    store();
+                };
+                markActiveToc();
+            }
+            function navigateLesson(i) {
+                showLesson(i);
+                page("lessons");
+                requestAnimationFrame(() => {
+                    const root = el("lessonsRoot");
+                    root.scrollIntoView({ behavior: "smooth", block: "start" });
+                });
+            }
+            function renderLessons() {
+                showLesson(activeLesson);
+            }
+            el("lessonSearch").oninput = () => showLesson(activeLesson);
+            let filtered = DATA.cards.map((_, i) => i),
+                cidx = 0,
+                flipped = false;
+            function drawCard() {
+                el("cardTotal").textContent = filtered.length;
+                el("cardIndex").textContent = filtered.length ? cidx + 1 : 0;
+                let item = DATA.cards[filtered[cidx]];
+                el("card").textContent = item ? (flipped ? item.a : item.q) : "No matching flashcards";
+                el("card").classList.toggle("answer", flipped);
+            }
+            function flip() {
+                if (filtered.length) {
+                    flipped = !flipped;
+                    drawCard();
+                }
+            }
+            function move(n) {
+                if (filtered.length) {
+                    cidx = (cidx + n + filtered.length) % filtered.length;
+                    flipped = false;
+                    drawCard();
+                }
+            }
+            el("card").onclick = flip;
+            el("card").onkeydown = (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    flip();
+                }
+            };
+            el("flipCard").onclick = flip;
+            el("prevCard").onclick = () => move(-1);
+            el("nextCard").onclick = () => move(1);
+            el("shuffleCards").onclick = () => {
+                filtered.sort(() => Math.random() - 0.5);
+                cidx = 0;
+                flipped = false;
+                drawCard();
+            };
+            el("cardSearch").oninput = (e) => {
+                let q = e.target.value.toLowerCase();
+                filtered = DATA.cards
+                    .map((c, i) => ({ ...c, i }))
+                    .filter((c) => (c.q + " " + c.a).toLowerCase().includes(q))
+                    .map((c) => c.i);
+                cidx = 0;
+                flipped = false;
+                drawCard();
+            };
+            DATA.domains.forEach(([name], i) =>
+                el("quizDomain").insertAdjacentHTML("beforeend", `<option value="${i}">${esc(name)}</option>`)
+            );
+            el("quizDomain").insertAdjacentHTML("afterbegin", '<option value="all" selected>All five domains</option>');
+            let activeQ = [],
+                selected = {};
+            function newQuiz() {
+                let v = el("quizDomain").value;
+                activeQ = DATA.questions
+                    .map((q, i) => ({ ...q, i }))
+                    .filter((q) => v === "all" || q.d === Number(v))
+                    .sort(() => Math.random() - 0.5)
+                    .slice(0, v === "all" ? 20 : 12)
+                    .map((q) => ({ ...q, order: [0, 1, 2, 3].sort(() => Math.random() - 0.5) }));
+                selected = {};
+                el("quizScore").hidden = true;
+                el("quizRoot").innerHTML = activeQ
+                    .map(
+                        (q, j) =>
+                            `<div class="question" id="qbox${j}"><strong>${j + 1}. ${esc(q.q)}</strong>${q.order.map((ix, k) => `<button class="choice" data-q="${j}" data-option="${ix}">${String.fromCharCode(65 + k)}. ${esc(q.opts[ix])}</button>`).join("")}<div class="explain" id="ex${j}" hidden></div></div>`
+                    )
+                    .join("");
+                document.querySelectorAll("[data-q]").forEach(
+                    (b) =>
+                        (b.onclick = () => {
+                            let j = Number(b.dataset.q),
+                                opt = Number(b.dataset.option);
+                            selected[j] = opt;
+                            document
+                                .querySelectorAll(`[data-q="${j}"]`)
+                                .forEach((z) => z.classList.toggle("chosen", Number(z.dataset.option) === opt));
+                        })
+                );
+            }
+            el("newQuiz").onclick = newQuiz;
+            el("gradeQuiz").onclick = () => {
+                let correct = 0;
+                activeQ.forEach((q, j) => {
+                    if (selected[j] === q.answer) correct++;
+                    let box = el("qbox" + j),
+                        xp = el("ex" + j);
+                    box.querySelectorAll("[data-option]").forEach((b) => {
+                        let n = Number(b.dataset.option);
+                        b.classList.remove("chosen");
+                        b.classList.toggle("good", n === q.answer);
+                        b.classList.toggle("bad", n === selected[j] && n !== q.answer);
+                    });
+                    xp.hidden = false;
+                    xp.innerHTML = `<strong>${selected[j] === undefined ? "Not answered" : selected[j] === q.answer ? "Correct" : "Incorrect"}</strong> — ${esc(q.explain)}`;
+                });
+                let score = Math.round((correct / activeQ.length) * 100);
+                el("quizScore").hidden = false;
+                el("quizScore").innerHTML =
+                    `<strong>Score: ${correct}/${activeQ.length} (${score}%)</strong><br>Review each explanation and revisit missed domains.`;
+                el("quizScore").scrollIntoView({ behavior: "smooth", block: "center" });
+            };
+            function renderLabs() {
+                el("labsRoot").innerHTML = DATA.labs
+                    .map(
+                        ([title, step, output], i) =>
+                            `<article class="lab"><span class="pill">LAB ${String(i + 1).padStart(2, "0")}</span><h4>${esc(title)}</h4><p><strong>Exercise:</strong> ${esc(step)}</p><p><strong>Evidence / deliverable:</strong> ${esc(output)}</p><label class="check"><input type="checkbox" data-lab="${i}" ${completedLabs.has(i) ? "checked" : ""}> Completed and documented</label></article>`
+                    )
+                    .join("");
+                document.querySelectorAll("[data-lab]").forEach(
+                    (c) =>
+                        (c.onchange = () => {
+                            let i = Number(c.dataset.lab);
+                            c.checked ? completedLabs.add(i) : completedLabs.delete(i);
+                            store();
+                        })
+                );
+            }
+            updateStats();
+            buildToc();
+            renderLessons();
+            renderLabs();
+            drawCard();
+            newQuiz();
+            // Independent terminology encyclopedia: does not alter reader, lessons, or quiz state.
+
             function drawSecurityGlossary() {
                 const query = (document.getElementById("glossarySearch")?.value || "").trim().toLowerCase();
                 const root = document.getElementById("glossaryRoot");
                 if (!root) return;
-                const matches = SECURITY_GLOSSARY.filter((item) =>
+                const matches = [...SECURITY_TERMS_BY_NAME.values()].filter((item) =>
                     `${item.term} ${item.meaning}`.toLowerCase().includes(query)
                 );
                 root.innerHTML =
