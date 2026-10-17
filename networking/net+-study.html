@@ -1422,6 +1422,63 @@
                 padding-left: 13px;
                 margin: 17px 0;
             }
+
+            /* Network+ chapter search — visible results without changing original page styling */
+            .lesson-search-results {
+                margin: 0 0 18px;
+                padding: 14px;
+                background: #fff;
+                border: 1px solid var(--line);
+                border-radius: 12px;
+                box-shadow: 0 6px 20px #2945620a;
+            }
+            .lesson-search-results[hidden] {
+                display: none;
+            }
+            .lesson-search-results-heading {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                align-items: center;
+                margin-bottom: 10px;
+                color: #19456f;
+                font-size: 13px;
+                font-weight: 750;
+            }
+            .lesson-search-results-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                max-height: 325px;
+                overflow: auto;
+            }
+            .lesson-search-hit {
+                display: block;
+                width: 100%;
+                text-align: left;
+                border: 1px solid #dce7f2;
+                border-radius: 9px;
+                padding: 11px 13px;
+                background: #f8fbff;
+                color: #153d66;
+                cursor: pointer;
+            }
+            .lesson-search-hit:hover,
+            .lesson-search-hit:focus-visible {
+                background: #eaf3ff;
+                border-color: #79abd7;
+            }
+            .lesson-search-hit small {
+                display: block;
+                font-size: 11px;
+                color: #607086;
+                margin-top: 4px;
+            }
+            @media (max-width: 700px) {
+                .lesson-search-results-list {
+                    grid-template-columns: 1fr;
+                }
+            }
         </style>
     </head>
     <body>
@@ -1514,6 +1571,7 @@
                             placeholder="Search OSI, routing, subnetting, STP, fiber, DHCP, cloud, security..."
                             aria-label="Search Network+ lessons"
                         />
+                        <div id="lessonSearchResults" class="lesson-search-results" hidden aria-live="polite"></div>
                         <div class="progress"><div id="progressFill"></div></div>
                         <p id="progressText" class="muted"></p>
                         <div id="lessonsRoot"></div>
@@ -1821,6 +1879,28 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A device can have link lights and still fail to reach another subnet: examine default gateway and routes rather than assuming a cable failure."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "All seven layers, precisely",
+                                        "text": "Layer 1 (Physical) defines electrical, optical, and radio signaling: cables, pinouts, modulation, and link speed. Layer 2 (Data Link) moves frames over a local link, uses MAC addresses, and includes Ethernet switching, VLAN tags, and frame check sequences. Layer 3 (Network) uses logical addresses and routes IP packets between networks; routers decrement IPv4 TTL or IPv6 Hop Limit. Layer 4 (Transport) uses ports to identify conversations: TCP supplies acknowledgments, sequencing, flow and congestion control; UDP supplies independent datagrams. Layer 5 (Session) is a conceptual separation of session establishment and management. Layer 6 (Presentation) describes encoding, serialization, compression, and cryptographic data representation. Layer 7 (Application) describes network services such as HTTP, DNS, and SMTP. Real protocols often span these abstract boundaries."
+                                    },
+                                    {
+                                        "heading": "Mapping OSI to real TCP/IP implementations",
+                                        "text": "TCP/IP normally uses Link, Internet, Transport, and Application layers. Ethernet and Wi-Fi provide link services; IPv4, IPv6, and ICMP operate at the Internet layer; TCP and UDP provide transport; DNS, HTTP, SSH, and DHCP are application protocols. OSI Sessions and Presentation are not usually separate modules in a TCP/IP implementation: for example, TLS is commonly described as sitting between the application and transport layers, not as a literal OSI Layer 6 device. A firewall can enforce rules at multiple layers; never assume a physical product maps to one layer exclusively."
+                                    },
+                                    {
+                                        "heading": "Encapsulation, delivery, and addressing",
+                                        "text": "A browser generates an HTTPS request that is protected with TLS and carried by TCP (or by QUIC over UDP for HTTP/3). The transport segment or datagram is contained in an IP packet, which is carried in an Ethernet frame over a specific link. For each routed hop, a router normally removes and replaces the link-layer frame while forwarding the IP packet; the source and destination IPs usually stay constant in the absence of NAT. An Ethernet FCS is regenerated on the outgoing link. A switch forwards inside a VLAN using learned MAC addresses, while a router consults routing information for a destination IP prefix."
+                                    },
+                                    {
+                                        "heading": "A step-by-step fault isolation walkthrough",
+                                        "text": "Suppose a workstation reaches its local gateway but not an external website. Confirm link status and VLAN membership first, then inspect the assigned IP address, prefix, gateway, and DNS servers. Ping or otherwise test an appropriate remote IP to separate name-resolution problems from routing problems; remember that ICMP may be blocked. Verify the routing table and upstream NAT/firewall path. Test DNS using nslookup or dig. Finally test the intended TCP or UDP application endpoint rather than assuming successful ping proves the service works. A TCP SYN with no SYN-ACK can reflect filtering, a dead service, a route failure, or packet loss; corroborate with captures from both sides."
+                                    },
+                                    {
+                                        "heading": "PDU names and field-level interpretation",
+                                        "text": "At the physical layer the transmitted objects are bits and signals. Ethernet carries frames with source/destination MAC addresses, EtherType or length, payload, and FCS. IPv4 packets contain source and destination IPv4 addresses, TTL, protocol number, and other header fields; IPv6 uses a different fixed base header and extension headers. TCP segments have source/destination ports, sequence and acknowledgment numbers, flags, and a receive window; UDP has ports, a length, and checksum. A packet capture decodes nested headers, helping distinguish link errors, failed addressing, retransmissions, and application failures."
+                                    }
                                 ]
                             },
                             {
@@ -1912,6 +1992,20 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A host moves ports but appears unreachable: inspect MAC table learning, access VLAN and port-security state."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Forwarding versus flooding",
+                                        "text": "An Ethernet switch builds a forwarding database by recording the source MAC address and ingress port for each VLAN. It forwards known unicast frames toward the learned destination, floods unknown unicast within the VLAN, and normally floods broadcast traffic to eligible ports. Learned MAC entries age out. A switch does not look up the destination IP to make basic Layer 2 forwarding decisions; a multilayer switch can additionally route when using a routed interface or SVI."
+                                    },
+                                    {
+                                        "heading": "Trunk and access behaviors",
+                                        "text": "An access port presents traffic to an endpoint as untagged frames in its configured access VLAN. An 802.1Q trunk usually carries several VLANs with VLAN tags; its native VLAN may travel untagged, subject to device features. A mismatch can leak traffic or break communication. Use LLDP neighbor information, allowed VLAN lists, MAC tables, and interface counters to diagnose missing VLAN reachability."
+                                    },
+                                    {
+                                        "heading": "Link aggregation limits",
+                                        "text": "LACP forms a logical bundle from compatible member links. All links must agree on key settings such as speed and membership, and switch platforms often expect matched trunk policies. Hashing distributes different flows across members; one single flow is not normally striped packet by packet across all links. Therefore adding two 1 Gb/s links does not guarantee a single TCP flow will transmit at 2 Gb/s."
+                                    }
                                 ]
                             },
                             {
@@ -1992,6 +2086,20 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "192.168.50.130/26 belongs to 192.168.50.128/26; broadcast .191; traditional usable .129 through .190."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Work a /27 subnet by hand",
+                                        "text": "A /27 prefix leaves 5 host bits: 2^5 = 32 addresses per subnet, traditionally 30 usable host addresses. Its dotted-decimal mask is 255.255.255.224 and its final-octet block size is 256 − 224 = 32. For 192.168.10.78/27, the subnet boundaries are .0, .32, .64, .96 and so on; therefore its network is 192.168.10.64, broadcast is .95, and host range is .65 through .94."
+                                    },
+                                    {
+                                        "heading": "Special addresses and exceptions",
+                                        "text": "RFC 1918 space includes 10/8, 172.16/12, and 192.168/16. 127/8 is loopback, 169.254/16 is IPv4 link-local, and 0.0.0.0/0 means a default route when used as a route prefix. A /31 can address a point-to-point link without the traditional network/broadcast host loss (RFC 3021). A /32 identifies one host route. Do not automatically apply the 2^h − 2 formula to every special prefix."
+                                    },
+                                    {
+                                        "heading": "Gateway decisions",
+                                        "text": "A host compares its destination with its own subnet using a mask. For a local destination it resolves the next-hop MAC using ARP; for an off-subnet destination it normally resolves the default gateway’s MAC. ARP operates on the local broadcast domain—it cannot resolve a remote destination MAC across routers. An incorrect mask can make a host ARP for a remote address or incorrectly send local traffic to a gateway."
                                     }
                                 ]
                             },
@@ -2074,6 +2182,20 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "DNS can return AAAA addresses while IPv6 routing is broken: compare reachability over v4/v6 before blaming the app."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Address scope and format",
+                                        "text": "IPv6 is 128 bits. Global unicast space is commonly described as 2000::/3, unique local addresses use fc00::/7, and link-local addresses use fe80::/10. Each interface commonly has a link-local address even when it also has a global address. A normal LAN uses /64 prefixes so SLAAC can construct interface addresses. IPv6 has no IP broadcast: multicast and Neighbor Discovery perform group and neighbor functions."
+                                    },
+                                    {
+                                        "heading": "Router and neighbor discovery",
+                                        "text": "ICMPv6 Router Solicitation and Router Advertisement messages let hosts discover default routers and prefixes. Neighbor Solicitation and Neighbor Advertisement exchange Layer 2 reachability information analogous to ARP, but through ICMPv6. Duplicate Address Detection probes whether an address is already in use. Blocking ICMPv6 indiscriminately can break path MTU discovery and neighbor discovery; protect it selectively rather than treating it as unnecessary."
+                                    },
+                                    {
+                                        "heading": "SLAAC and DHCPv6 distinctions",
+                                        "text": "SLAAC derives a host address from an advertised prefix and interface identifier. DHCPv6 can provide addresses and/or other settings, depending on router-advertisement flags and host implementation. Default routes are generally learned from Router Advertisements, not DHCPv6. Prefix length, route scope, and link-local gateway behavior are important when testing dual-stack failures."
+                                    }
                                 ]
                             },
                             {
@@ -2148,6 +2270,20 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "An HTTPS website works but file sharing fails: inspect TCP 445 and SMB permissions instead of HTTP."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Protocol and port pairings",
+                                        "text": "FTP control is TCP 21; active FTP uses TCP 20 for a conventional server data connection while passive-mode data ports are negotiated. SSH and SFTP use TCP 22; Telnet TCP 23; SMTP TCP 25 (submission often TCP 587); DNS commonly UDP/TCP 53; DHCPv4 UDP 67/68; TFTP UDP 69; HTTP TCP 80; HTTPS TCP 443 (HTTP/3 can use UDP 443). SNMP uses UDP 161 for queries and UDP 162 for notifications; NTP UDP 123; SMB TCP 445; RDP TCP/UDP 3389."
+                                    },
+                                    {
+                                        "heading": "Security and service differences",
+                                        "text": "SFTP transfers files inside an SSH connection and is not the same protocol as FTPS, which secures FTP using TLS. LDAPS conventionally uses TCP 636, while LDAP may negotiate StartTLS on TCP 389. DNS TCP is used for zone transfers and other cases, not exclusively when a UDP reply is too large. Syslog commonly uses UDP 514, but TCP and TLS transports also exist; verify the configured implementation."
+                                    },
+                                    {
+                                        "heading": "Diagnostics beyond the number",
+                                        "text": "A matching port does not prove the correct application or encryption is running there: services can listen on alternate ports. Test name resolution, routing, reachability, transport handshake, TLS validation, then the application response. A firewall may permit TCP 443 while application access still fails because of SNI, certificate trust, reverse proxy routing, or authentication."
                                     }
                                 ]
                             },
@@ -2239,6 +2375,20 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "One remote site needs segmentation, resiliency, and controlled egress: combine VLANs, an L3 gateway, ACL/firewall controls and redundant links."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Roles of common devices",
+                                        "text": "A switch normally forwards within a Layer 2 broadcast domain; a router connects IP networks; a firewall applies security policy; a proxy terminates and brokers client requests; a load balancer distributes traffic across backends; and a wireless AP bridges stations into a network. A multilayer switch can perform both switching and routing. Do not infer functions only from a marketing label—confirm configured roles."
+                                    },
+                                    {
+                                        "heading": "Topology tradeoffs",
+                                        "text": "Star networks simplify edge isolation but can depend heavily on a central distribution point. Full mesh maximizes direct path redundancy at large connection cost, while partial mesh optimizes cost and resilience. Spine-leaf fabrics connect leaf switches to each spine for predictable east-west paths; redundant physical connections require a loop prevention or Layer 3 design. Failure domains and oversubscription matter more than an attractive diagram."
+                                    },
+                                    {
+                                        "heading": "Planes and traffic direction",
+                                        "text": "Data plane hardware forwards packets and frames. Control plane protocols learn topology, neighbors, and routes. Management plane functions provide configuration, monitoring, and administration. Separating management access from production data—possibly using an out-of-band network—reduces operational blast radius and improves recovery options."
                                     }
                                 ]
                             },
@@ -2333,6 +2483,20 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Wireless clients drop near a microwave: inspect spectrum/interference and 2.4 GHz channel use before replacing the AP."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Spectrum and channel width",
+                                        "text": "2.4 GHz normally uses 20 MHz channels 1, 6, and 11 as a non-overlapping plan in many regulatory domains; 5 GHz offers more channels but some require DFS radar avoidance. 6 GHz offers additional clean spectrum where regulations and client support permit. Wider channels can increase peak rate but consume more spectrum and make cochannel interference harder to control."
+                                    },
+                                    {
+                                        "heading": "Received signal is not usable throughput",
+                                        "text": "RSSI represents received power using implementation-specific readings; SNR compares signal to noise. An excellent RSSI can coexist with poor throughput if airtime is congested or clients transmit slowly. BSS overlap, retry rate, channel utilization, client capability, MCS, and backhaul throughput determine real user performance. OFDMA splits channel resources across compatible clients; MIMO uses spatial streams."
+                                    },
+                                    {
+                                        "heading": "Roaming and security",
+                                        "text": "Clients ordinarily decide when to roam among access points. 802.11k/v can assist with neighbor and transition information; 802.11r accelerates supported authentication handoffs. WPA3-Personal uses SAE rather than WPA2-Personal’s traditional PSK four-way derivation, while enterprise deployments commonly use 802.1X/EAP with a RADIUS backend."
+                                    }
                                 ]
                             },
                             {
@@ -2389,6 +2553,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Streaming video delivered to many subscribing clients should not require independent duplicate packets across each link when multicast routing is appropriate."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Four delivery patterns",
+                                        "text": "Unicast sends to one destination address. IPv4 broadcast addresses every host on a broadcast domain subject to host processing and network controls. Multicast uses group addresses for interested receivers. Anycast advertises the same unicast address from multiple locations and relies on routing to select a destination; it is common in public DNS infrastructure."
+                                    },
+                                    {
+                                        "heading": "Multicast control and consequences",
+                                        "text": "IGMP communicates IPv4 receiver membership on a local segment. PIM is a family of multicast routing protocols used across routed networks; IGMP snooping on switches can limit flood traffic to interested ports. IPv6 uses Multicast Listener Discovery (MLD) rather than IGMP. Multicast does not promise reliability by itself: the application protocol still needs to handle loss as appropriate."
                                     }
                                 ]
                             },
@@ -2451,6 +2625,20 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A voice call can stutter due to jitter and packet loss even if raw bandwidth is abundant."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "TCP handshake and reliable transfer",
+                                        "text": "A conventional TCP connection starts SYN, SYN-ACK, ACK, exchanging initial sequence numbers. Segments are acknowledged with byte-oriented sequence and ACK numbers; missing bytes trigger retransmission, and a receiver may advertise a window limiting outstanding data. Congestion control separately adjusts sending behavior based on network conditions. A successful handshake proves only that the transport path opened, not that the application login or request succeeded."
+                                    },
+                                    {
+                                        "heading": "UDP, QUIC, and application choices",
+                                        "text": "UDP adds source/destination ports, a length, and checksum, but no session handshake, ordering, or retransmission mechanism. Applications may add reliability when necessary. DNS queries and real-time voice commonly use UDP; QUIC implements encryption, streams, and congestion control in a protocol over UDP. It is incorrect to say all UDP applications are unreliable or that UDP is always faster than TCP."
+                                    },
+                                    {
+                                        "heading": "Measure the right performance problem",
+                                        "text": "Bandwidth is available transmission capacity; throughput is actual delivered data; goodput excludes protocol overhead and retransmissions. Latency is delay, RTT measures a round trip, jitter is variation in packet delay, and packet loss is missing traffic. A 1 Gb/s link can deliver poor interactive voice if its queue introduces 150 ms jitter. Look for TCP duplicate ACKs/retransmissions, interface errors, queue drops, bufferbloat, and asymmetric routes before increasing bandwidth."
+                                    }
                                 ]
                             },
                             {
@@ -2511,6 +2699,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A customer behind carrier-grade NAT cannot expose a self-hosted service through their router alone."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Translation mechanics",
+                                        "text": "Source NAT rewrites the source address on outbound traffic; destination NAT rewrites a destination to publish an internal service. PAT additionally tracks port mappings to let multiple inside connections share a public IPv4 address. Stateful translation keeps mappings so return traffic reaches the correct internal endpoint. An ACL or firewall policy still controls permission separately from address translation."
+                                    },
+                                    {
+                                        "heading": "Boundaries and troubleshooting",
+                                        "text": "Private RFC1918 addresses are not globally Internet-routable. Carrier-grade NAT commonly uses shared address space 100.64.0.0/10 between a subscriber and provider and may introduce a second translation layer. If inbound access fails, check each NAT device, public reachability, firewall policy, mapping expiration, and whether the ISP provides a publicly reachable address. NAT is not by itself a security policy or encryption protocol."
                                     }
                                 ]
                             },
@@ -2580,6 +2778,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A VM in a private subnet cannot reach an internet endpoint if routes or egress policy are missing."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Virtual cloud building blocks",
+                                        "text": "A cloud VPC or VNet is a logically isolated address and routing environment. Subnets divide its address space; route tables control next hops; security groups and network ACLs impose different policy scopes and state behaviors depending on provider. Gateways, load balancers, private endpoints, and managed VPN/express connectivity connect workloads without requiring every service to have a public address."
+                                    },
+                                    {
+                                        "heading": "Hybrid design mistakes",
+                                        "text": "Overlapping address spaces complicate peering and site-to-site routing. DNS resolver forwarding and split-horizon records must be designed for hybrid names. Network security policy should explicitly distinguish workload-to-workload east-west traffic from Internet-facing north-south traffic. Flow logs and effective route tables are often more useful than ping when a cloud service blocks ICMP."
                                     }
                                 ]
                             },
@@ -2658,6 +2866,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A 10 Gb/s uplink fails after a fiber swap because one optic is single-mode and the installed strand is multimode."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Twisted pair and copper limitations",
+                                        "text": "Cat5e is commonly used for 1 Gb/s to 100 m under appropriate installation, while higher rates depend on cable category, length, and environment. Cat6A supports 10GBASE-T over a standard 100 m channel. Twisted-pair links have permanent-link versus channel length limits; poor terminations, split pairs, impedance mismatch, or EMI can produce CRC errors and poor negotiated rates."
+                                    },
+                                    {
+                                        "heading": "Optical media decisions",
+                                        "text": "Multimode fiber uses larger core sizes such as 50/125 µm and suits many shorter data-center links; single-mode fiber uses a much smaller core and supports long reaches with matching optics. LC and SC describe connector form, not speed or wavelength. Match SFP/QSFP module type, wavelength, duplex, fiber category, connector polish, and optical power budget. Never stare into fiber ends; inspect/clean with proper tools."
                                     }
                                 ]
                             }
@@ -2739,6 +2957,20 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A VLAN 20 PC reaches its switch but no other VLAN: check access VLAN, SVI gateway, trunk VLAN allowance and routing."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Same VLAN versus routed traffic",
+                                        "text": "An access switch forwards frames within a VLAN based on MAC learning. A host sending to another subnet instead transmits a frame toward its default gateway; a router or Layer 3 switch then makes an IP route decision. A switch virtual interface provides a per-VLAN gateway on a multilayer switch. Hosts do not normally route between VLANs by themselves."
+                                    },
+                                    {
+                                        "heading": "Trunk failures",
+                                        "text": "An 802.1Q trunk carries multiple tagged VLANs between compatible switches or switches and routing platforms. A VLAN absent from the trunk allowed list cannot cross it. Native VLAN mismatches create untagged-frame inconsistencies and can trigger warnings. Check switchport operational mode, VLAN membership, allowed/active lists, and spanning-tree forwarding state at each hop."
+                                    },
+                                    {
+                                        "heading": "Gateway security",
+                                        "text": "Inter-VLAN routing creates connectivity but does not automatically apply least-privilege policy. Configure routed ACLs or firewall zones that permit only required services—for example, users may contact a DNS resolver but not management interfaces. Test traffic in both directions and document established-session behavior for stateful policies."
+                                    }
                                 ]
                             },
                             {
@@ -2795,6 +3027,20 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A default route cannot override a more specific wrong route; use longest-prefix matching when examining unexpected paths."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Longest prefix match",
+                                        "text": "Routers select the route with the most specific matching destination prefix. For example, 10.20.30.0/24 beats 10.20.0.0/16 for 10.20.30.50 regardless of which learned protocol supplied each route. Among candidate routes to the same exact prefix, platform route preference or administrative distance and then protocol metrics are relevant. The exact process is vendor-dependent."
+                                    },
+                                    {
+                                        "heading": "Static and dynamic routing",
+                                        "text": "Static routes are predictable but must be maintained during topology changes; default routes simplify edge forwarding. OSPF exchanges link-state information within areas and computes shortest paths with cost. BGP exchanges path reachability and policy attributes between autonomous systems and is also used in some data centers. A learned route does not guarantee the return path is correct or that firewalls will permit packets."
+                                    },
+                                    {
+                                        "heading": "Route troubleshooting",
+                                        "text": "Check the source address, ingress VRF or routing table, selected longest-match route, next hop resolution, and return route. A traceroute reveals some forwarding hops but may omit devices that do not respond to probes. Asymmetric routing matters especially to stateful firewalls that expect both directions of a session."
                                     }
                                 ]
                             },
@@ -2882,6 +3128,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "After connecting a second cable, the LAN melts down: investigate loops/STP before making unrelated changes."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Spanning tree behavior",
+                                        "text": "Redundant Layer 2 links can produce loops because Ethernet frames have no routed TTL. STP elects a root bridge and blocks selected redundant paths while allowing failover. RSTP converges faster than classic STP under appropriate conditions. Root placement should be intentional; edge ports may use PortFast or equivalent while BPDU Guard protects against accidental switches."
+                                    },
+                                    {
+                                        "heading": "EtherChannel and fault containment",
+                                        "text": "LACP aggregates physical members into one logical connection, with compatible VLAN/trunk configuration on all members. Verify which members are actually bundled rather than merely administratively configured. Broadcast storm control and loop protection reduce impact but do not substitute for a sound topology. Unidirectional links and miswired patch panels can create difficult intermittent faults."
+                                    }
                                 ]
                             },
                             {
@@ -2953,6 +3209,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A client sees an SSID but cannot authenticate: inspect EAP, RADIUS, certificate trust, time and credentials."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Plan from requirements, not AP count",
+                                        "text": "Start with simultaneous client numbers, application airtime demand, expected mobility, wall attenuation, and roaming requirements. Perform predictive planning and validate with an on-site survey. Channel and power plans must reduce cochannel contention; many nearby high-power access points can perform worse than a carefully tuned deployment."
+                                    },
+                                    {
+                                        "heading": "Authentication modes",
+                                        "text": "WPA2-Personal uses a shared passphrase-derived key; WPA3-Personal uses SAE to resist offline password guessing better. Enterprise authentication generally uses 802.1X with an EAP method and RADIUS, with EAP-TLS providing certificate-based mutual authentication when properly deployed. Captive portals manage guest access experience but are not equivalent to strong link encryption."
                                     }
                                 ]
                             },
@@ -3031,6 +3297,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "VPN connects but large transfers stall: investigate path MTU / MSS and encapsulation overhead."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Transport characteristics",
+                                        "text": "A leased line provides contracted private connectivity, while MPLS labels enable provider traffic engineering and private routing services depending on the offering. Broadband Internet plus IPsec can be cost-effective but depends on public-path loss and latency. SD-WAN selects among transports using policy and measured path quality, not a completely new physical circuit."
+                                    },
+                                    {
+                                        "heading": "Tunnel mechanisms",
+                                        "text": "IPsec commonly uses IKE to negotiate security associations and ESP to protect payloads; route-based VPNs bind tunneling to virtual interfaces on many platforms. Site-to-site IPsec requires matching proposals, identities, traffic selectors or routes, and reachable peers. GRE supplies encapsulation but not encryption by itself. MTU overhead from tunnels can cause PMTUD or fragmentation issues."
+                                    }
                                 ]
                             },
                             {
@@ -3107,6 +3383,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A new fiber uplink stays down: check optic compatibility, TX/RX orientation, cleanliness, and light levels."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Structured cabling anatomy",
+                                        "text": "The horizontal permanent link normally runs from patch panel to work-area outlet; short patch cords form the full channel. Keep labeling, rack elevation, cable management, bend radius, and separation from interference sources consistent. A copper tester may distinguish continuity/wiremap, length, insertion loss, and return loss depending on instrument."
+                                    },
+                                    {
+                                        "heading": "Transceiver compatibility",
+                                        "text": "SFP/SFP+ and QSFP form factors support different speeds and lane arrangements; mechanical fit does not ensure electrical or firmware compatibility. Fiber optics must agree on wavelength, optical reach, connector, and fiber type. Dirty connectors can create signal loss without a visible cut; verify received optical power and error counters before replacing the switch."
                                     }
                                 ]
                             },
@@ -3188,6 +3474,20 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Clients have addresses but cannot open sites by name: compare DNS resolution to direct IP reachability."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "DHCP exchange",
+                                        "text": "A new DHCPv4 client usually follows Discover, Offer, Request, Acknowledge (DORA). The lease can convey address, mask, router, DNS servers, and other options. Broadcast discovery normally does not cross routers without relay. Reservations tie a predictable address to a client identifier or MAC policy but still use the lease process."
+                                    },
+                                    {
+                                        "heading": "DNS resolution and caching",
+                                        "text": "A stub resolver asks a recursive resolver, which follows cached records or queries DNS hierarchy to resolve a name. A and AAAA map names to addresses; CNAME aliases; MX identifies mail exchangers; PTR supports reverse lookups; TXT publishes arbitrary text often used for domain policy. TTL controls cache duration, not guaranteed propagation time."
+                                    },
+                                    {
+                                        "heading": "Time synchronization consequences",
+                                        "text": "NTP uses UDP 123 and can draw from a hierarchy of configured time sources. Large clock offsets break Kerberos, certificate checks, event correlation, and scheduled tasks. Test the actual synchronized state and source rather than merely checking that the time service is running."
+                                    }
                                 ]
                             },
                             {
@@ -3247,6 +3547,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "An entire new VLAN receives APIPA despite reachable DHCP servers because the SVI lacks a helper address."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Scope and relay design",
+                                        "text": "A DHCP scope defines the range and policy for an address pool. Exclusions keep selected addresses out of dynamic allocation; reservations bind a particular client to an intended address. A DHCP relay forwards a request toward a server on another network and ordinarily populates information identifying the client subnet. The server selects the appropriate scope based on relay information and policy."
+                                    },
+                                    {
+                                        "heading": "Lease renewal states",
+                                        "text": "DHCPv4 clients typically try unicast renewal at T1, traditionally 50% of lease lifetime, and rebinding more broadly at T2, traditionally 87.5%. If renewal fails, a client can continue using its address until expiration. Exhausted scopes, incorrect relay, duplicate addressing, or a bad option 3/default gateway have different symptoms and should be isolated separately."
+                                    }
                                 ]
                             },
                             {
@@ -3289,6 +3599,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Clients still use their configured gateway after a router failure if an FHRP peer takes over the virtual gateway."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Why the virtual gateway matters",
+                                        "text": "When clients use a single default gateway address, physical gateway failure can strand them even if another router is reachable. First-hop redundancy protocols present a shared virtual gateway IP and often virtual MAC. HSRP and VRRP select active forwarding responsibility; exact election and preemption behaviors vary by protocol and configuration."
+                                    },
+                                    {
+                                        "heading": "Failover is more than the first hop",
+                                        "text": "A virtual IP can remain reachable while an upstream route is broken. Track upstream interfaces/routes where supported, and test return routing and security policy following switchover. Gateway redundancy is separate from link aggregation, dynamic routing convergence, and stateful firewall HA; successful designs validate each failure case."
                                     }
                                 ]
                             },
@@ -3344,6 +3664,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "VoIP works at night but breaks when backups saturate the WAN uplink; prioritize interactive traffic and manage backup rate."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Classification and marking",
+                                        "text": "QoS classifies traffic using application, IP/port, DSCP, or link-layer 802.1p markings. DSCP lives in the IP header and can be rewritten at trust boundaries. Classification is only useful if downstream devices honor an appropriate policy; end-to-end policy matters across WAN handoffs."
+                                    },
+                                    {
+                                        "heading": "Queue scheduling and shaping",
+                                        "text": "Priority queuing benefits delay-sensitive voice but requires policing or safeguards against starving other traffic. Shaping buffers and schedules transmission below a contracted rate to reduce provider-side drops; policing enforces a rate by dropping or remarking excess traffic. Congestion, not simply low raw speed, is when QoS decisions become visible."
+                                    }
                                 ]
                             },
                             {
@@ -3396,6 +3726,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A conference stream fails between routed VLANs although it works within one VLAN because multicast routing is not configured."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Receiver membership",
+                                        "text": "IPv4 multicast group addresses use 224.0.0.0/4, with portions reserved for link-local control or special purposes. IGMP informs a local router of receiver membership, while switches using IGMP snooping limit forwarding to interested ports. IPv6 multicast uses ff00::/8 with MLD for membership management."
+                                    },
+                                    {
+                                        "heading": "Routed multicast",
+                                        "text": "PIM builds multicast distribution paths; sparse-mode deployments often require rendezvous point design, depending on architecture. Multicast avoids sending independent copies on shared upstream links, but receivers and applications still need suitable error tolerance and timing. Problems often arise from missing queriers, blocked membership messages, or incorrect multicast routing."
                                     }
                                 ]
                             },
@@ -3456,6 +3796,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Two VMs share a logical virtual network but cannot communicate because the underlay MTU is too small for encapsulated frames."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Underlay and overlay",
+                                        "text": "The underlay is the routed physical network providing IP reachability among tunnel endpoints. An overlay encapsulates tenant or virtual network traffic on top; VXLAN carries Layer 2 frames across an IP underlay using a 24-bit VNI. EVPN uses BGP control-plane signaling in many VXLAN fabrics to distribute MAC/IP reachability more efficiently than pure data-plane flooding."
+                                    },
+                                    {
+                                        "heading": "Design implications",
+                                        "text": "Leaf-spine fabrics frequently use ECMP to balance routed paths. MTU must accommodate the overlay header, and endpoint reachability must be verified independently of tenant policy. Distinguish troubleshooting a failed physical uplink, an underlay route, an incorrect VNI, and a missing EVPN route: the symptoms may all look like an unreachable VM."
                                     }
                                 ]
                             }
@@ -3530,6 +3880,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "After an outage, inability to identify an uplink or its owner is often a documentation failure as much as a technology failure."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Different documents solve different tasks",
+                                        "text": "A physical topology identifies racks, switchports, patch panels, fiber pairs, and device interconnects. A logical topology shows VLANs, subnets, security zones, and routing adjacencies. IPAM tracks allocations, reservations, ownership, and addressing history. An accurate diagram should show a date, revision owner, legends, and known constraints so responders do not rely on stale data."
+                                    },
+                                    {
+                                        "heading": "Operational precision",
+                                        "text": "Record interface identifiers, circuit IDs, optic types, PoE requirements, software versions, management addresses, and critical dependencies. Keep credentials in an approved secrets manager rather than on diagrams. Tie configuration backups to change tickets, and update documentation after validation—not only before implementation."
+                                    }
                                 ]
                             },
                             {
@@ -3591,6 +3951,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "High bandwidth use is not inherently an outage. Pair utilization with queuing, errors, latency and user impact."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Telemetry types",
+                                        "text": "SNMP polling reads counters and status, while traps/informs push notifications; SNMPv3 provides authentication and optional encryption unlike community-string-based older modes. Syslog centralizes events, NetFlow/IPFIX summarizes observed traffic flows, and packet captures reveal protocol-level detail at much higher storage and privacy cost."
+                                    },
+                                    {
+                                        "heading": "Meaningful alert engineering",
+                                        "text": "Watch interface errors, utilization, latency, jitter, packet loss, CPU, memory, routing neighbor state, environmental sensors, and service checks. Normalize timestamps with NTP and set alerts using baseline and business impact, not arbitrary single readings. A 90% burst for two seconds may be harmless while an increasing CRC error count at low utilization indicates a physical fault."
+                                    }
                                 ]
                             },
                             {
@@ -3646,6 +4016,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A firewall rule causes an unexpected business outage: roll back safely, verify service restoration, document findings."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Separation of control workflows",
+                                        "text": "Change management evaluates risk, approval, implementation window, test plan, and rollback. Incident management focuses on service restoration, impact, severity, and communications. Problem management analyzes recurring causes and permanent corrective actions. Configuration management preserves authorized baselines, versioned backups, and drift detection."
+                                    },
+                                    {
+                                        "heading": "Safe change execution",
+                                        "text": "Record the pre-change configuration, expected result, dependency map, maintenance notification, and revert trigger. Avoid making multiple unrelated adjustments during one troubleshooting step because attribution becomes impossible. After deployment, validate traffic from both relevant source and destination sides and update the change record with evidence."
                                     }
                                 ]
                             },
@@ -3706,6 +4086,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Dual uplinks on the same power strip are not independent failure domains."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Resilience metrics",
+                                        "text": "Availability is the proportion of service time meeting the definition of usable service. MTTR estimates repair duration, MTBF estimates time between failures for repairable systems, RTO defines an acceptable restoration target, and RPO defines acceptable recoverable data loss. They are not interchangeable: a service can meet its RTO while violating its RPO."
+                                    },
+                                    {
+                                        "heading": "Eliminate hidden single points of failure",
+                                        "text": "Redundant links, power supplies, gateways, DNS resolvers, and transport providers require separate failure-domain analysis. Two circuits entering through the same conduit or using the same upstream provider may not give meaningful geographic redundancy. Test failover under realistic traffic, routing, and firewall-state conditions."
                                     }
                                 ]
                             },
@@ -3781,6 +4171,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "If your core switch fails and you can only reach its management via the failed production network, you lack true out-of-band access."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Management access patterns",
+                                        "text": "SSH encrypts network-device CLI sessions; HTTPS secures web interfaces; SNMPv3 authenticates and can encrypt monitoring. Out-of-band management provides access when the production network is unreachable, but also needs strong authentication and segmentation. Telnet and legacy unencrypted protocols expose administrative credentials and should be disabled wherever possible."
+                                    },
+                                    {
+                                        "heading": "Administrative boundaries",
+                                        "text": "Use dedicated management VLANs or VRFs, restricted jump hosts, ACLs, RBAC, MFA on supporting identity systems, and centralized audit logs. Disable unused ports and services. A management plane that shares an unrestricted route from guest Wi-Fi undermines even excellent data-plane segmentation."
+                                    }
                                 ]
                             },
                             {
@@ -3833,6 +4233,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "An unsupported firewall introduces operational and security risk even when it still forwards packets."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Lifecycle stages",
+                                        "text": "Maintain a register of purchase dates, support entitlement, firmware train, warranty, end-of-sale, end-of-support, and planned replacement. End-of-support means vendor fixes and security updates may no longer be available; end-of-sale only means the product is no longer sold, not necessarily immediately unsupported."
+                                    },
+                                    {
+                                        "heading": "Policy implementation",
+                                        "text": "Acceptable-use, remote-access, change, retention, and incident-response policies should identify owner, scope, exception route, and review cadence. Licensing affects permitted features, telemetry retention, VPN peers, and cloud service quotas; do not assume a working feature remains supported without its subscription or capacity entitlement."
+                                    }
                                 ]
                             },
                             {
@@ -3876,6 +4286,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Link upgrades should be justified by sustained congestion and growth, not a single five-minute peak."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Baseline versus target",
+                                        "text": "A baseline measures current normal performance over representative periods; an SLA defines contractual service targets and remedies. An SLO is an internal reliability objective that may support an SLA. Peak-hour 95th percentile utilization, queue drops, link errors, and application response time are more useful than one average value."
+                                    },
+                                    {
+                                        "heading": "Capacity models",
+                                        "text": "Forecast user growth, protocol overhead, replication bursts, redundancy failover load, and wireless airtime consumption. A design that works with both uplinks active may saturate when one fails, so plan for N−1 capacity where required. Trend measurements over weeks rather than extrapolating from a single day."
                                     }
                                 ]
                             },
@@ -3937,6 +4357,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "After a switch replacement, technicians can reconnect every uplink correctly because port mappings and patch labels are current."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "IPAM discipline",
+                                        "text": "Track IPv4/IPv6 networks, VLAN IDs, DHCP scopes, static reservations, gateway assignments, DNS relationships, address owners, and change history. Duplicate or overlapping records create the same operational risk as duplicate actual addresses when engineers allocate new subnets. Segment naming conventions must map cleanly to routing and security designs."
+                                    },
+                                    {
+                                        "heading": "Rack and physical inventory",
+                                        "text": "A rack elevation shows physical U positions, device depth, power feeds, airflow direction, patching, and cable routes. Label both ends of each permanent cable and document optic serials and fiber paths for critical links. Maintain secure copies of diagrams so they are available during a control-plane or monitoring outage."
+                                    }
                                 ]
                             },
                             {
@@ -3996,6 +4426,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "An app times out because SYN packets receive no SYN-ACK; check remote reachability and firewall rather than reinstalling the app."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Packet-capture method",
+                                        "text": "Choose a capture point that can actually observe the failed traffic, then filter by relevant host addresses, ports, and time windows. Inspect DNS requests/responses, ARP/NDP exchanges, TCP SYN and ACK behavior, retransmissions, ICMP errors, and TLS handshake alerts. SPAN ports can drop packets when oversubscribed and may alter visibility, so absence in a capture is not definitive proof that a packet was never sent."
+                                    },
+                                    {
+                                        "heading": "Counters before captures",
+                                        "text": "Use interface CRC, FCS, drops, overruns, duplex state, discards, and queue counters to locate layer-specific problems. Sustained loss plus interface FCS errors points toward link integrity, while zero physical errors with growing egress drops points toward congestion or policy. Correlate client, switch, router, and application timestamps."
                                     }
                                 ]
                             },
@@ -4061,6 +4501,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A supported replacement should be scheduled before a firewall reaches end-of-security-updates even if it still passes traffic."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Version planning",
+                                        "text": "Firmware, bootloaders, device OS versions, optic compatibility, and hardware feature support form a dependency chain. Confirm vendor upgrade path and release advisories before flashing. Back up configurations and cryptographic/identity settings securely, validate image checksums or signatures, and preserve a rollback route where supported."
+                                    },
+                                    {
+                                        "heading": "Maintenance discipline",
+                                        "text": "Stage changes in a test environment or limited pilot, use scheduled windows where feasible, capture before/after health metrics, and document known problems. A firmware update may reset features or change syntax; check release notes rather than blindly importing older configurations."
                                     }
                                 ]
                             }
@@ -4131,6 +4581,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A user VLAN can reach a database subnet unexpectedly: inspect L3 policy; VLAN separation alone does not prevent routing."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Principles",
+                                        "text": "Confidentiality limits unauthorized disclosure, integrity prevents unauthorized changes, and availability maintains service. Least privilege and default-deny policy limit lateral movement. Segmentation places distinct trust groups in VLANs, IP subnets, VRFs, or firewall zones, but a VLAN alone is not a firewall."
+                                    },
+                                    {
+                                        "heading": "East-west policy",
+                                        "text": "Control user-to-server and workload-to-workload connections as carefully as Internet egress. Separate management, guest, IoT, production, and backup traffic based on measured business requirements. Test both established flows and blocked paths, and document where routing crosses an enforcement device."
                                     }
                                 ]
                             },
@@ -4218,6 +4678,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Users redirected to unexpected websites: compare DNS responses across resolvers and assess compromise indicators."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Attack mechanism distinctions",
+                                        "text": "An ARP spoof redirects local IPv4 traffic by poisoning address mappings; DHCP starvation exhausts lease pools; DHCP spoofing introduces rogue addressing parameters. DNS cache poisoning targets incorrect name answers, while DNS tunneling encodes data into DNS exchanges. A broadcast storm can result from an accidental Layer 2 loop without an intentional attacker."
+                                    },
+                                    {
+                                        "heading": "Control selection",
+                                        "text": "Port security and 802.1X limit edge attachment, DHCP snooping identifies trusted DHCP server-facing ports, dynamic ARP inspection can validate ARP using snooping bindings, and segmentation limits spread. DDoS mitigation often needs upstream filtering or scrubbing because on-premises firewalls cannot clean traffic after an Internet circuit is saturated."
+                                    }
                                 ]
                             },
                             {
@@ -4295,6 +4765,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A service uses HTTPS but the certificate name is wrong: it is not safe merely because a padlock appears."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Key types and trust",
+                                        "text": "Symmetric algorithms such as AES use one secret key and are efficient for bulk traffic; asymmetric algorithms such as RSA or elliptic-curve schemes support signatures, key exchange mechanisms, and other public-key functions. A hash detects changes but does not by itself authenticate a sender. Digital certificates bind public keys to names or identities through a certificate authority trust chain."
+                                    },
+                                    {
+                                        "heading": "TLS checks",
+                                        "text": "A valid TLS session depends on supported algorithms, certificate chain trust, hostname match, validity dates, and server key possession. OCSP or CRLs may communicate revocation state depending on client policy and support. VPN IPsec ESP provides confidentiality/integrity when negotiated appropriately; legacy SSL and unencrypted management protocols are not safe replacements."
+                                    }
                                 ]
                             },
                             {
@@ -4349,6 +4829,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A firewall allow rule exists but traffic fails: confirm path, NAT, matching policy order and return route."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Rule evaluation",
+                                        "text": "Traditional ACLs are often ordered first-match policies: a narrower permit after a broad deny may never execute. Stateful firewalls track sessions and can permit return traffic based on an established connection, while stateless filters evaluate each packet by configured fields. NAT selection is a separate concern; translation does not implicitly permit traffic."
+                                    },
+                                    {
+                                        "heading": "Practical rule design",
+                                        "text": "Identify source zone, destination zone, IP ranges, required protocols/ports, direction, logging, rule owner, and expiry. Use explicit narrow matches and avoid unrestricted any-to-any rules. For remote users, account for device posture, MFA, split tunneling, VPN routes, and DNS behavior; verify access is denied when authorization ends."
                                     }
                                 ]
                             },
@@ -4413,6 +4903,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A wired port stays unauthorized after laptop imaging: check supplicant configuration and certificate provisioning."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Authentication chain",
+                                        "text": "802.1X uses a supplicant on the endpoint, an authenticator such as a switch/AP, and an authentication server commonly using RADIUS. EAP transports the authentication exchange. EAP-TLS uses client certificates and a server certificate; insecure server-certificate validation can undermine otherwise strong authentication."
+                                    },
+                                    {
+                                        "heading": "Access decisions",
+                                        "text": "Authentication establishes claimed identity, authorization defines permitted resources, and accounting records activity. NAC can assign VLANs or access policy after evaluation. WPA3-Enterprise strength depends on supported EAP methods, device onboarding, credential protection, and correct PKI—not merely the Wi-Fi security label."
+                                    }
                                 ]
                             },
                             {
@@ -4469,6 +4969,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A router is reachable via Telnet from an employee LAN: replace cleartext access with SSH and management ACLs."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Reduce attack surface",
+                                        "text": "Disable unused switchports, unused services, legacy HTTP/Telnet/SNMPv1/v2c where feasible, and unused default credentials. Enable SSH, AAA with role-based permissions, centralized logs, secure time synchronization, control-plane protections, and restricted management interfaces. Follow vendor hardening guides compatible with your hardware."
+                                    },
+                                    {
+                                        "heading": "Update and recover safely",
+                                        "text": "Keep offline or tightly controlled configuration backups. Protect signing keys and boot images, validate software authenticity, and use documented upgrade procedures. Separate data sanitization from ordinary factory resets when equipment leaves organizational custody; verify the chosen method meets the data classification and media type."
+                                    }
                                 ]
                             },
                             {
@@ -4520,6 +5030,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A user sees fraudulent site responses only on one resolver; inspect poisoning, overrides, forwarding and client policy."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Integrity of DNS answers",
+                                        "text": "DNSSEC authenticates DNS data using cryptographic signatures and a delegated chain of trust; it does not encrypt DNS queries. DNS over HTTPS and DNS over TLS encrypt transport to a resolver but do not by themselves validate origin records unless DNSSEC validation is also used. Split-horizon DNS can return different answers for internal and external clients."
+                                    },
+                                    {
+                                        "heading": "Operational threats",
+                                        "text": "Malicious resolver configuration, registrar takeover, spoofed cache replies, and DNS tunneling affect different parts of name resolution. Monitor resolver logs, enforce approved recursive resolvers, secure registrar accounts, and consider egress policy. An application may fail due to stale caches, short/long TTLs, or broken validation rather than a dead server."
+                                    }
                                 ]
                             },
                             {
@@ -4562,6 +5082,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "An unknown device connected in a public conference room gains internal access because unused switch ports were not restricted."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Layer 1 still matters",
+                                        "text": "Locked racks and closets, controlled badge access, cameras, tamper detection, and monitored patch panels protect device and cable access. Fiber taps and unauthorized switch insertion can expose network traffic; combine physical controls with link and endpoint authentication where appropriate."
+                                    },
+                                    {
+                                        "heading": "Environmental risks",
+                                        "text": "Power distribution, UPS runtime, generator transfer, cooling, humidity, and water detection all affect uptime. PoE budgets can be exhausted when many cameras/APs start simultaneously. Label dual feeds and physically separate redundant power sources so maintenance does not disable both."
+                                    }
                                 ]
                             },
                             {
@@ -4603,6 +5133,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "An allow rule appears correct but an earlier broad deny rule prevents the expected application flow."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "End-to-end packet path",
+                                        "text": "A packet crosses endpoint host policy, access VLAN, default gateway, route lookup, possible ACL or zone firewall, NAT stage, and return route. A permit in one location does not override a deny elsewhere. Verify whether the firewall checks pre-NAT or post-NAT addresses according to platform behavior."
+                                    },
+                                    {
+                                        "heading": "Design and validation",
+                                        "text": "Use named zones reflecting business trust, restrict east-west access, and document allowed application dependencies. Test positive flows and negative controls. Microsegmentation can enforce rules at workloads or virtual switches rather than only at perimeter boundaries, which is helpful when two services share the same IP subnet."
                                     }
                                 ]
                             }
@@ -4670,6 +5210,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "One-user failure calls for endpoint/VLAN checks before making a global routing change."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Six practical phases",
+                                        "text": "Define the problem and its scope; gather user reports, logs, recent changes, and a baseline. Build a testable hypothesis tied to the OSI layer and affected path. Test one variable, plan a safe fix, implement with change controls, then verify service from the user perspective. Document cause, action, outcomes, and prevention."
+                                    },
+                                    {
+                                        "heading": "Evidence quality",
+                                        "text": "Distinguish correlation from root cause. A DNS error may result from no IP connectivity, not a broken DNS server. Verify your assumptions from both ends, preserve packet captures and error timestamps when feasible, and prioritize safe restoration before long-term root-cause work when service impact is severe."
                                     }
                                 ]
                             },
@@ -4746,6 +5296,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "CRC counters rising on one switch interface point toward physical layer quality, not DNS."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Copper indicators",
+                                        "text": "Link down can indicate wrong cable, broken pair, disabled port, incompatible speed, or absent power; frequent FCS/CRC errors suggest signal integrity or mismatched duplex on older links. A wiremap tester detects split or reversed pairs while a certifier measures channel performance against a cable category."
+                                    },
+                                    {
+                                        "heading": "Fiber indicators",
+                                        "text": "Confirm optical mode, wavelength, connector, polarity, transceiver speed, receive power, and dirty-connector contamination. An optic can be physically inserted yet incompatible with the platform. Many problems are one-way: one strand or one receiver can fail while the other direction seems normal."
+                                    }
                                 ]
                             },
                             {
@@ -4815,6 +5375,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Multiple users on one new VLAN get APIPA: verify DHCP relay for that VLAN, not every client NIC."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Understand the symptoms",
+                                        "text": "A Windows client with 169.254.x.x often failed to obtain an IPv4 DHCP lease, but a static configuration problem can look different. Confirm link, VLAN, DHCP discovery traffic, relay address, scope capacity, and any snooping policy. An IP address alone is insufficient; check subnet mask, gateway, and DNS options."
+                                    },
+                                    {
+                                        "heading": "Find duplicate addresses",
+                                        "text": "Use ARP tables, lease records, MAC-to-port mappings, and conflict logs to isolate duplicated addresses. An incorrect subnet mask can yield partial reachability that resembles routing failure. Always check whether the DHCP service is actually reachable across the required VLANs."
+                                    }
                                 ]
                             },
                             {
@@ -4873,6 +5443,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A site opens by IP but not hostname: focus on DNS and application virtual-host expectations."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Separate layers of failure",
+                                        "text": "First determine whether the destination can be reached by address, then query the configured resolver for the relevant A/AAAA or service record. Compare authoritative and recursive answers, TTLs, search suffixes, VPN DNS policies, hosts files, and browser caching. A successful DNS answer does not establish that HTTPS on that IP is functioning."
+                                    },
+                                    {
+                                        "heading": "Name versus transport",
+                                        "text": "If nslookup returns the expected IP but the website fails, inspect route, TCP/UDP port connectivity, TLS certificate, proxy policy, and application response. If one domain fails, compare CNAME chains, DNSSEC validation status, split-horizon zones, and recent record changes."
                                     }
                                 ]
                             },
@@ -4936,6 +5516,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "VPN is UP but branch subnets cannot communicate: inspect interesting traffic selectors, routing and security policies."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Route and reverse path",
+                                        "text": "Inspect the selected longest-prefix route at each hop plus a valid reverse path. Asymmetric flow across separate stateful firewalls can break a connection even when both directions have valid routes. Observe packet drops and NAT translations rather than assuming ping outcomes identify the blocker."
+                                    },
+                                    {
+                                        "heading": "VPN-specific proof",
+                                        "text": "For IPsec verify peer reachability, negotiated IKE/ESP security associations, compatible proposals, selectors, tunnel routes, NAT traversal, and timers. A tunnel that reports established but passes no data often has missing return routing, a selector mismatch, ACL drops, or MTU overhead issues."
                                     }
                                 ]
                             },
@@ -5009,6 +5599,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Some VLANs cross a trunk but a new VLAN does not: check allowed VLAN list and creation on both switches."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Follow the MAC and VLAN",
+                                        "text": "Check both access ports, both ends of each trunk, allowed VLANs, native VLAN, STP forwarding state, and MAC table learning. A switch can have a green link light while the desired VLAN is pruned or a port is err-disabled by port security."
+                                    },
+                                    {
+                                        "heading": "Loop symptoms",
+                                        "text": "A sudden spike of broadcast traffic, high CPU, and rapid MAC-address movement across ports suggest a Layer 2 loop. Inspect root bridge election, BPDU protection, LACP bundle state, and physical changes before re-enabling ports. Fix the loop rather than simply disabling storm control."
+                                    }
                                 ]
                             },
                             {
@@ -5069,6 +5669,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "At one AP location, everyone is slow but Ethernet is fast: inspect RF contention before upgrading the ISP."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "RF first, authentication second",
+                                        "text": "Record client RSSI, SNR, PHY rate, channel, band, retry rate, association and authentication state. Weak SNR or high channel utilization can cause slow networks even with plenty of wired backhaul. Distinguish not-seeing-SSID, failure-to-associate, EAP rejection, and successful association without IP assignment."
+                                    },
+                                    {
+                                        "heading": "Interference and roaming",
+                                        "text": "Survey overlapping channels, non-Wi-Fi interference, neighboring BSSs, DFS changes, and client steering. Roaming behavior is largely client-driven; seamless movement may depend on 802.11k/v/r and a consistent security profile. A high AP power setting can cause clients to stay connected long after the uplink becomes poor."
                                     }
                                 ]
                             },
@@ -5137,6 +5747,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Voice calls break during backup uploads: inspect congestion, uplink utilization, QoS and queue drops."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Measure symptoms by layer",
+                                        "text": "Use utilization and drops to identify queuing, CRC/FCS to identify physical corruption, RTT and jitter to identify time-sensitive problems, and packet capture to identify TCP retransmission or application delays. High link speed is not the same as useful delivered goodput."
+                                    },
+                                    {
+                                        "heading": "QoS proof",
+                                        "text": "Confirm packet classification and DSCP marking at ingress, queues actually used, drops per class, and whether markings survive the provider handoff. Test under congestion; QoS often looks irrelevant when no queue is saturated. Shaping and policing have different results when a flow exceeds the configured rate."
+                                    }
                                 ]
                             },
                             {
@@ -5190,6 +5810,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Prove a fix by reproducing the original failure condition and checking that the service now works."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Work from scope outward",
+                                        "text": "For a multi-site outage, establish whether the issue affects one host, VLAN, site, provider, or application. Cross-reference routing changes, security policy pushes, monitoring alerts, and dependency maps. Avoid assuming the first visible alert is the originating failure; upstream events can trigger dozens of secondary alarms."
+                                    },
+                                    {
+                                        "heading": "Close with validation",
+                                        "text": "Test the original user transaction, redundancy failover, protocol-specific service, and representative sites. Confirm metrics return toward baseline, log the root cause, identify contributing factors, and update runbooks. Separate temporary workaround from permanent remediation."
                                     }
                                 ]
                             },
@@ -5252,6 +5882,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "A device connects to an SSID but never gets an IP address; troubleshoot DHCP path rather than assuming WPA password failure."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "AAA troubleshooting",
+                                        "text": "Use RADIUS server logs to distinguish unreachable server, bad shared secret, rejected credentials, expired certificate, and device compliance failure. An endpoint may have excellent RF signal but never reach DHCP because 802.1X authorization failed. Check the supplicant and AP/controller timestamps together."
+                                    },
+                                    {
+                                        "heading": "Roaming diagnosis",
+                                        "text": "Correlate transitions with client drivers, 802.11k/v/r support, minimum data rates, power levels, and security configuration. Over-aggressive band steering or mismatched fast-transition settings can cause repeated disconnects. A spectrum analyzer may be required to distinguish non-Wi-Fi interference from ordinary channel contention."
+                                    }
                                 ]
                             },
                             {
@@ -5312,6 +5952,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Several access points reset under load because the access switch exceeds its total PoE wattage."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Power budgets and standards",
+                                        "text": "PoE delivers power along supported Ethernet cabling; standards include 802.3af, 802.3at, and 802.3bt with different negotiated power classes and budgets. A switch may provide enough watts for one AP but not for all devices at peak startup. Check the PSE power budget, PD requirement, pair negotiation, and cable resistance."
+                                    },
+                                    {
+                                        "heading": "Fiber and structured cabling",
+                                        "text": "An optical module requires matching standard, speed, wavelength, and fiber. Check DOM receive/transmit power readings where available; dirty endfaces or excessive bending can reduce optical margin. For copper, test pair map, length, and cable category, and document both panel and device ports."
+                                    }
                                 ]
                             },
                             {
@@ -5369,6 +6019,16 @@ show lldp neighbors</pre
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Small packets work across an IPsec tunnel, but large uploads freeze due to path MTU blackholing."
                                     }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "Find the bottleneck",
+                                        "text": "A slow application may be constrained by DNS, TCP handshakes, server processing, packet loss, receiver window, a congested WAN queue, or poor Wi-Fi airtime. Use one repeatable transaction and measure phases rather than quoting a generic speed test. Queue latency that rises sharply under load suggests bufferbloat."
+                                    },
+                                    {
+                                        "heading": "MTU and PMTUD",
+                                        "text": "A link’s MTU limits the packet size carried without fragmentation. Path MTU Discovery depends on ICMP feedback, and broken filtering can create an MTU black hole where small pings work but large TLS transfers stall. Tunnels add header overhead, so adjust effective MTU/MSS where appropriate and validate rather than blindly disabling ICMP."
+                                    }
                                 ]
                             },
                             {
@@ -5418,6 +6078,16 @@ show lldp neighbors</pre
                                     {
                                         "heading": "Scenario and expected network behavior",
                                         "text": "Rebooting a switch fixes an outage temporarily, but recurring memory exhaustion must be investigated and mitigated."
+                                    }
+                                ],
+                                "mastery_sections": [
+                                    {
+                                        "heading": "First actions under pressure",
+                                        "text": "Establish severity, affected services, start time, recent changes, and available redundancy; appoint an incident lead and maintain a timeline. Restore service through the lowest-risk corrective step with a clear rollback. Preserve logs, config snapshots, and captures before volatile evidence is lost, especially when an attack is suspected."
+                                    },
+                                    {
+                                        "heading": "Root cause versus symptom",
+                                        "text": "A failed application call might result from an overloaded DNS server caused by a routing loop. The DNS timeout is a symptom; the routing loop may be the cause, while missing loop protections are a contributing condition. After recovery, record decisive evidence and measurable preventive actions instead of ending the report with “network issue resolved.”"
                                     }
                                 ]
                             }
@@ -8087,7 +8757,7 @@ show lldp neighbors</pre
                     )
                     .join("");
                 $("lessonsRoot").innerHTML =
-                    `<article class="reader-slide"><div class="reader-meta"><span>DOMAIN ${l.d + 1}: ${esc(l.domainName)}</span><span>EXAM WEIGHT ${l.weight}%</span></div><div class="reader-intro">Read this complete lesson, explain the concept in your own words, then verify it with a safe lab or command.</div><div class="reader-count">CHAPTER ${index + 1} <span>OF ${lessons.length} · ${filtered.length} in current reading sequence</span></div><h3 class="reader-title">${esc(l.title)}</h3><div class="reader-body"><h4>1. What is it? — Core definition</h4><p>${esc(l.definition)}</p><h4>2. Why does this exist?</h4><p>${esc(l.purpose)}</p><h4>3. How it works — Detailed explanation</h4><div class="explain-block">${esc(l.mechanism)}</div><h4>4. Terminology — Definitions and distinctions (${l.glossary.length} terms)</h4><div class="lesson-glossary">${gloss}</div><h4>5. Verification and network diagnostics</h4><p>${esc(l.verification)}</p><h4>6. Example and expected behavior</h4><div class="explain-block">${esc(l.scenario)}</div><h4>7. Check your understanding</h4><div class="mini-quiz">${esc(l.quiz)}</div><label class="reader-check"><input type="checkbox" id="lessonDone" ${done.has(index) ? "checked" : ""}> I can explain and troubleshoot this topic</label></div><div class="reader-footer"><button class="btn secondary" id="prevLesson" ${prev < 0 ? "disabled" : ""}>← Previous</button><span>${n + 1} of ${filtered.length}</span><button class="btn" id="nextLesson" ${next < 0 ? "disabled" : ""}>Next →</button></div></article>`;
+                    `<article class="reader-slide"><div class="reader-meta"><span>DOMAIN ${l.d + 1}: ${esc(l.domainName)}</span><span>EXAM WEIGHT ${l.weight}%</span></div><div class="reader-intro">Read this complete lesson, explain the concept in your own words, then verify it with a safe lab or command.</div><div class="reader-count">CHAPTER ${index + 1} <span>OF ${lessons.length} · ${filtered.length} in current reading sequence</span></div><h3 class="reader-title">${esc(l.title)}</h3><div class="reader-body"><h4>1. What is it? — Core definition</h4><p>${esc(l.definition)}</p><h4>2. Why does this exist?</h4><p>${esc(l.purpose)}</p><h4>3. How it works — Detailed explanation</h4><div class="explain-block">${esc(l.mechanism)}</div>${l.mastery_sections.map((entry, i) => `<h4>4.${i + 1} ${esc(entry.heading)}</h4><p>${esc(entry.text)}</p>`).join("")}<h4>4. Terminology — Definitions and distinctions (${l.glossary.length} terms)</h4><div class="lesson-glossary">${gloss}</div><h4>5. Verification and network diagnostics</h4><p>${esc(l.verification)}</p><h4>6. Example and expected behavior</h4><div class="explain-block">${esc(l.scenario)}</div><h4>7. Check your understanding</h4><div class="mini-quiz">${esc(l.quiz)}</div><label class="reader-check"><input type="checkbox" id="lessonDone" ${done.has(index) ? "checked" : ""}> I can explain and troubleshoot this topic</label></div><div class="reader-footer"><button class="btn secondary" id="prevLesson" ${prev < 0 ? "disabled" : ""}>← Previous</button><span>${n + 1} of ${filtered.length}</span><button class="btn" id="nextLesson" ${next < 0 ? "disabled" : ""}>Next →</button></div></article>`;
                 $("lessonDone").onchange = (e) => {
                     if (e.target.checked) done.add(index);
                     else done.delete(index);
@@ -8107,33 +8777,57 @@ show lldp neighbors</pre
                 let current = document.querySelector(`.sidebar-toc-link[data-lesson="${index}"]`);
                 updateProgress();
             }
-            $("lessonSearch").oninput = (e) => {
-                let q = e.target.value.toLowerCase().trim();
-                filtered = lessons
-                    .map((l, i) =>
-                        [
-                            l.title,
-                            l.definition,
-                            l.mechanism,
-                            l.scenario,
-                            ...l.expanded_notes.map((x) => x.text),
-                            ...l.glossary.map((x) => x.join(" ")),
-                        ]
-                            .join(" ")
-                            .toLowerCase()
-                            .includes(q)
-                            ? i
-                            : -1
-                    )
-                    .filter((i) => i >= 0);
-                if (!filtered.length) {
-                    $("lessonsRoot").innerHTML =
-                        '<p class="muted">No chapters match your search. Try another term.</p>';
+            // Search the whole course, not only titles; show every matching lesson to choose from.
+            function searchableLessonText(l) {
+                const pieces = [
+                    l.title,
+                    l.domainName,
+                    l.concept,
+                    l.definition,
+                    l.purpose,
+                    l.deep,
+                    l.mechanism,
+                    l.verification,
+                    l.scenario,
+                    l.quiz,
+                    l.commands,
+                ];
+                (l.expanded_notes || []).forEach((x) => pieces.push(x.heading, x.text));
+                (l.mastery_sections || []).forEach((x) => pieces.push(x.heading, x.text));
+                (l.glossary || []).forEach((x) => pieces.push(x[0], x[1]));
+                return pieces.filter(Boolean).join(" ").toLowerCase();
+            }
+            const lessonSearchCorpus = lessons.map(searchableLessonText);
+            function updateLessonSearch() {
+                const q = $("lessonSearch").value.trim().toLowerCase();
+                const results = $("lessonSearchResults");
+                if (!q) {
+                    filtered = lessons.map((_, i) => i);
+                    results.hidden = true;
+                    results.innerHTML = "";
+                    renderLesson();
                     return;
                 }
-                index = filtered[0];
+                const words = q.split(/\s+/).filter(Boolean);
+                filtered = lessonSearchCorpus
+                    .map((text, i) => (words.every((word) => text.includes(word)) ? i : -1))
+                    .filter((i) => i >= 0);
+                results.hidden = false;
+                if (!filtered.length) {
+                    results.innerHTML =
+                        '<div class="lesson-search-results-heading">No matching lessons</div><p class="muted">Try a different term, acronym, protocol, or chapter title.</p>';
+                    $("lessonsRoot").innerHTML =
+                        '<p class="muted">No chapters match your search. Change or clear the search above.</p>';
+                    return;
+                }
+                if (!filtered.includes(index)) index = filtered[0];
+                results.innerHTML = `<div class="lesson-search-results-heading"><span>${filtered.length} matching chapter${filtered.length === 1 ? "" : "s"}</span><span>Select a chapter below</span></div><div class="lesson-search-results-list">${filtered.map((i) => `<button type="button" class="lesson-search-hit" data-search-lesson="${i}"><strong>${i + 1}. ${esc(lessons[i].title)}</strong><small>Domain ${lessons[i].d + 1} · ${esc(lessons[i].domainName)}</small></button>`).join("")}</div>`;
+                results
+                    .querySelectorAll("[data-search-lesson]")
+                    .forEach((button) => (button.onclick = () => pickLesson(Number(button.dataset.searchLesson))));
                 renderLesson();
-            };
+            }
+            $("lessonSearch").addEventListener("input", updateLessonSearch);
             document.querySelectorAll("[data-page]").forEach((b) => (b.onclick = () => showPage(b.dataset.page)));
             document.querySelectorAll("[data-jump]").forEach((b) => (b.onclick = () => showPage(b.dataset.jump)));
             $("reset").onclick = () => {
@@ -8272,11 +8966,11 @@ show lldp neighbors</pre
 
             const NET_VISUALS = [
                 {
-                    image: "../assets/net-domain-2.png",
+                    image: "../assets/net-domain-1.png",
                     desc: "Protocols, OSI and TCP/IP layers, addressing, ports, subnetting, Ethernet, cloud networking and wireless fundamentals.",
                 },
                 {
-                    image: "../assets/net-domain-1.png",
+                    image: "../assets/net-domain-2.png",
                     desc: "Deploy routing, switching, VLANs, trunks, WAN connectivity, Wi-Fi, redundant gateways and network services.",
                 },
                 {
