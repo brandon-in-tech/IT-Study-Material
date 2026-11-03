@@ -1497,6 +1497,409 @@
                 font-size: 11px;
                 padding: 8px;
             }
+
+
+            /* ============================================================
+               10 — STUDY MATERIAL READER: CLEAR, SCANNABLE CHAPTER BLOCKS
+               Only the lessons reader is changed. Global navigation, hero,
+               flashcards, quiz, and laboratories keep their existing styling.
+               ============================================================ */
+
+            #lessonsRoot {
+                --chapter-border: #d9e5f1;
+                --chapter-ink: #163a5f;
+                --chapter-blue: #235f99;
+                --chapter-subtle: #f5f9fd;
+                scroll-margin-top: 22px;
+            }
+
+            #lessonsRoot .reader-slide {
+                background: #f4f8fc;
+                border: 1px solid var(--chapter-border);
+                border-radius: 17px;
+                overflow: hidden;
+                min-height: 0;
+                margin-top: 20px;
+            }
+
+            #lessonsRoot .reader-meta {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 12px;
+                padding: 15px 24px;
+                background: #e7f0f9;
+                color: #274f75;
+                font-size: 12px;
+                letter-spacing: 0.02em;
+                font-weight: 750;
+            }
+
+            #lessonsRoot .reader-heading {
+                padding: 27px 25px 20px;
+                background: #fff;
+                border-bottom: 1px solid var(--chapter-border);
+            }
+
+            #lessonsRoot .reader-count {
+                padding: 0;
+                margin-bottom: 9px;
+                color: #396c9f;
+                line-height: 1.4;
+            }
+
+            #lessonsRoot .reader-count span {
+                display: inline-block;
+                margin-left: 8px;
+                font-size: 11px;
+                color: #6a829a;
+            }
+
+            #lessonsRoot .reader-title {
+                margin: 0 !important;
+                color: #102c4d;
+                max-width: 900px;
+                font-size: clamp(25px, 3.1vw, 36px) !important;
+                line-height: 1.24;
+                letter-spacing: -0.02em;
+            }
+
+            #lessonsRoot .reader-description {
+                margin: 10px 0 0;
+                max-width: 72ch;
+                color: #577087;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+
+            #lessonsRoot .reader-jump-links {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 18px;
+            }
+
+            #lessonsRoot .reader-jump-links a {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+                color: #225982;
+                font-size: 12px;
+                font-weight: 700;
+                line-height: 1.3;
+                padding: 8px 12px;
+                background: #edf5fd;
+                border: 1px solid #d2e4f4;
+                border-radius: 8px;
+                transition: background 0.15s ease, border-color 0.15s ease;
+            }
+
+            #lessonsRoot .reader-jump-links a:hover,
+            #lessonsRoot .reader-jump-links a:focus-visible {
+                background: #dceeff;
+                border-color: #8ab6dd;
+                color: #153f67;
+                outline-offset: 3px;
+            }
+
+            #lessonsRoot .reader-body {
+                display: grid;
+                gap: 18px;
+                padding: 22px 22px 25px;
+                font-size: 15px;
+                line-height: 1.77;
+            }
+
+            #lessonsRoot .lesson-block {
+                min-width: 0;
+                background: #fff;
+                border: 1px solid var(--chapter-border);
+                border-radius: 14px;
+                padding: 22px;
+                box-shadow: 0 3px 12px #234b6f08;
+                scroll-margin-top: 18px;
+            }
+
+            #lessonsRoot .lesson-block-header {
+                display: flex;
+                align-items: flex-start;
+                gap: 13px;
+                margin-bottom: 17px;
+                padding-bottom: 16px;
+                border-bottom: 1px solid #e5edf5;
+            }
+
+            #lessonsRoot .lesson-block-index {
+                display: grid;
+                place-items: center;
+                width: 36px;
+                height: 36px;
+                flex: 0 0 36px;
+                border-radius: 10px;
+                background: #e7f1fa;
+                color: #1c5486;
+                font-size: 13px;
+                font-weight: 850;
+                font-variant-numeric: tabular-nums;
+            }
+
+            #lessonsRoot .lesson-block-eyebrow {
+                margin: 1px 0 3px;
+                color: #65829b;
+                font-size: 10px;
+                font-weight: 850;
+                letter-spacing: 0.11em;
+                text-transform: uppercase;
+                line-height: 1.5;
+            }
+
+            #lessonsRoot .lesson-block-title {
+                margin: 0 !important;
+                border: none !important;
+                padding: 0 !important;
+                color: var(--chapter-ink);
+                font-size: 20px;
+                line-height: 1.35;
+                letter-spacing: -0.01em;
+            }
+
+            #lessonsRoot .lesson-concepts,
+            #lessonsRoot .lesson-practice-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 13px;
+            }
+
+            #lessonsRoot .lesson-info {
+                min-width: 0;
+                padding: 16px 17px;
+                border: 1px solid #e0eaf3;
+                border-radius: 11px;
+                background: #f8fbfe;
+            }
+
+            /* A single practical example uses the full row instead of a half-empty grid. */
+            #lessonsRoot .lesson-practice-grid > :only-child,
+            #lessonsRoot .lesson-concepts > :only-child {
+                grid-column: 1 / -1;
+            }
+
+            #lessonsRoot .lesson-info--definition {
+                border-left: 3px solid #2a6ba5;
+            }
+
+            #lessonsRoot .lesson-info--purpose {
+                border-left: 3px solid #5f91b8;
+            }
+
+            #lessonsRoot .lesson-info--verify {
+                border-left: 3px solid #287c83;
+            }
+
+            #lessonsRoot .lesson-info--scenario {
+                border-left: 3px solid #6781ac;
+            }
+
+            #lessonsRoot .lesson-info h5,
+            #lessonsRoot .lesson-detail h5 {
+                margin: 0 0 8px;
+                color: #174a75;
+                font-size: 15px;
+                font-weight: 800;
+                line-height: 1.4;
+            }
+
+            #lessonsRoot .lesson-info p,
+            #lessonsRoot .lesson-detail p,
+            #lessonsRoot .lesson-mechanism p {
+                margin: 0;
+                color: #29425c;
+                max-width: 79ch;
+                overflow-wrap: break-word;
+            }
+
+            #lessonsRoot .lesson-mechanism {
+                background: #f2f7fc;
+                border: 1px solid #dce8f2;
+                border-radius: 10px;
+                padding: 17px 19px;
+                margin-bottom: 12px;
+                color: #29425c;
+            }
+
+            #lessonsRoot .lesson-detail-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 12px;
+            }
+
+            #lessonsRoot .lesson-detail {
+                min-width: 0;
+                padding: 16px 17px;
+                border: 1px solid #e0eaf3;
+                border-radius: 10px;
+                background: #fff;
+            }
+
+            #lessonsRoot .lesson-detail-label {
+                display: block;
+                margin-bottom: 7px;
+                color: #6687a4;
+                font-size: 10px;
+                font-weight: 850;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+
+            #lessonsRoot .lesson-glossary {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+                margin: 0;
+            }
+
+            #lessonsRoot .gloss-term {
+                background: #f8fbfe;
+                border: 1px solid #dce8f2;
+                border-radius: 10px;
+                padding: 13px 16px;
+            }
+
+            #lessonsRoot .gloss-term strong {
+                font-size: 14px;
+                color: #164c7a;
+                margin-bottom: 5px;
+            }
+
+            #lessonsRoot .gloss-term p {
+                color: #4d6378;
+                font-size: 13px;
+                line-height: 1.65;
+                margin: 0;
+            }
+
+            #lessonsRoot .lesson-question {
+                border: 1px solid #cee0f2;
+                border-radius: 10px;
+                padding: 17px 19px;
+                background: #eff6fd;
+                color: #203d59;
+                font-size: 15px;
+                line-height: 1.8;
+                overflow-wrap: break-word;
+            }
+
+            #lessonsRoot .lesson-question p {
+                margin: 0;
+            }
+
+            #lessonsRoot .reader-check {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-top: 15px;
+                padding: 12px 15px;
+                background: #fff;
+                border: 1px solid #d0e0ed;
+                border-radius: 9px;
+                color: #244a6e;
+                font-size: 13px;
+                font-weight: 750;
+                line-height: 1.4;
+            }
+
+            #lessonsRoot .reader-check input {
+                flex: 0 0 auto;
+                width: 17px;
+                height: 17px;
+                margin: 0;
+                accent-color: #1f649e;
+            }
+
+            #lessonsRoot .reader-footer {
+                padding: 17px 22px;
+                gap: 12px;
+                background: #eaf1f8;
+                border-top: 1px solid var(--chapter-border);
+            }
+
+            #lessonsRoot .reader-footer span {
+                font-size: 12px;
+                color: #5f7489;
+            }
+
+            #lessonsRoot .reader-footer .btn {
+                min-width: 104px;
+            }
+
+            @media (max-width: 900px) {
+                #lessonsRoot .lesson-concepts,
+                #lessonsRoot .lesson-practice-grid,
+                #lessonsRoot .lesson-detail-list {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            @media (max-width: 600px) {
+                #lessonsRoot .reader-meta {
+                    padding: 12px 14px;
+                    font-size: 10px;
+                    align-items: flex-start;
+                }
+
+                #lessonsRoot .reader-heading {
+                    padding: 22px 16px 19px;
+                }
+
+                #lessonsRoot .reader-count span {
+                    display: block;
+                    margin: 4px 0 0;
+                }
+
+                #lessonsRoot .reader-jump-links {
+                    gap: 6px;
+                }
+
+                #lessonsRoot .reader-jump-links a {
+                    font-size: 11px;
+                    padding: 8px 9px;
+                }
+
+                #lessonsRoot .reader-body {
+                    padding: 13px;
+                    gap: 12px;
+                    font-size: 14px;
+                    line-height: 1.7;
+                }
+
+                #lessonsRoot .lesson-block {
+                    padding: 17px 14px;
+                    border-radius: 11px;
+                }
+
+                #lessonsRoot .lesson-block-title {
+                    font-size: 18px;
+                }
+
+                #lessonsRoot .lesson-info,
+                #lessonsRoot .lesson-detail {
+                    padding: 13px;
+                }
+
+                #lessonsRoot .lesson-glossary {
+                    grid-template-columns: 1fr;
+                }
+
+                #lessonsRoot .reader-footer {
+                    padding: 13px;
+                }
+
+                #lessonsRoot .reader-footer .btn {
+                    min-width: 0;
+                }
+            }
+
         </style>
     </head>
     <body>
@@ -9996,39 +10399,218 @@ show lldp neighbors</pre
                 renderLesson();
                 document.getElementById("lessonsRoot").scrollIntoView({ behavior: "smooth", block: "start" });
             }
+            // STUDY READER
+            // Keep the original lesson data; organize it into readable, named
+            // sections rather than one giant numbered heading/text stream.
             function renderLesson() {
-                const l = lessons[index];
-                if (!l) return;
-                const n = filtered.indexOf(index);
-                const prev = n > 0 ? filtered[n - 1] : -1,
-                    next = n >= 0 && n < filtered.length - 1 ? filtered[n + 1] : -1;
-                let gloss = l.glossary
-                    .map(
-                        ([term, def]) => `<div class="gloss-term"><strong>${esc(term)}</strong><p>${esc(def)}</p></div>`
-                    )
+                const lesson = lessons[index];
+                if (!lesson) return;
+
+                const position = filtered.indexOf(index);
+                const previousIndex = position > 0 ? filtered[position - 1] : -1;
+                const nextIndex =
+                    position >= 0 && position < filtered.length - 1
+                        ? filtered[position + 1]
+                        : -1;
+
+                // The source course repeats some paragraphs under multiple
+                // headings. Display each exact paragraph once without changing
+                // the saved source data or the searchable lesson text.
+                const normalized = (value) =>
+                    String(value ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+                const seen = new Set();
+                const useOnce = (value) => {
+                    const text = String(value ?? "").trim();
+                    const key = normalized(text);
+                    if (!key || seen.has(key)) return "";
+                    seen.add(key);
+                    return text;
+                };
+
+                const definition = useOnce(lesson.definition);
+                const purpose = useOnce(lesson.purpose);
+                const mechanism = useOnce(lesson.mechanism);
+
+                const details = [
+                    ...(lesson.mastery_sections || []),
+                    ...(lesson.expanded_notes || []),
+                ]
+                    .map((item) => ({ ...item, text: useOnce(item.text) }))
+                    .filter((item) => item.text);
+
+                const verification = useOnce(lesson.verification);
+                const scenario = useOnce(lesson.scenario);
+                const glossary = (lesson.glossary || [])
+                    .map(([term, meaning]) => `
+                        <div class="gloss-term">
+                            <strong>${esc(term)}</strong>
+                            <p>${esc(meaning)}</p>
+                        </div>
+                    `)
                     .join("");
-                $("lessonsRoot").innerHTML =
-                    `<article class="reader-slide"><div class="reader-meta"><span>DOMAIN ${l.d + 1}: ${esc(l.domainName)}</span><span>EXAM WEIGHT ${l.weight}%</span></div><div class="reader-intro">Read this complete lesson, explain the concept in your own words, then verify it with a safe lab or command.</div><div class="reader-count">${l.subchapter ? "SUBCHAPTER " + l.subchapter : "LESSON " + (index + 1)} <span>OF ${lessons.length} · ${filtered.length} in current reading sequence</span></div><h3 class="reader-title">${esc(l.title)}</h3><div class="reader-body"><h4>1. What is it? — Core definition</h4><p>${esc(l.definition)}</p><h4>2. Why does this exist?</h4><p>${esc(l.purpose)}</p><h4>3. How it works — Detailed explanation</h4><div class="explain-block">${esc(l.mechanism)}</div>${l.mastery_sections.map((entry, i) => `<h4>4.${i + 1} ${esc(entry.heading)}</h4><p>${esc(entry.text)}</p>`).join("")}<h4>4. Terminology — Definitions and distinctions (${l.glossary.length} terms)</h4><div class="lesson-glossary">${gloss}</div><h4>5. Verification and network diagnostics</h4><p>${esc(l.verification)}</p><h4>6. Example and expected behavior</h4><div class="explain-block">${esc(l.scenario)}</div><h4>7. Check your understanding</h4><div class="mini-quiz">${esc(l.quiz)}</div><label class="reader-check"><input type="checkbox" id="lessonDone" ${done.has(index) ? "checked" : ""}> I can explain and troubleshoot this topic</label></div><div class="reader-footer"><button class="btn secondary" id="prevLesson" ${prev < 0 ? "disabled" : ""}>← Previous</button><span>${n + 1} of ${filtered.length}</span><button class="btn" id="nextLesson" ${next < 0 ? "disabled" : ""}>Next →</button></div></article>`;
-                $("lessonDone").onchange = (e) => {
-                    if (e.target.checked) done.add(index);
+
+                const header = (number, category, title) => `
+                    <header class="lesson-block-header">
+                        <span class="lesson-block-index" aria-hidden="true">${number}</span>
+                        <div>
+                            <p class="lesson-block-eyebrow">${category}</p>
+                            <h4 class="lesson-block-title">${title}</h4>
+                        </div>
+                    </header>
+                `;
+
+                const conceptMarkup = `
+                    <section class="lesson-block" id="lesson-concepts">
+                        ${header("01", "Start here", "Core concepts")}
+                        <div class="lesson-concepts">
+                            <div class="lesson-info lesson-info--definition">
+                                <h5>Definition</h5>
+                                <p>${esc(definition)}</p>
+                            </div>
+                            <div class="lesson-info lesson-info--purpose">
+                                <h5>Why it matters</h5>
+                                <p>${esc(purpose)}</p>
+                            </div>
+                        </div>
+                    </section>
+                `;
+
+                // Detailed material is shown only when it adds information.
+                const hasDetails = Boolean(mechanism || details.length);
+                const detailMarkup = hasDetails
+                    ? `
+                        <section class="lesson-block" id="lesson-explanation">
+                            ${header("02", "The breakdown", "How it works")}
+                            ${mechanism ? `
+                                <div class="lesson-mechanism">
+                                    <p>${esc(mechanism)}</p>
+                                </div>
+                            ` : ""}
+                            ${details.length ? `
+                                <div class="lesson-detail-list">
+                                    ${details.map((item, i) => `
+                                        <div class="lesson-detail">
+                                            <span class="lesson-detail-label">Detail ${String(i + 1).padStart(2, "0")}</span>
+                                            <h5>${esc(item.heading)}</h5>
+                                            <p>${esc(item.text)}</p>
+                                        </div>
+                                    `).join("")}
+                                </div>
+                            ` : ""}
+                        </section>
+                    `
+                    : "";
+
+                const termsMarkup = glossary
+                    ? `
+                        <section class="lesson-block" id="lesson-terms">
+                            ${header(hasDetails ? "03" : "02", "Vocabulary", "Key terminology")}
+                            <div class="lesson-glossary">${glossary}</div>
+                        </section>
+                    `
+                    : "";
+
+                const hasPractice = Boolean(verification || scenario);
+                const practiceNumber = String(2 + Number(hasDetails) + Number(Boolean(glossary))).padStart(2, "0");
+                const practiceMarkup = hasPractice
+                    ? `
+                        <section class="lesson-block" id="lesson-practice">
+                            ${header(practiceNumber, "Put it into practice", "Verification & examples")}
+                            <div class="lesson-practice-grid">
+                                ${verification ? `
+                                    <div class="lesson-info lesson-info--verify">
+                                        <h5>How to verify</h5>
+                                        <p>${esc(verification)}</p>
+                                    </div>
+                                ` : ""}
+                                ${scenario ? `
+                                    <div class="lesson-info lesson-info--scenario">
+                                        <h5>Example scenario</h5>
+                                        <p>${esc(scenario)}</p>
+                                    </div>
+                                ` : ""}
+                            </div>
+                        </section>
+                    `
+                    : "";
+
+                const reviewNumber = String(
+                    2 + Number(hasDetails) + Number(Boolean(glossary)) + Number(hasPractice)
+                ).padStart(2, "0");
+                const reviewMarkup = `
+                    <section class="lesson-block" id="lesson-review">
+                        ${header(reviewNumber, "Review", "Check your understanding")}
+                        <div class="lesson-question"><p>${esc(lesson.quiz)}</p></div>
+                        <label class="reader-check" for="lessonDone">
+                            <input type="checkbox" id="lessonDone" ${done.has(index) ? "checked" : ""}>
+                            I can explain and troubleshoot this topic
+                        </label>
+                    </section>
+                `;
+
+                // These jump links navigate only within the currently shown chapter.
+                const jumpItems = [
+                    ["lesson-concepts", "Core concepts"],
+                    ...(hasDetails ? [["lesson-explanation", "How it works"]] : []),
+                    ...(glossary ? [["lesson-terms", "Terminology"]] : []),
+                    ...(hasPractice ? [["lesson-practice", "Practical checks"]] : []),
+                    ["lesson-review", "Review"],
+                ];
+
+                document.getElementById("lessonsRoot").innerHTML = `
+                    <article class="reader-slide">
+                        <div class="reader-meta">
+                            <span>DOMAIN ${lesson.d + 1}: ${esc(lesson.domainName)}</span>
+                            <span>EXAM WEIGHT ${lesson.weight}%</span>
+                        </div>
+                        <header class="reader-heading">
+                            <div class="reader-count">
+                                ${lesson.subchapter ? "SUBCHAPTER " + esc(lesson.subchapter) : "LESSON " + (index + 1)}
+                                <span>OF ${lessons.length} · ${filtered.length} in your reading sequence</span>
+                            </div>
+                            <h3 class="reader-title">${esc(lesson.title)}</h3>
+                            ${lesson.chapter ? `<p class="reader-description">${esc(lesson.chapter)}</p>` : ""}
+                            <nav class="reader-jump-links" aria-label="Jump to sections in this lesson">
+                                ${jumpItems.map(([id, title]) => `<a href="#${id}">${title}</a>`).join("")}
+                            </nav>
+                        </header>
+                        <div class="reader-body">
+                            ${conceptMarkup}
+                            ${detailMarkup}
+                            ${termsMarkup}
+                            ${practiceMarkup}
+                            ${reviewMarkup}
+                        </div>
+                        <footer class="reader-footer">
+                            <button class="btn secondary" id="prevLesson" ${previousIndex < 0 ? "disabled" : ""}>← Previous</button>
+                            <span>${position + 1} of ${filtered.length}</span>
+                            <button class="btn" id="nextLesson" ${nextIndex < 0 ? "disabled" : ""}>Next →</button>
+                        </footer>
+                    </article>
+                `;
+
+                document.getElementById("lessonDone").onchange = (event) => {
+                    if (event.target.checked) done.add(index);
                     else done.delete(index);
                     save();
                 };
-                $("prevLesson").onclick = () => {
-                    if (prev >= 0) pickLesson(prev);
+                document.getElementById("prevLesson").onclick = () => {
+                    if (previousIndex >= 0) pickLesson(previousIndex);
                 };
-                $("nextLesson").onclick = () => {
-                    if (next >= 0) pickLesson(next);
+                document.getElementById("nextLesson").onclick = () => {
+                    if (nextIndex >= 0) pickLesson(nextIndex);
                 };
-                document.querySelectorAll(".sidebar-toc-link").forEach((b) => {
-                    let selected = Number(b.dataset.lesson) === index;
-                    b.classList.toggle("selected", selected);
-                    b.setAttribute("aria-current", selected ? "true" : "false");
+                document.querySelectorAll(".sidebar-toc-link").forEach((button) => {
+                    const selected = Number(button.dataset.lesson) === index;
+                    button.classList.toggle("selected", selected);
+                    button.setAttribute("aria-current", selected ? "true" : "false");
                 });
-                let current = document.querySelector(`.sidebar-toc-link[data-lesson="${index}"]`);
-                if (current && lessons[index].chapter) {
-                    const chapterGroup = current.closest(".net-chapter-group");
-                    if (chapterGroup) chapterGroup.open = true;
+                const activeChapter = document.querySelector(
+                    `.sidebar-toc-link[data-lesson="${index}"]`
+                );
+                if (activeChapter && lesson.chapter) {
+                    const parentGroup = activeChapter.closest(".net-chapter-group");
+                    if (parentGroup) parentGroup.open = true;
                 }
                 updateProgress();
             }
