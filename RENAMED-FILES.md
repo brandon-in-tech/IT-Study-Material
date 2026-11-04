@@ -9,7 +9,7 @@ Paths below are relative to the repository root. This table includes the origina
 | `az-900-study-guide.html` | [azure/az-900-azure-fundamentals-study-guide.html](./azure/az-900-azure-fundamentals-study-guide.html) |
 | `CCNA_Troubleshooting_Scenarios.html` | [networking/CCNA_Troubleshooting_Scenarios.html](./networking/CCNA_Troubleshooting_Scenarios.html) |
 | `CCNA_Deep_Dive.html` | [networking/ccna-cisco-ios-commands-and-theory-reference.html](./networking/ccna-cisco-ios-commands-and-theory-reference.html) |
-| `CCNA_Master_Class_v2 (3).html` | [networking/ccna-complete-study-guide-labs-and-practice-exams.html](./networking/ccna-complete-study-guide-labs-and-practice-exams.html) |
+| `CCNA_Master_Class_v2 (3).html` | [networking/ccna-master-class-and-exam.html](./networking/ccna-master-class-and-exam.html) |
 | `cloud-systems-design-study-guide.html` | [cloud-architecture/azure-cloud-systems-design-study-guide.html](./cloud-architecture/azure-cloud-systems-design-study-guide.html) |
 | `it-admin-terms.html` | [it-administration/it-administration-glossary-and-flashcards.html](./it-administration/it-administration-glossary-and-flashcards.html) |
 | `md102-study-guide.html` | [endpoint-management/md-102-endpoint-administrator-field-guide.html](./endpoint-management/md-102-endpoint-administrator-field-guide.html) |
